@@ -7,6 +7,7 @@ export default {
   plugins: {
     tailwindcss: {},
     autoprefixer: {},
-  }
+  },
+  prefix: 'tw-',
 }
 
