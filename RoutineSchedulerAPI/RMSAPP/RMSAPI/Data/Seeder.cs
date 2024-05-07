@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using RMSAPI.Data.Entities;
-using System.Text.Json;
 
 namespace RMSAPI.Data
 {
@@ -8,14 +8,10 @@ namespace RMSAPI.Data
     {
         public static async Task SeedUsers(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
         {
-            //if (await userManager.Users.AnyAsync()) return;
+            if (await userManager.Users.AnyAsync()) return;
 
-            //var userData = await File.ReadAllTextAsync("Data/UserDataSeed.json");
 
-            //var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-
-            //var users = JsonSerializer.Deserialize<List<AppUser>>(userData, options);
-
+            // Adding default roles 
             var roles = new List<AppRole>{
                 new AppRole{Name = "Member"},
                 new AppRole{Name = "Admin"},
@@ -26,20 +22,47 @@ namespace RMSAPI.Data
                 await roleManager.CreateAsync(role);
             }
 
-            //foreach (var user in users)
-            //{
-            //    user.UserName = user.UserName.ToLower();
-            //    await userManager.CreateAsync(user, "Pa$$w0rd");
-            //    await userManager.AddToRoleAsync(user, "Member");
-            //}
+            //adding a default admin user
+            var admin =
+                new AppUser
+                {
+                    Email = "admintest@rms.com",
+                    UserName = "admin",
+                    City = "Kolkata",
+                    Gender = "Male",
 
-            //var admin = new AppUser
-            //{
-            //    UserName = "admin"
-            //};
+                };
+            await userManager.CreateAsync(admin, "Pa$$w0rd");
+            await userManager.AddToRoleAsync(admin, "Admin");
 
-            //await userManager.CreateAsync(admin, "Pa$$w0rd");
-            //await userManager.AddToRolesAsync(admin, new[] { "Admin", "Moderator" });
+            //adding a default member user
+            var member =
+                new AppUser
+                {
+                    Email = "Member@rms.com",
+                    UserName = "member",
+                    City = "Kolkata",
+                    Gender = "Male",
+
+                };
+            await userManager.CreateAsync(member, "Pa$$w0rd");
+            await userManager.AddToRoleAsync(member, "Member");
+
+            //adding a default modaretor user
+            var modaretor =
+                new AppUser
+                {
+                    Email = "Moderator@rms.com",
+                    UserName = "moderator",
+                    City = "Kolkata",
+                    Gender = "Male",
+
+                };
+
+
+            await userManager.CreateAsync(modaretor, "Pa$$w0rd");
+            await userManager.AddToRoleAsync(modaretor, "Moderator");
+
         }
     }
 }

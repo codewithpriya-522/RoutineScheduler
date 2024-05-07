@@ -7,10 +7,12 @@ namespace RMSAPI.Controllers.DTO
     {
 
         [Required]
-        [DefaultValue("routinetest1@gmail.com")]
+        [MinLength(3)]
+        [DefaultValue("member")]
         public string Username { get; set; }
 
         [Required]
+        [StringLength(8, MinimumLength = 4)]
         [DefaultValue("Pa$$w0rd")]
         public string Password { get; set; }
     }
