@@ -1,6 +1,6 @@
 ﻿namespace RMSAPI.Controllers.DTO
 {
-    public class UserDTO
+    public class AppUserDTO
     {
         public string Username { get; set; }
         public string Token { get; set; }

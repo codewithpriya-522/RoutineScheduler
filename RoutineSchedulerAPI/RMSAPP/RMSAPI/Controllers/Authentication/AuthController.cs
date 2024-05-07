@@ -35,7 +35,7 @@ namespace RMSAPI.Controllers.Authentication
         /// </summary>
         /// <param name="userDTO"></param>
         /// <returns>Newly Created Users data</returns>
-        public async Task<ActionResult<UserDTO>> Register(RegisterDTO userDTO)
+        public async Task<ActionResult<AppUserDTO>> Register(RegisterDTO userDTO)
         {
             if (await UserExist(userDTO.Username))
                 return BadRequest("Username taken");
@@ -54,7 +54,7 @@ namespace RMSAPI.Controllers.Authentication
             if (!roleResult.Succeeded) return BadRequest(roleResult.Errors);
 
             //Returning the newly created user details 
-            return new UserDTO
+            return new AppUserDTO
             {
                 Username = user.UserName,
                 Token = await _tokenService.CreateToken(user),
@@ -69,7 +69,7 @@ namespace RMSAPI.Controllers.Authentication
         /// <param name="userDTO"></param>
         /// <returns></returns>
         [HttpPost("login")]
-        public async Task<ActionResult<UserDTO>> Login(LoginDTO userDTO)
+        public async Task<ActionResult<AppUserDTO>> Login(LoginDTO userDTO)
         {
             var user = await userManager.FindByNameAsync(userDTO.Username);
 
@@ -81,7 +81,7 @@ namespace RMSAPI.Controllers.Authentication
 
             var token = await _tokenService.CreateToken(user);
 
-            return new UserDTO
+            return new AppUserDTO
             {
                 Username = user.UserName,
                 Token = token
