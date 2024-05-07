@@ -10,36 +10,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-//builder.Services.AddAuthentication();
-    //.AddBearerToken(o =>
-    //{
-    //    o.BearerTokenExpiration = TimeSpan.FromHours(1);
-    //    o.ClaimsIssuer = "somone";
-    //    o.RefreshTokenExpiration = TimeSpan.FromDays(1);
-    //});
-//builder.Services.AddAuthorizationBuilder();
-//builder.Services.AddIdentityApiEndpoints<AppUser>(o =>
-//{
-//    //o.Password = new PasswordOptions
-//    //{
-//    //    RequireDigit = true,
-//    //    RequiredLength = 5,
-//    //    RequireUppercase = true,
-//    //    RequireLowercase = true,
-//    //    RequiredUniqueChars = 1,
-//    //    RequireNonAlphanumeric = true,
-//    //};
-//    //o.User = new UserOptions
-//    //{
-//    //    RequireUniqueEmail = true,
-//    //};
-//    //o.Tokens = new TokenOptions
-//    //{
-//    //    AuthenticatorIssuer = "someone"
-//    //};
-//}).AddEntityFrameworkStores<DataContext>()
-//.AddClaimsPrincipalFactory<AppUser>()
-//.AddApiEndpoints();
 
 builder.Services.ApplicationServices(builder.Configuration);
 builder.Services.AddIdentitySerivces(builder.Configuration);
@@ -101,7 +71,7 @@ try
     var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
     await context.Database.MigrateAsync();
     //await context.Database.ExecuteSqlRawAsync("DELETE FROM [Connections]");
-    await RMSAPI.Data.Seeder.SeedUsers(userManager, roleManager);
+    await Seeder.SeedUsers(userManager, roleManager);
 }
 catch (Exception ex)
 {
