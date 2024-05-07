@@ -18,6 +18,8 @@ namespace RMSAPI.Extentions
             })
             .AddRoles<AppRole>()
             .AddRoleManager<RoleManager<AppRole>>()
+            .AddSignInManager()
+            .AddTokenProvider<DataProtectorTokenProvider<AppUser>>(TokenOptions.DefaultProvider)
             .AddEntityFrameworkStores<DataContext>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
