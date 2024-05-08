@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using RMSAPI.Controllers.DTO;
 using RMSAPI.Data.Entities;
 using RMSAPI.Helper;
 using RMSAPI.Interfaces;
-using SQLitePCL;
 using System.Linq.Expressions;
 
 namespace RMSAPI.Controllers.User
@@ -53,7 +51,7 @@ namespace RMSAPI.Controllers.User
         public async Task<IActionResult> GetAll()
         {
             var entities = await _unit.userRepository.GetAll();
-            if(entities == null) return NoContent();
+            if (entities == null) return NoContent();
             return Ok(_mapper.Map<List<UserDTO>>(entities));
         }
 
@@ -65,14 +63,14 @@ namespace RMSAPI.Controllers.User
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create ([FromBody] UserDTO entity)
+        public async Task<IActionResult> Create([FromBody] UserDTO entity)
         {
             var user = _mapper.Map<AppUser>(entity);
             var existinguser = await _userManager.FindByNameAsync(user.UserName);
             if (existinguser != null) return BadRequest("User already exist with same name");
             await _userManager.CreateAsync(user, Utilities.RandomString(6));
             await _userManager.AddToRolesAsync(user, entity.Roles);
-            if ( await _unit.Complete())  Ok(user.Id);
+            if (await _unit.Complete()) Ok(user.Id);
             return BadRequest("Failed to add user");
         }
 

@@ -1,6 +1,4 @@
-﻿using static RMSAPI.Data.Enums.Themes;
-
-namespace RMSAPI.Controllers.DTO;
+﻿namespace RMSAPI.Controllers.DTO;
 
 public class UserDTO
 {

@@ -5,5 +5,5 @@ namespace RMSAPI.Data.Repository;
 
 public class UserRepository : GenericRepository<AppUser>, IUserRepository
 {
-    public UserRepository(DataContext context) : base(context){}
+    public UserRepository(DataContext context) : base(context) { }
 }
