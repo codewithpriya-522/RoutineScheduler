@@ -1,30 +1,102 @@
-﻿namespace RMSAPI.Controllers.DTO;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+
+namespace RMSAPI.Controllers.DTO;
 
 public class UserDTO
 {
+    /// <summary>
+    /// Gets or sets the identifier.
+    /// </summary>
+    /// <value>
+    /// The identifier.
+    /// </value>
     public int Id { get; set; }
-    public DateOnly DateOfBirth { get; set; }
+    /// <summary>
+    /// Gets or sets the date of birth.
+    /// </summary>
+    /// <value>
+    /// The date of birth.
+    /// </value>
+    public string DateOfBirth { get; set; }
+    /// <summary>
+    /// Gets or sets the known as.
+    /// </summary>
+    /// <value>
+    /// The known as.
+    /// </value>
     public string KnownAs { get; set; }
+    /// <summary>
+    /// Gets or sets the name of the user.
+    /// </summary>
+    /// <value>
+    /// The name of the user.
+    /// </value>
+    [Required]
+    [DefaultValue("testuser1")]
     public string UserName { get; set; }
+    /// <summary>
+    /// Gets or sets the email.
+    /// </summary>
+    /// <value>
+    /// The email.
+    /// </value>
+    [Required]
+    [DataType(DataType.EmailAddress)]
+    [DefaultValue("testuser1@gmail.com")]
     public string Email { get; set; }
+    /// <summary>
+    /// Gets or sets the created.
+    /// </summary>
+    /// <value>
+    /// The created.
+    /// </value>
     public DateTime Created { get; set; } = DateTime.UtcNow;
+    /// <summary>
+    /// Gets or sets the last active.
+    /// </summary>
+    /// <value>
+    /// The last active.
+    /// </value>
     public DateTime LastActive { get; set; } = DateTime.UtcNow;
+    /// <summary>
+    /// Gets or sets the gender.
+    /// </summary>
+    /// <value>
+    /// The gender.
+    /// </value>
     public string Gender { get; set; }
+    /// <summary>
+    /// Gets or sets the roles.
+    /// </summary>
+    /// <value>
+    /// The roles.
+    /// </value>
     public List<string> Roles { get; set; }
 
+    /// <summary>
+    /// Gets or sets the first name.
+    /// </summary>
+    /// <value>
+    /// The first name.
+    /// </value>
+    [DefaultValue("FirstName")]
     public string FirstName { get; set; }
 
     /// <summary>
     /// The App users last name.
     /// </summary>
-    /// <value>Doe</value>
+    /// <value>
+    /// Doe
+    /// </value>
+    [DefaultValue("LastName")]
     public string LastName { get; set; }
 
     /// <summary>
     /// Is User Active Or not 
     /// </summary>
-    /// <value></value>
-    public bool IsActive { get; set; }
+    /// <value>True/False</value>
+    public bool IsActive { get; set; } = true;
 
     /// <summary>
     /// The user's photo URL.

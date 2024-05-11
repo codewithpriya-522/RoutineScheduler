@@ -6,6 +6,9 @@ namespace RMSAPI.Helper;
 
 public class AutoMapperProfile : Profile
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AutoMapperProfile"/> class.
+    /// </summary>
     public AutoMapperProfile()
     {
         CreateMap<RegisterDTO, AppUser>().
@@ -16,5 +19,14 @@ public class AutoMapperProfile : Profile
             .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.UserRoles.Select(ur => ur.Role.Name).ToList()))
             .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src => src.Photos.SingleOrDefault(p => p.IsMain).Url));
         CreateMap<UserDTO, AppUser>();
+
+        //Adding depertment mapping 
+        CreateMap<Depertment, DepertmentDTO>().ReverseMap();
+        CreateMap<Depertment, DepertmentDataDTO>()
+            .ForMember(d => d.TotalBatches, o => o.MapFrom(s => s.Batches.Count()))
+            .ForMember(d => d.TotalTeachers, o => o.MapFrom(s => s.Teachers.Count()))
+            .ForMember(d => d.TotalSubjects, o => o.MapFrom(s => s.Batches.Sum(b => b.BatchSubjects.Count())))
+            .ForMember(d => d.TotalStudents, o => o.MapFrom(s => s.Batches.Sum(b => b.BatchStudents != null ? b.BatchStudents.Count() : 0)))
+            .ReverseMap();
     }
 }

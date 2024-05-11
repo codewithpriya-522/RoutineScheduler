@@ -4,4 +4,5 @@ namespace RMSAPI.Interfaces;
 
 public interface IUserRepository : IGenericRepository<AppUser>
 {
+
 }

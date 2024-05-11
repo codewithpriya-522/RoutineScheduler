@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RMSAPI.Data;
 
@@ -10,9 +11,11 @@ using RMSAPI.Data;
 namespace RMSAPI.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240509132922_AddedBatchandothers")]
+    partial class AddedBatchandothers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.3");
@@ -332,7 +335,7 @@ namespace RMSAPI.Data.Migrations
                     b.ToTable("BatchSubjects");
                 });
 
-            modelBuilder.Entity("RMSAPI.Data.Entities.Depertment", b =>
+            modelBuilder.Entity("RMSAPI.Data.Entities.Department", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -514,7 +517,7 @@ namespace RMSAPI.Data.Migrations
 
             modelBuilder.Entity("RMSAPI.Data.Entities.Batch", b =>
                 {
-                    b.HasOne("RMSAPI.Data.Entities.Depertment", "Department")
+                    b.HasOne("RMSAPI.Data.Entities.Department", "Department")
                         .WithMany("Batches")
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -562,7 +565,7 @@ namespace RMSAPI.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("RMSAPI.Data.Entities.Batch", "Batch")
-                        .WithMany("BatchStudents")
+                        .WithMany()
                         .HasForeignKey("BatchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -580,7 +583,7 @@ namespace RMSAPI.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RMSAPI.Data.Entities.Depertment", "Department")
+                    b.HasOne("RMSAPI.Data.Entities.Department", "Department")
                         .WithMany("Teachers")
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -624,12 +627,10 @@ namespace RMSAPI.Data.Migrations
 
             modelBuilder.Entity("RMSAPI.Data.Entities.Batch", b =>
                 {
-                    b.Navigation("BatchStudents");
-
                     b.Navigation("BatchSubjects");
                 });
 
-            modelBuilder.Entity("RMSAPI.Data.Entities.Depertment", b =>
+            modelBuilder.Entity("RMSAPI.Data.Entities.Department", b =>
                 {
                     b.Navigation("Batches");
 
