@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using RMSAPI.Interfaces;
+﻿using RMSAPI.Interfaces;
 
 namespace RMSAPI.Data.Repository
 {

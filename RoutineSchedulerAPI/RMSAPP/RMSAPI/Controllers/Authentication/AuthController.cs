@@ -48,7 +48,7 @@ public class AuthController : BaseAPIController
         if (await UserExist(register.Username)) return BadRequest("Username Taken");
 
         var user = _mapper.Map<AppUser>(register);
-       
+
         var result = _userManager.CreateAsync(user, register.Password);
 
         if (!result.IsCompletedSuccessfully) return BadRequest(result.Exception.Message);

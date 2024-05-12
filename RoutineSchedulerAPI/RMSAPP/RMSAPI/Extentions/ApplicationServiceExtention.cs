@@ -16,7 +16,7 @@ namespace RMSAPI.Extentions
             });
             services.AddScoped<ITokenService, TokenService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IUserRepository,UserRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             return services;

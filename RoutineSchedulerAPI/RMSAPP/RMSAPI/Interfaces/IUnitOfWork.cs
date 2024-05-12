@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace RMSAPI.Interfaces;
+﻿namespace RMSAPI.Interfaces;
 
 public interface IUnitOfWork : IDisposable
 {

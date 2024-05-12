@@ -58,5 +58,5 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         return entity.Result != null;
     }
 
-    
+
 }
