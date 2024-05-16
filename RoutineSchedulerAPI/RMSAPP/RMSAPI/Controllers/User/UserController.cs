@@ -35,7 +35,7 @@ public class UserController : BaseAPIController
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
-        var entity = await _unit.userRepository.GetById(id);
+        var entity = await _unit.User.GetById(id);
         if (entity == null)
             return BadRequest("User Not found!");
         UserDTO user = _mapper.Map<UserDTO>(entity);
@@ -66,7 +66,7 @@ public class UserController : BaseAPIController
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var entities = await _unit.userRepository.GetAll();
+        var entities = await _unit.User.GetAll();
         if (entities == null) return NoContent();
         return Ok(_mapper.Map<List<UserDTO>>(entities));
     }
@@ -96,7 +96,7 @@ public class UserController : BaseAPIController
     [HttpPost("addrange")]
     public IActionResult AddRange([FromBody] IEnumerable<AppUser> entities)
     {
-        _unit.userRepository.AddRangeAsync(entities);
+        _unit.User.AddRangeAsync(entities);
         _unit.Complete();
         return CreatedAtAction(nameof(GetAll), null, entities);
     }
@@ -108,12 +108,12 @@ public class UserController : BaseAPIController
     [HttpDelete("{id}")]
     public async Task<IActionResult> Remove(int id)
     {
-        var entity = await _unit.userRepository.GetById(id);
+        var entity = await _unit.User.GetById(id);
         if (entity == null)
         {
             return NotFound();
         }
-        _unit.userRepository.Remove(entity);
+        _unit.User.Remove(entity);
         await _unit.Complete();
         return NoContent();
     }
@@ -125,7 +125,7 @@ public class UserController : BaseAPIController
     [HttpDelete("removerange")]
     public IActionResult RemoveRange([FromBody] IEnumerable<AppUser> entities)
     {
-        _unit.userRepository.RemoveRange(entities);
+        _unit.User.RemoveRange(entities);
         _unit.Complete();
         return NoContent();
     }

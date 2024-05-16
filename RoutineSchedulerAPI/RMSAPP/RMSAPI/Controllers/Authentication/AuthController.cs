@@ -15,7 +15,6 @@ public class AuthController : BaseAPIController
 
     private readonly UserManager<AppUser> _userManager;
     private readonly ITokenService _tokenService;
-    private readonly IMapper _mapper;
     private readonly RoleManager<AppRole> _roleManager;
 
 
@@ -28,14 +27,12 @@ public class AuthController : BaseAPIController
     /// <param name="roleManager"></param>
     /// <param name="signInManager"></param>
     public AuthController(UserManager<AppUser> userManager, ITokenService tokenService,
-    IMapper mapper, RoleManager<AppRole> roleManager
-    )
+     RoleManager<AppRole> roleManager, IUnitOfWork unit, IMapper mapper) :base (unit,mapper)
     {
         _roleManager = roleManager;
         _userManager = userManager;
         _tokenService = tokenService;
-        _mapper = mapper;
-
+     
     }
     /// <summary>
     /// Api endpoint to register a new user into the system
