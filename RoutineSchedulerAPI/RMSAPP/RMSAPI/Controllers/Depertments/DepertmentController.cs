@@ -27,7 +27,7 @@ public class DepertmentController : BaseAPIController
     public async Task<IActionResult> GetById(int id)
     {
         if (id == 0 || id < 0) return BadRequest("Id is a required field");
-        var entity = await _unit.depermentRepository.Query(dept =>
+        var entity = await _unit.Deperment.Query(dept =>
         dept
         .Include(p => p.Teachers)
         .Include(p => p.Batches)
@@ -50,9 +50,9 @@ public class DepertmentController : BaseAPIController
     public async Task<IActionResult> Create([FromBody] DepertmentDTO dept)
     {
         if (await IsExist(dept.Name)) return BadRequest("Same depert ment is already exist");
-        var deptToInsert = _mapper.Map<Depertment>(dept);
+        var deptToInsert = _mapper.Map<RMSAPI.Data.Entities.Depertment>(dept);
 
-        await _unit.depermentRepository.AddAsync(deptToInsert);
+        await _unit.Deperment.AddAsync(deptToInsert);
         await _unit.Complete();
         return Ok("Depertment Added Successfully");
     }
@@ -66,8 +66,8 @@ public class DepertmentController : BaseAPIController
     {
         if (dept == null) return BadRequest("Depertment object can't be null or empty");
         if (!await IsExistbyId(dept.Id)) return BadRequest($"Provided id:{dept.Id} is not exist in our record");
-        var deptToUpdate = _mapper.Map<Depertment>(dept);
-        _unit.depermentRepository.UpdateAsync(deptToUpdate);
+        var deptToUpdate = _mapper.Map<RMSAPI.Data.Entities.Depertment>(dept);
+        _unit.Deperment.UpdateAsync(deptToUpdate);
         await _unit.Complete();
         return Ok("Successully updated the Depertment");
     }
@@ -80,12 +80,12 @@ public class DepertmentController : BaseAPIController
     [HttpDelete("{id}")]
     public async Task<IActionResult> Remove(int id)
     {
-        var entity = await _unit.depermentRepository.GetById(id);
+        var entity = await _unit.Deperment.GetById(id);
         if (entity == null)
         {
             return NotFound();
         }
-        _unit.depermentRepository.Remove(entity);
+        _unit.Deperment.Remove(entity);
         await _unit.Complete();
         return NoContent();
     }
@@ -96,7 +96,7 @@ public class DepertmentController : BaseAPIController
     [HttpGet("getall")]
     public async Task<IActionResult> GetAll()
     {
-        var entities = await _unit.depermentRepository.GetAll();
+        var entities = await _unit.Deperment.GetAll();
         if (entities == null) return NoContent();
         return Ok(_mapper.Map<List<DepertmentDTO>>(entities));
     }
@@ -111,7 +111,7 @@ public class DepertmentController : BaseAPIController
     /// </returns>
     private async Task<bool> IsExist(string name)
     {
-        var dept = await _unit.depermentRepository.Find(d => d.Name == name);
+        var dept = await _unit.Deperment.Find(d => d.Name == name);
 
         return dept.Count() > 0 ? true : false;
     }
@@ -124,7 +124,7 @@ public class DepertmentController : BaseAPIController
     /// </returns>
     private async Task<bool> IsExistbyId(int id)
     {
-        var dept = await _unit.depermentRepository.Find(d => d.Id == id);
+        var dept = await _unit.Deperment.Find(d => d.Id == id);
 
         return dept.Count() > 0 ? true : false;
     }
