@@ -2,7 +2,6 @@
 
 namespace RMSAPI.Interfaces;
 
-public interface IUserRepository : IGenericRepository<AppUser>
+public interface ITeacherRepository : IGenericRepository<Teacher>
 {
-
 }
