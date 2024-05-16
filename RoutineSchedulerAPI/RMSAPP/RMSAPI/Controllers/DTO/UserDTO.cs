@@ -1,7 +1,9 @@
+
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace RMSAPI.Controllers.DTO;
+
 
 public class UserDTO
 {

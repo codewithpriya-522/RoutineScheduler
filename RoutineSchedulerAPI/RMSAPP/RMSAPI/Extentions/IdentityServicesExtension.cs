@@ -9,12 +9,14 @@ namespace RMSAPI.Extentions;
 
 public static class IdentityServicesExtension
 {
+
     /// <summary>
     /// Adds the identity serivces.
     /// </summary>
     /// <param name="services">The services.</param>
     /// <param name="config">The configuration.</param>
     /// <returns></returns>
+
     public static IServiceCollection AddIdentitySerivces(this IServiceCollection services, IConfiguration config)
     {
         services.AddIdentityCore<AppUser>(opt =>

@@ -6,6 +6,8 @@ using RMSAPI.Controllers.DTO;
 using RMSAPI.Data.Entities;
 using RMSAPI.Helper;
 using RMSAPI.Interfaces;
+using System.Linq.Expressions;
+
 
 namespace RMSAPI.Controllers.User;
 [Authorize]
@@ -68,6 +70,7 @@ public class UserController : BaseAPIController
         if (entities == null) return NoContent();
         return Ok(_mapper.Map<List<UserDTO>>(entities));
     }
+
 
     /// <summary>
     /// Creates the specified entity.

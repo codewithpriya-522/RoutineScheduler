@@ -11,10 +11,12 @@ namespace RMSAPI.Data
     IdentityUserLogin<int>, IdentityRoleClaim<int>,
     IdentityUserToken<int>>
     {
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DataContext"/> class.
         /// </summary>
         /// <param name="options">The options to be used by a <see cref="T:Microsoft.EntityFrameworkCore.DbContext" />.</param>
+
         public DataContext(DbContextOptions options) : base(options)
         {
         }
