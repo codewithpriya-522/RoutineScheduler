@@ -13,7 +13,7 @@ public class Seeder
     /// <param name="userManager">The user manager.</param>
     /// <param name="roleManager">The role manager.</param>
     /// <param name="context">The context.</param>
-/    public static async Task SeedUsers(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager, DataContext context)
+    public static async Task SeedUsers(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager, DataContext context)
     {
         if (await userManager.Users.AnyAsync()) return;
 

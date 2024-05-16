@@ -28,5 +28,13 @@ public class AutoMapperProfile : Profile
             .ForMember(d => d.TotalSubjects, o => o.MapFrom(s => s.Batches.Sum(b => b.BatchSubjects.Count())))
             .ForMember(d => d.TotalStudents, o => o.MapFrom(s => s.Batches.Sum(b => b.BatchStudents != null ? b.BatchStudents.Count() : 0)))
             .ReverseMap();
+        CreateMap<Teacher, TeacherDataDTO>()
+            .ForMember(d => d.DepertmentName, o => o.MapFrom(s => s.Department.Name))
+            .ForMember(d => d.DepertmentID, o => o.MapFrom(s => s.Department.Id))
+            .ForMember(d => d.FirstName, o => o.MapFrom(s => s.AppUser.FirstName))
+            .ForMember(d => d.LastName, o => o.MapFrom(s => s.AppUser.LastName))
+            .ForMember(d => d.Email, o => o.MapFrom(s => s.AppUser.Email))
+            .ForMember(d => d.Subjects, o => o.MapFrom(s => s.TeacherSubjects.Select(s => s.Subject.Name)));
+        
     }
 }

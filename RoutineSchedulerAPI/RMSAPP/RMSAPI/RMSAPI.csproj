@@ -4,7 +4,7 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>disable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<PublishAot>True</PublishAot>
+		<PublishAot>false</PublishAot>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -28,7 +28,6 @@
 
 	<ItemGroup>
 		<Folder Include="Data\Migrations\" />
-		<Folder Include="Middleware\" />
 	</ItemGroup>
 
 </Project>

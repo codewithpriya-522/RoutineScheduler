@@ -12,8 +12,10 @@ public class UnitOfWork : IUnitOfWork
     public UnitOfWork(DataContext context)
     {
         _context = context;
-        userRepository = new UserRepository(_context);
-        depermentRepository = new DepertmentReporitory(context);
+        User = new UserRepository(_context);
+        Deperment = new DepertmentReporitory(context);
+        Teacher = new TeacherRepository(context);
+        Subjects = new SubjectRepository(context);
     }
     /// <summary>
     /// Gets the user repository.
@@ -21,14 +23,25 @@ public class UnitOfWork : IUnitOfWork
     /// <value>
     /// The user repository.
     /// </value>
-    public IUserRepository userRepository { get; private set; }
+    public IUserRepository User { get; private set; }
     /// <summary>
     /// Gets the deperment repository.
     /// </summary>
     /// <value>
     /// The deperment repository.
     /// </value>
-    public IDepermentRepository depermentRepository { get; private set; }
+    public IDepermentRepository Deperment { get; private set; }
+
+    /// <summary>
+    /// Gets the Teacher repository.
+    /// </summary>
+    /// <value>
+    /// The Teacher repository.
+    /// </value>
+    public ITeacherRepository Teacher { get; private set; }
+
+    public ISubjectRepository Subjects { get; private set; }
+
 
     /// <summary>
     /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.

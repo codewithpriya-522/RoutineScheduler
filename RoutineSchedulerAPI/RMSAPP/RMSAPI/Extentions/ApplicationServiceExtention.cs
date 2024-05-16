@@ -24,6 +24,7 @@ namespace RMSAPI.Extentions
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IDepermentRepository, DepertmentReporitory>();
+            services.AddScoped<ITeacherRepository, TeacherRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             return services;

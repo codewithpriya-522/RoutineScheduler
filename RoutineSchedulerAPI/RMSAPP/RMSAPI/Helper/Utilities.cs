@@ -55,4 +55,20 @@ public static class Utilities
         DateTime dateTime = DateTime.ParseExact(dateString, format, System.Globalization.CultureInfo.InvariantCulture);
         return new DateOnly(dateTime.Year, dateTime.Month, dateTime.Day);
     }
+    /// <summary>
+    /// Generate the username based on firstname and last name
+    /// </summary>
+    /// <param name="firstName"></param>
+    /// <param name="lastName"></param>
+    /// <returns>Username format is firstname.lastname@rms</returns>
+    public static string GenerateUsername(string firstName, string lastName)
+    {
+        if (Utilities.IsNotNull(firstName) && Utilities.IsNotNull(lastName))
+            return $"{firstName}.{lastName}@rms".ToLower();
+        else if (Utilities.IsNotNull(firstName))
+            return $"{firstName}@rms".ToLower();
+        else if (Utilities.IsNotNull(lastName))
+            return $"{lastName}@rms".ToLower();
+        return "testuser@rms";
+    }
 }

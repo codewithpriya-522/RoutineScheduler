@@ -4,22 +4,19 @@ using Microsoft.EntityFrameworkCore;
 using RMSAPI.Controllers.DTO;
 using RMSAPI.Interfaces;
 using RMSAPI.Data.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RMSAPI.Controllers.Depertments;
-
+[Authorize]
 public class DepertmentController : BaseAPIController
 {
-    private readonly IUnitOfWork _unit;
-    private readonly IMapper _mapper;
     /// <summary>
     /// Initializes a new instance of the <see cref="DepertmentController"/> class.
     /// </summary>
     /// <param name="unit">The unit.</param>
     /// <param name="mapper">The mapper.</param>
-    public DepertmentController(IUnitOfWork unit, IMapper mapper)
+    public DepertmentController(IUnitOfWork unit, IMapper mapper) : base(unit,mapper)
     {
-        _unit = unit;
-        _mapper = mapper;
     }
     /// <summary>
     /// Gets the by identifier.
@@ -56,6 +53,7 @@ public class DepertmentController : BaseAPIController
         var deptToInsert = _mapper.Map<Depertment>(dept);
 
         await _unit.depermentRepository.AddAsync(deptToInsert);
+        await _unit.Complete();
         return Ok("Depertment Added Successfully");
     }
     /// <summary>
@@ -70,10 +68,38 @@ public class DepertmentController : BaseAPIController
         if (!await IsExistbyId(dept.Id)) return BadRequest($"Provided id:{dept.Id} is not exist in our record");
         var deptToUpdate = _mapper.Map<Depertment>(dept);
         _unit.depermentRepository.UpdateAsync(deptToUpdate);
+        await _unit.Complete();
         return Ok("Successully updated the Depertment");
     }
 
-
+    /// <summary>
+    /// Removes the specified identifier.
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    /// <returns></returns>
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Remove(int id)
+    {
+        var entity = await _unit.depermentRepository.GetById(id);
+        if (entity == null)
+        {
+            return NotFound();
+        }
+        _unit.depermentRepository.Remove(entity);
+        await _unit.Complete();
+        return NoContent();
+    }
+    /// <summary>
+    /// Get All deperment data 
+    /// </summary>
+    /// <returns>A list of depertment</returns>
+    [HttpGet("getall")]
+    public async Task<IActionResult> GetAll()
+    {
+        var entities = await _unit.depermentRepository.GetAll();
+        if (entities == null) return NoContent();
+        return Ok(_mapper.Map<List<DepertmentDTO>>(entities));
+    }
 
     #region Private helper methods    
     /// <summary>

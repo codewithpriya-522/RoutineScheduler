@@ -8,14 +8,28 @@ public interface IUnitOfWork : IDisposable
     /// <value>
     /// The user repository.
     /// </value>
-    IUserRepository userRepository { get; }
+    IUserRepository User { get; }
     /// <summary>
     /// Gets the deperment repository.
     /// </summary>
     /// <value>
     /// The deperment repository.
     /// </value>
-    IDepermentRepository depermentRepository { get; }
+    IDepermentRepository Deperment { get; }
+    /// <summary>
+    /// Gets the deperment repository.
+    /// </summary>
+    /// <value>
+    /// The deperment repository.
+    /// </value>
+    ITeacherRepository Teacher { get; }
+    /// <summary>
+    /// Gets the subjects repository.
+    /// </summary>
+    /// <value>
+    /// The deperment repository.
+    /// </value>
+    ISubjectRepository Subjects { get; }
     /// <summary>
     /// Completes this instance.
     /// </summary>

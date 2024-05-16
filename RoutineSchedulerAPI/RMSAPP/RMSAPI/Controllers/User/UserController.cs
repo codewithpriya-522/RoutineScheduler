@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RMSAPI.Controllers.DTO;
@@ -7,11 +8,9 @@ using RMSAPI.Helper;
 using RMSAPI.Interfaces;
 
 namespace RMSAPI.Controllers.User;
-
+[Authorize]
 public class UserController : BaseAPIController
 {
-    private readonly IUnitOfWork _unit;
-    private readonly IMapper _mapper;
     private readonly UserManager<AppUser> _userManager;
     private readonly RoleManager<AppRole> _roleManager;
     /// <summary>
@@ -21,10 +20,8 @@ public class UserController : BaseAPIController
     /// <param name="mapper">The mapper.</param>
     /// <param name="userManager">The user manager.</param>
     /// <param name="roleManager">The role manager.</param>
-    public UserController(IUnitOfWork unit, IMapper mapper, UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
+    public UserController(IUnitOfWork unit, IMapper mapper, UserManager<AppUser> userManager, RoleManager<AppRole> roleManager) : base(unit, mapper)
     {
-        _unit = unit;
-        _mapper = mapper;
         _userManager = userManager;
         _roleManager = roleManager;
     }
