@@ -29,7 +29,14 @@ public interface IUnitOfWork : IDisposable
     /// <value>
     /// The deperment repository.
     /// </value>
-    ISubjectRepository Subjects { get; }
+    ISubjectRepository Subjects { get; } 
+    /// <summary>
+    /// Gets the Batch repository.
+    /// </summary>
+    /// <value>
+    /// The deperment repository.
+    /// </value>
+    IBatchRepository Batch { get; }
     /// <summary>
     /// Completes this instance.
     /// </summary>

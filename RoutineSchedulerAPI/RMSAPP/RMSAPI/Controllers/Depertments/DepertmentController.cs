@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RMSAPI.Controllers.DTO;
 using RMSAPI.Interfaces;
-using RMSAPI.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 
 namespace RMSAPI.Controllers.Depertments;
@@ -50,7 +49,7 @@ public class DepertmentController : BaseAPIController
     public async Task<IActionResult> Create([FromBody] DepertmentDTO dept)
     {
         if (await IsExist(dept.Name)) return BadRequest("Same depert ment is already exist");
-        var deptToInsert = _mapper.Map<RMSAPI.Data.Entities.Depertment>(dept);
+        var deptToInsert = _mapper.Map<Data.Entities.Depertment>(dept);
 
         await _unit.Deperment.AddAsync(deptToInsert);
         await _unit.Complete();
@@ -96,7 +95,13 @@ public class DepertmentController : BaseAPIController
     [HttpGet("getall")]
     public async Task<IActionResult> GetAll()
     {
-        var entities = await _unit.Deperment.GetAll();
+        var entities = await _unit.Deperment.Query(dept =>
+        dept
+        .Include(p => p.Teachers)
+        .Include(p => p.Batches)
+        .ThenInclude(p => p.BatchSubjects)
+        .Include(p => p.Batches)
+        .ThenInclude(p => p.BatchStudents));
         if (entities == null) return NoContent();
         return Ok(_mapper.Map<List<DepertmentDTO>>(entities));
     }

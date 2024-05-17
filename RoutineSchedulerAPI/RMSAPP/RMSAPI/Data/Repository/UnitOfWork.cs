@@ -5,17 +5,21 @@ namespace RMSAPI.Data.Repository;
 public class UnitOfWork : IUnitOfWork
 {
     private readonly DataContext _context;
+    private readonly ILogger<UnitOfWork> _logger;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="UnitOfWork"/> class.
     /// </summary>
     /// <param name="context">The context.</param>
-    public UnitOfWork(DataContext context)
+    public UnitOfWork(DataContext context, ILogger<UnitOfWork> logger)
     {
         _context = context;
+        _logger = logger;
         User = new UserRepository(_context);
         Deperment = new DepertmentReporitory(context);
         Teacher = new TeacherRepository(context);
         Subjects = new SubjectRepository(context);
+        Batch = new BatchRepository(context);
     }
     /// <summary>
     /// Gets the user repository.
@@ -42,6 +46,8 @@ public class UnitOfWork : IUnitOfWork
 
     public ISubjectRepository Subjects { get; private set; }
 
+    public IBatchRepository Batch { get; private set; }
+
 
     /// <summary>
     /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
@@ -56,7 +62,25 @@ public class UnitOfWork : IUnitOfWork
     /// <returns></returns>
     public async Task<bool> Complete()
     {
-        return await _context.SaveChangesAsync() > 0;
+        //return await _context.SaveChangesAsync() > 0;
+        bool returnValue = true;
+        using (var dbContextTransaction = _context.Database.BeginTransaction())
+        {
+            try
+            {
+                await _context.SaveChangesAsync();
+                dbContextTransaction.Commit();
+            }
+            catch (Exception ex)
+            {
+                //Log Exception Handling message
+                _logger.LogError("Error while saving data rollbacking changes", ex);
+                returnValue = false;
+                dbContextTransaction.Rollback();
+            }
+        }
+
+        return returnValue;
     }
     /// <summary>
     /// Determines whether this instance has changes.

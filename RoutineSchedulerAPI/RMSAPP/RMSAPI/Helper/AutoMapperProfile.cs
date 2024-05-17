@@ -35,6 +35,10 @@ public class AutoMapperProfile : Profile
             .ForMember(d => d.LastName, o => o.MapFrom(s => s.AppUser.LastName))
             .ForMember(d => d.Email, o => o.MapFrom(s => s.AppUser.Email))
             .ForMember(d => d.Subjects, o => o.MapFrom(s => s.TeacherSubjects.Select(s => s.Subject.Name)));
-        
+
+        CreateMap<Batch, BatchDataDTO>()
+            .ForMember(d => d.BatchSubjects, o => o.MapFrom(s => s.BatchSubjects.Select(bs => bs.Subject.Name)))
+            .ForMember(d => d.BatchStudentIds, o => o.MapFrom(s => s.BatchStudents.Select(bs => bs.AppUserId)))
+            .ForMember(d => d.BatchStudents, o => o.MapFrom(s => s.BatchStudents.Count()));
     }
 }
