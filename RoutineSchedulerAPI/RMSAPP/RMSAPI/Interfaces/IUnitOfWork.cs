@@ -37,6 +37,8 @@ public interface IUnitOfWork : IDisposable
     /// The deperment repository.
     /// </value>
     IBatchRepository Batch { get; }
+
+    IStudentRepository Student { get; }
     /// <summary>
     /// Completes this instance.
     /// </summary>

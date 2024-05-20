@@ -20,6 +20,7 @@ public class UnitOfWork : IUnitOfWork
         Teacher = new TeacherRepository(context);
         Subjects = new SubjectRepository(context);
         Batch = new BatchRepository(context);
+        Student = new StudentRepository(context);
     }
     /// <summary>
     /// Gets the user repository.
@@ -47,6 +48,8 @@ public class UnitOfWork : IUnitOfWork
     public ISubjectRepository Subjects { get; private set; }
 
     public IBatchRepository Batch { get; private set; }
+
+    public IStudentRepository Student { get; private set; }
 
 
     /// <summary>

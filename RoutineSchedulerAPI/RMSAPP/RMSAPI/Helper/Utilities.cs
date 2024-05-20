@@ -56,6 +56,16 @@ public static class Utilities
         return new DateOnly(dateTime.Year, dateTime.Month, dateTime.Day);
     }
     /// <summary>
+    /// Converts the DateOnly instance to a string based on the provided format.
+    /// </summary>
+    /// <param name="date">The DateOnly instance to be converted.</param>
+    /// <param name="format">The string format to use for conversion.</param>
+    /// <returns>A string representation of the DateOnly instance in the specified format.</returns>
+    public static string ToString(this DateOnly date, string format)
+    {
+        return date.ToString(format);
+    }
+    /// <summary>
     /// Generate the username based on firstname and last name
     /// </summary>
     /// <param name="firstName"></param>
