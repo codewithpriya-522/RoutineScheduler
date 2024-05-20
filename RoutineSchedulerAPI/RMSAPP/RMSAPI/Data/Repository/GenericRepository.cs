@@ -5,17 +5,13 @@ using System.Linq.Expressions;
 
 namespace RMSAPI.Data.Repository;
 
-public class GenericRepository<T> : IGenericRepository<T> where T : class
+/// <summary>
+/// Initializes a new instance of the <see cref="GenericRepository{T}"/> class.
+/// </summary>
+/// <param name="context">The context.</param>
+public class GenericRepository<T>(DataContext context) : IGenericRepository<T> where T : class
 {
-    protected readonly DataContext context;
-    /// <summary>
-    /// Initializes a new instance of the <see cref="GenericRepository{T}"/> class.
-    /// </summary>
-    /// <param name="context">The context.</param>
-    public GenericRepository(DataContext context)
-    {
-        this.context = context;
-    }
+
     /// <summary>
     /// Adds the asynchronous.
     /// </summary>
@@ -112,10 +108,10 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
     /// <returns>
     ///   <c>true</c> if the specified identifier is exist; otherwise, <c>false</c>.
     /// </returns>
-    public bool IsExist(int id)
+    public async Task<bool> IsExist(int id)
     {
-        var entity = context.Set<T>().FindAsync(id);
-        return entity.Result != null;
+        var entity = await context.Set<T>().FindAsync(id);
+        return entity != null;
     }
 
 

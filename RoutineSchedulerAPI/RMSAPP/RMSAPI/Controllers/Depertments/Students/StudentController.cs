@@ -9,14 +9,8 @@ using RMSAPI.Interfaces;
 
 namespace RMSAPI.Controllers.Depertments.Students;
 
-public class StudentController : BaseAPIController
+public class StudentController(IUnitOfWork unit, IMapper mapper, UserManager<AppUser> userManager) : BaseAPIController(unit, mapper)
 {
-    private readonly UserManager<AppUser> _userManager;
-
-    public StudentController(IUnitOfWork unit, IMapper mapper, UserManager<AppUser> userManager) : base(unit, mapper)
-    {
-        _userManager = userManager;
-    }
 
     /// <summary>
     /// Get a Student by ID.
@@ -78,13 +72,13 @@ public class StudentController : BaseAPIController
             Gender = student.Gender
         };
         // Creating a appuser and adding it to role
-        await _userManager.CreateAsync(appUser, "Pa$$w0rd");
-        await _userManager.AddToRoleAsync(appUser, "Student");
+        await userManager.CreateAsync(appUser, "Pa$$w0rd");
+        await userManager.AddToRoleAsync(appUser, "Student");
         // Pulling batch data
         Batch batch = null;
         if (student.BatchId > 0)
             batch = await _unit.Batch.GetById(student.BatchId);
-        var userData = await _userManager.FindByNameAsync(username);
+        var userData = await userManager.FindByNameAsync(username);
         var studentToInsert = new Student()
         {
             AppUser = userData,
@@ -111,7 +105,7 @@ public class StudentController : BaseAPIController
     public async Task<IActionResult> Update([FromBody] StudentDTO student)
     {
         if (student == null) return BadRequest("student object can't be null or empty");
-        if (!_unit.Student.IsExist(student.Id)) return BadRequest($"Provided id: {student.Id} is not exist in our record");
+        if (!await _unit.Student.IsExist(student.Id)) return BadRequest($"Provided id: {student.Id} is not exist in our record");
         var studentData = await _unit.Student.Query(b =>
         b.Include(bs => bs.Batch)
         .ThenInclude(bs => bs.BatchSubjects)

@@ -4,34 +4,16 @@ using System.Text.Json;
 
 namespace RMSAPI.Middleware;
 
-public class ExceptionMiddleware
+/// <summary>
+/// Initializes a new instance of the <see cref="ExceptionMiddleware"/> class.
+/// </summary>
+/// <param name="next">The next delegate in the middleware pipeline.</param>
+/// <param name="logger">The logger instance for logging exceptions.</param>
+/// <param name="env">The current hosting environment.</param>
+public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger,
+                            IHostEnvironment env)
 {
-    private readonly RequestDelegate _next;
-
-    /// <summary>
-    /// Logger instance for logging exceptions.
-    /// </summary>
-    public ILogger<ExceptionMiddleware> _logger { get; }
-
-    /// <summary>
-    /// The current hosting environment (Development, Staging, Production, etc.).
-    /// </summary>
-    public IHostEnvironment _env { get; set; }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ExceptionMiddleware"/> class.
-    /// </summary>
-    /// <param name="next">The next delegate in the middleware pipeline.</param>
-    /// <param name="logger">The logger instance for logging exceptions.</param>
-    /// <param name="env">The current hosting environment.</param>
-    public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger,
-                                IHostEnvironment env)
-    {
-        _env = env;
-        _logger = logger;
-        _next = next;
-    }
-
+    private readonly JsonSerializerOptions _options = new() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase, WriteIndented = true };
     /// <summary>
     /// Invokes the middleware asynchronously. Catches exceptions, logs them, and returns a JSON error response.
     /// </summary>
@@ -42,22 +24,21 @@ public class ExceptionMiddleware
     {
         try
         {
-            await _next(context);
+            await next(context);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, ex.Message);
+            logger.LogError(ex, "Internal Server Error");
 
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-            var response = _env.IsDevelopment() ?
+            var response = env.IsDevelopment() ?
                 new ApiException(context.Response.StatusCode, ex.Message, ex.StackTrace?.ToString()) :
                 new ApiException(context.Response.StatusCode, ex.Message, "Internal Server Error");
 
-            var option = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
 
-            var json = JsonSerializer.Serialize(response, option);
+            var json = JsonSerializer.Serialize(response, _options);
 
             await context.Response.WriteAsync(json);
         }

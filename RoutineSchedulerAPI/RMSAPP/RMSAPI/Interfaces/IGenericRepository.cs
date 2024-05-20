@@ -67,6 +67,6 @@ namespace RMSAPI.Interfaces
         /// <returns>
         ///   <c>true</c> if the specified identifier is exist; otherwise, <c>false</c>.
         /// </returns>
-        bool IsExist(int id);
+        Task<bool> IsExist(int id);
     }
 }

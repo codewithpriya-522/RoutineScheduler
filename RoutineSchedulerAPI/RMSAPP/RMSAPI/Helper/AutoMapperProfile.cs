@@ -25,8 +25,8 @@ public class AutoMapperProfile : Profile
         CreateMap<Depertment, DepertmentDataDTO>()
             .ForMember(d => d.TotalBatches, o => o.MapFrom(s => s.Batches.Count()))
             .ForMember(d => d.TotalTeachers, o => o.MapFrom(s => s.Teachers.Count()))
-            .ForMember(d => d.TotalSubjects, o => o.MapFrom(s => s.Batches.Sum(b => b.BatchSubjects.Count())))
-            .ForMember(d => d.TotalStudents, o => o.MapFrom(s => s.Batches.Sum(b => b.BatchStudents != null ? b.BatchStudents.Count() : 0)))
+            .ForMember(d => d.TotalSubjects, o => o.MapFrom(s => s.Batches.Sum(b => b.BatchSubjects.Count)))
+            .ForMember(d => d.TotalStudents, o => o.MapFrom(s => s.Batches.Sum(b => b.BatchStudents != null ? b.BatchStudents.Count : 0)))
             .ReverseMap();
         CreateMap<Teacher, TeacherDataDTO>()
             .ForMember(d => d.DepertmentName, o => o.MapFrom(s => s.Department.Name))
@@ -50,7 +50,7 @@ public class AutoMapperProfile : Profile
             .ForMember(d => d.LastActive, o => o.MapFrom(s => s.AppUser.LastActive))
             .ForMember(d => d.Gender, o => o.MapFrom(s => s.AppUser.Gender))
             .ForMember(d => d.KnownAs, o => o.MapFrom(s => s.AppUser.KnownAs))
-            .ForMember(d => d.StudentSubjects, o => o.MapFrom(s => s.Batch.BatchSubjects.Select(bs=> bs.Subject.Name)));
-       
+            .ForMember(d => d.StudentSubjects, o => o.MapFrom(s => s.Batch.BatchSubjects.Select(bs => bs.Subject.Name)));
+
     }
 }
