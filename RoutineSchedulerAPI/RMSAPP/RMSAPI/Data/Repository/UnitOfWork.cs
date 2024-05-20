@@ -21,6 +21,7 @@ public class UnitOfWork : IUnitOfWork
         Subjects = new SubjectRepository(context);
         Batch = new BatchRepository(context);
         Student = new StudentRepository(context);
+        Schedule = new ScheduleService(context);
     }
     /// <summary>
     /// Gets the user repository.
@@ -50,15 +51,24 @@ public class UnitOfWork : IUnitOfWork
     public IBatchRepository Batch { get; private set; }
 
     public IStudentRepository Student { get; private set; }
-
+    public IScheduleService Schedule { get; private set; }
 
     /// <summary>
     /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
     /// </summary>
-    public void Dispose()
+    void IDisposable.Dispose()
     {
-        _context.Dispose();
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
+    protected virtual void Dispose(bool isDisposign = false)
+    {
+        if (isDisposign)
+        {
+            _context?.Dispose();
+        }
+    }
+
     /// <summary>
     /// Completes this instance.
     /// </summary>
@@ -77,7 +87,7 @@ public class UnitOfWork : IUnitOfWork
             catch (Exception ex)
             {
                 //Log Exception Handling message
-                _logger.LogError("Error while saving data rollbacking changes", ex);
+                _logger.LogError(ex, "Error while saving data rollbacking changes");
                 returnValue = false;
                 dbContextTransaction.Rollback();
             }

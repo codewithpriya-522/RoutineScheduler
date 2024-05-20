@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using RMSAPI.Controllers.DTO;
 using RMSAPI.Data.Entities;
+using RMSAPI.Extentions;
 
 namespace RMSAPI.Helper;
 
@@ -51,6 +52,9 @@ public class AutoMapperProfile : Profile
             .ForMember(d => d.Gender, o => o.MapFrom(s => s.AppUser.Gender))
             .ForMember(d => d.KnownAs, o => o.MapFrom(s => s.AppUser.KnownAs))
             .ForMember(d => d.StudentSubjects, o => o.MapFrom(s => s.Batch.BatchSubjects.Select(bs => bs.Subject.Name)));
-
+        CreateMap<TimeSlot, TimeSlotDTO>()
+            .ForMember(d => d.StartTime, o => o.MapFrom(s => s.StartTime.ToTimeString(true)))
+            .ForMember(d => d.EndTime, o => o.MapFrom(s => s.EndTime.ToTimeString(true)))
+            .ReverseMap();
     }
 }

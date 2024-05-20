@@ -7,7 +7,7 @@ namespace RMSAPI.Helper;
 /// </summary>
 public static class Utilities
 {
-    private static Random random = new Random();
+    private readonly static Random _random = new();
     /// <summary>
     /// Randoms the string.
     /// </summary>
@@ -17,7 +17,7 @@ public static class Utilities
     {
         const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         return new string(Enumerable.Repeat(chars, length)
-            .Select(s => s[random.Next(s.Length)]).ToArray());
+            .Select(s => s[_random.Next(s.Length)]).ToArray());
     }
     /// <summary>
     /// Determines whether [is not null].
@@ -80,5 +80,15 @@ public static class Utilities
         else if (Utilities.IsNotNull(lastName))
             return $"{lastName}@rms".ToLower();
         return "testuser@rms";
+    }
+    /// <summary>
+    /// Gets the full name.
+    /// </summary>
+    /// <param name="firstname">The firstname.</param>
+    /// <param name="lastname">The lastname.</param>
+    /// <returns></returns>
+    public static string GetFullName(string firstname, string lastname)
+    {
+        return $"{firstname} {lastname}";
     }
 }

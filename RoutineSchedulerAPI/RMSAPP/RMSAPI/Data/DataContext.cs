@@ -1,25 +1,20 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RMSAPI.Data.Entities;
 
 namespace RMSAPI.Data
 {
-    public class DataContext : IdentityDbContext<AppUser, AppRole, int,
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DataContext"/> class.
+    /// </summary>
+    /// <param name="options">The options to be used by a <see cref="T:Microsoft.EntityFrameworkCore.DbContext" />.</param>
+    public class DataContext(DbContextOptions options) : IdentityDbContext<AppUser, AppRole, int,
     IdentityUserClaim<int>, AppUserRole,
     IdentityUserLogin<int>, IdentityRoleClaim<int>,
-    IdentityUserToken<int>>
+    IdentityUserToken<int>>(options)
     {
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DataContext"/> class.
-        /// </summary>
-        /// <param name="options">The options to be used by a <see cref="T:Microsoft.EntityFrameworkCore.DbContext" />.</param>
-
-        public DataContext(DbContextOptions options) : base(options)
-        {
-        }
         /// <summary>
         /// Gets or sets the departments.
         /// </summary>
@@ -69,6 +64,9 @@ namespace RMSAPI.Data
         /// The teacher subjects.
         /// </value>
         public DbSet<TeacherSubjects> TeacherSubjects { get; set; }
+        public DbSet<Schedule> Schedules { get; set; }
+        public DbSet<TimeSlot> TimeSlots { get; set; }
+
         /// <summary>
         /// Configures the schema needed for the identity framework.
         /// </summary>
@@ -77,6 +75,27 @@ namespace RMSAPI.Data
         {
             base.OnModelCreating(builder);
 
+            if (Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite")
+            {
+                // SQLite does not have proper support for TimeSpan via Entity Framework Core, see the limitations
+                // here: https://docs.microsoft.com/en-us/ef/core/providers/sqlite/limitations#query-limitations
+                // To work around this, when the Sqlite database provider is used, all model properties of type TimeSpan
+                // use the TimeSpanToBinaryConverter
+                // Based on: https://github.com/aspnet/EntityFrameworkCore/issues/10784#issuecomment-415769754
+                // This only supports millisecond precision, but should be sufficient for most use cases.
+                foreach (var entityType in builder.Model.GetEntityTypes())
+                {
+                    var properties = entityType.ClrType.GetProperties().Where(p => p.PropertyType == typeof(TimeSpan)
+                                                                                || p.PropertyType == typeof(TimeSpan?));
+                    foreach (var property in properties)
+                    {
+                        builder
+                            .Entity(entityType.Name)
+                            .Property(property.Name)
+                            .HasConversion(new TimeSpanToStringConverter());
+                    }
+                }
+            }
 
             builder.Entity<AppUser>()
                 .HasMany(ur => ur.UserRoles)

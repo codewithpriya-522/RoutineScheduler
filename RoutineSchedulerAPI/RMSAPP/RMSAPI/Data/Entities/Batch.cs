@@ -59,6 +59,7 @@ public class Batch
     /// The batch students.
     /// </value>
     public virtual ICollection<Student> BatchStudents { get; set; }
-
+    public ICollection<Schedule> Schedules { get; set; }
+    public ICollection<Routine> Routines { get; set; }
 
 }

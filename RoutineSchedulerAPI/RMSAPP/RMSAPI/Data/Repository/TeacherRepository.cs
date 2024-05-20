@@ -4,18 +4,16 @@ using RMSAPI.Interfaces;
 
 namespace RMSAPI.Data.Repository;
 
-public class TeacherRepository : GenericRepository<Teacher>, ITeacherRepository
+public class TeacherRepository(DataContext context) : GenericRepository<Teacher>(context), ITeacherRepository
 {
-    public TeacherRepository(DataContext context) : base(context) {}
-
     public async Task<IEnumerable<Teacher>> GetAllAsync()
     {
-        return await context
+        return await _context
             .Teachers
-            .Include(t=> t.AppUser)
-            .Include(t=>t.TeacherSubjects)
-            .ThenInclude(ts=> ts.Subject)
-            .Include(p=> p.Department)
+            .Include(t => t.AppUser)
+            .Include(t => t.TeacherSubjects)
+            .ThenInclude(ts => ts.Subject)
+            .Include(p => p.Department)
             .ToListAsync();
     }
 }
