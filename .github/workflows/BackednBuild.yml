@@ -23,7 +23,7 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Cache .NET packages
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.nuget/packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/API/RMSAPI/*.csproj') }}
@@ -34,7 +34,7 @@ jobs:
       run: dotnet restore
 
     - name: Cache .NET build output
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: API/RMSAPI/bin
         key: ${{ runner.os }}-build-${{ hashFiles('**/API/RMSAPI/*.csproj') }}
