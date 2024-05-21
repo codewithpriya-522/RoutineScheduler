@@ -533,8 +533,8 @@ client/.angular/*
 .db-wal
 
 #custom
-/RoutineSchedulerAPI/RMSAPP/RMSAPI/RMS.db
-/RoutineSchedulerAPI/RMSAPP/RMSAPI/RMS.db-shm
-/RoutineSchedulerAPI/RMSAPP/RMSAPI/RMS.db-wal
-/RoutineSchedulerAPI/RMSAPP/RMSAPI/bin/
-/RoutineSchedulerAPI/RMSAPP/RMSAPI/obj/
+RMSAPI/RMS.db
+RMSAPI/RMS.db-shm
+RMSAPI/RMS.db-wal
+RMSAPI/bin/
+RMSAPI/obj/

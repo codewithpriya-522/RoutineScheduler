@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom'
 import LandingPage from '../../pages/landingPage/LandingPage'
 import Regitration from '../../pages/registration/Regitration'
 import ForgotPassword from '../../pages/forgotPassword/ForgotPassword'
+import BatchComponent from '../../pages/batch/batchComponent'
 const HomeRouting = () => {
     return (
         <div>
@@ -13,6 +14,7 @@ const HomeRouting = () => {
                 <Route path='/login' element={<Login />} />
                 <Route path='/registration' element={<Regitration />} />
                 <Route path='/forgotPassword' element={<ForgotPassword />} />
+                <Route path='/batch/view' element={<BatchComponent />} />
             </Routes>
         </div>
     )

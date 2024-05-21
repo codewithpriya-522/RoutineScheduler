@@ -18,6 +18,8 @@ public static class WebApplicationExtension
 
         //app.MapGroup("/api/auth").MapIdentityApi<AppUser>();
         app.UseHttpsRedirection();
+        
+        app.UseCors();
 
         app.UseAuthorization();
 
