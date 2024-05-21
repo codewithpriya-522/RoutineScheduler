@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 defaults:
   run:
-    working-directory: RoutineSchedulerAPI/RMSAPP/RMSAPI
+    working-directory: API/RMSAPI
     
 jobs:
   build:
