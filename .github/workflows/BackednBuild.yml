@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 defaults:
   run:
-    working-directory: RoutineSchedulerAPI/RMSAPP/RMSAPI
+    working-directory: RMSAPI
     
 jobs:
   build:
@@ -16,14 +16,34 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
+
+    - name: Cache .NET packages
+      uses: actions/cache@v4
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/API/RMSAPI/*.csproj') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+
     - name: Restore dependencies
       run: dotnet restore
+
+    - name: Cache .NET build output
+      uses: actions/cache@v4
+      with:
+        path: API/RMSAPI/bin
+        key: ${{ runner.os }}-build-${{ hashFiles('**/API/RMSAPI/*.csproj') }}
+        restore-keys: |
+          ${{ runner.os }}-build-
+
     - name: Build
       run: dotnet build --no-restore
+
     # - name: Test
     #   run: dotnet test --no-build --verbosity normal
     # test will be added later
