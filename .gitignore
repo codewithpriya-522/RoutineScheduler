@@ -538,3 +538,5 @@ RMSAPI/RMS.db-shm
 RMSAPI/RMS.db-wal
 RMSAPI/bin/
 RMSAPI/obj/
+.fleet
+RMS.db

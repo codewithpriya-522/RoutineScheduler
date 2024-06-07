@@ -6,7 +6,7 @@ using RMSAPI.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 
 namespace RMSAPI.Controllers.Depertments;
-[Authorize]
+
 public class DepertmentController : BaseAPIController
 {
     /// <summary>

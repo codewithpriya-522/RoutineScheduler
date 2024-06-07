@@ -10,7 +10,7 @@ using RMSAPI.Interfaces;
 
 namespace RMSAPI.Controllers.Departments.Teachers;
 
-[Authorize]
+
 public class TeacherController : BaseAPIController
 {
     public UserManager<AppUser> _userManager { get; }

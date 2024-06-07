@@ -52,6 +52,14 @@ public class AutoMapperProfile : Profile
             .ForMember(d => d.Gender, o => o.MapFrom(s => s.AppUser.Gender))
             .ForMember(d => d.KnownAs, o => o.MapFrom(s => s.AppUser.KnownAs))
             .ForMember(d => d.StudentSubjects, o => o.MapFrom(s => s.Batch.BatchSubjects.Select(bs => bs.Subject.Name)));
+        CreateMap<Student, StudentDTO>()
+            .ForMember(d => d.BatchName, o => o.MapFrom(s => s.Batch.Name))
+            .ForMember(d => d.Email, o => o.MapFrom(s => s.AppUser.Email))
+            .ForMember(d => d.FirstName, o => o.MapFrom(s => s.AppUser.FirstName))
+            .ForMember(d => d.LastName, o => o.MapFrom(s => s.AppUser.LastName))
+            .ForMember(d => d.LastActive, o => o.MapFrom(s => s.AppUser.LastActive))
+            .ForMember(d => d.Gender, o => o.MapFrom(s => s.AppUser.Gender))
+            .ForMember(d => d.KnownAs, o => o.MapFrom(s => s.AppUser.KnownAs));
         CreateMap<TimeSlot, TimeSlotDTO>()
             .ForMember(d => d.StartTime, o => o.MapFrom(s => s.StartTime.ToTimeString(true)))
             .ForMember(d => d.EndTime, o => o.MapFrom(s => s.EndTime.ToTimeString(true)))

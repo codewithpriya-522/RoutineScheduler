@@ -4,6 +4,8 @@ import { AiOutlineSchedule } from "react-icons/ai";
 import { useNavigate } from 'react-router-dom';
 import { AuthService } from '../../services/authService';
 import LoginDTO from '../../models/LoginDTO';
+import { ToasterService } from '../../services/tosterService';
+
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -33,7 +35,7 @@ const Login = () => {
                 <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-[#02457A]">Sign in to your account</h2>
             </div>
             <div className="mt-10 bg-white rounded-lg shadow dark:border p-8 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form className="space-y-6" action="#" method="POST">
+                <div className="space-y-6">
                     <div>
                         <label 
                         htmlFor="email" 
@@ -79,7 +81,7 @@ const Login = () => {
                         onClick={handleLogin}
                         className="flex w-full justify-center rounded-md bg-[#02457A] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#001B48] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-none">Sign in</button>
                     </div>
-                </form>
+                </div>
                 <p className="mt-10 text-center text-sm text-gray-500">
                     Not an admin?
                     <button onClick={() => navigate('/registration')} className="font-semibold leading-6 text-[#02457A] hover:text-[#001B48]">Register here</button>

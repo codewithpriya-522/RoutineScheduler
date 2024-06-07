@@ -13,13 +13,14 @@ public static class SeedDatabase
         var services = scope.ServiceProvider;
         try
         {
-            var context = services.GetRequiredService<RMSAPI.Data.DataContext>();
+            var context = services.GetRequiredService<DataContext>();
             var userManager = services.GetRequiredService<UserManager<AppUser>>();
             var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
 
             await context.Database.MigrateAsync();
             //await context.Database.ExecuteSqlRawAsync("DELETE FROM [Connections]");
             await Seeder.SeedUsers(userManager, roleManager, context);
+            
         }
         catch (Exception ex)
         {

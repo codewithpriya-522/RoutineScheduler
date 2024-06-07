@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 using RMSAPI.Controllers.DTO;
 using RMSAPI.Data.Entities;
 using RMSAPI.Helper;
@@ -145,11 +146,10 @@ public class ScheduleService(DataContext context) : GenericRepository<Schedule>(
             .ThenInclude(t => t.Subject)
             .Include(t => t.AppUser)
             .ToListAsync();
-        var subjects = await _context.Subjects.ToListAsync();
 
         var scheduleDto = new ScheduleDto
         {
-            BatchName = batch.Name,
+            BatchName = batch?.Name,
             Sunday = [],
             Monday = [],
             Tuesday = [],
@@ -165,10 +165,17 @@ public class ScheduleService(DataContext context) : GenericRepository<Schedule>(
         {
             foreach (var slot in timeSlots)
             {
+                GetRandomTeacher:
+                    int randomTeacherIndex = random.Next(teachers.Count);
                 // Randomly select a teacher
-                var randomTeacher = teachers[random.Next(teachers.Count)];
+                var randomTeacher = teachers[randomTeacherIndex];
+                int randomSubjectIndex = 0;
+                if(randomTeacher.TeacherSubjects.Count > 0)
+                    randomSubjectIndex = random.Next(randomTeacher.TeacherSubjects.Count);
+                if(randomSubjectIndex  == 0)
+                    goto GetRandomTeacher;
                 // Randomly select one of the teacher's subjects
-                var randomSubject = randomTeacher.TeacherSubjects.ElementAt(random.Next(randomTeacher.TeacherSubjects.Count)).Subject;
+                var randomSubject = randomTeacher.TeacherSubjects.ElementAt(randomSubjectIndex).Subject;
 
                 // Create schedule entry
                 var scheduleEntry = new ScheduleEntryDto

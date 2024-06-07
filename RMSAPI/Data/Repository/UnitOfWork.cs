@@ -1,4 +1,5 @@
-﻿using RMSAPI.Interfaces;
+﻿using AutoMapper;
+using RMSAPI.Interfaces;
 
 namespace RMSAPI.Data.Repository;
 
@@ -11,7 +12,7 @@ public class UnitOfWork : IUnitOfWork
     /// Initializes a new instance of the <see cref="UnitOfWork"/> class.
     /// </summary>
     /// <param name="context">The context.</param>
-    public UnitOfWork(DataContext context, ILogger<UnitOfWork> logger)
+    public UnitOfWork(DataContext context, ILogger<UnitOfWork> logger, IMapper mapper)
     {
         _context = context;
         _logger = logger;
@@ -20,7 +21,7 @@ public class UnitOfWork : IUnitOfWork
         Teacher = new TeacherRepository(context);
         Subjects = new SubjectRepository(context);
         Batch = new BatchRepository(context);
-        Student = new StudentRepository(context);
+        Student = new StudentRepository(context,mapper);
         Schedule = new ScheduleService(context);
     }
     /// <summary>

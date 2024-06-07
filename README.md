@@ -38,7 +38,7 @@ RoutineScheduler
 │   ├───Middleware
 │   ├───Properties
 │   └───Services
-└───RoutineSchedulerFrontend
+└───RMSUI
     ├───public
     └───src
         ├───assets

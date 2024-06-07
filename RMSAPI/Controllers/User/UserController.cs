@@ -10,7 +10,7 @@ using System.Linq.Expressions;
 
 
 namespace RMSAPI.Controllers.User;
-[Authorize]
+
 public class UserController : BaseAPIController
 {
     private readonly UserManager<AppUser> _userManager;

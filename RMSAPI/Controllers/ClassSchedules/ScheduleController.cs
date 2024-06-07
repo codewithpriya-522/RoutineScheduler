@@ -93,7 +93,7 @@ public class ScheduleController(IUnitOfWork unit, IMapper mapper) : BaseAPIContr
         if (id == 0) return BadRequest("Please provide a correct timeslot id");
 
         await _unit.Schedule.RemoveTimeSlot(id);
-
+        await _unit.Complete();
         return NoContent();
     }
 }

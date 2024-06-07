@@ -175,9 +175,7 @@ public class StudentController(IUnitOfWork unit, IMapper mapper, UserManager<App
     [ProducesResponseType(204)]
     public async Task<IActionResult> GetAll()
     {
-        var entities = await _unit.Student.Query(s =>
-        s.Include(i => i.AppUser)
-        .Include(i => i.Batch));
+        var entities = await _unit.Student.GetAllStudents();
         if (entities == null) return NoContent();
         return Ok(_mapper.Map<List<StudentDTO>>(entities));
     }

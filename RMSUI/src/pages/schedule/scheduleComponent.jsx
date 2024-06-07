@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { ScheduleService } from '../services/ScheduleService';
-import UpdateScheduleDto from '../models/UpdateScheduleDto';
+import { ScheduleService } from '../../services/scheduleService';
+import UpdateScheduleDto from '../../models/UpdateScheduleDto';
 
-const ScheduleComponent = () => {
+const WeeklySchhedule = () => {
   const [batchId, setBatchId] = useState('');
   const [day, setDay] = useState('');
   const [schedule, setSchedule] = useState(null);
@@ -42,4 +42,4 @@ const ScheduleComponent = () => {
   );
 };
 
-export default ScheduleComponent;
+export default WeeklySchhedule;

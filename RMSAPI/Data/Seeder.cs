@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using RMSAPI.Data.Entities;
 using RMSAPI.Data.Enums;
+using RMSAPI.Extentions;
 
 namespace RMSAPI.Data;
 
@@ -16,7 +17,29 @@ public class Seeder
     public static async Task SeedUsers(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager, DataContext context)
     {
         if (await userManager.Users.AnyAsync()) return;
-
+        #region Adding default timeslot
+        var timeslots = new List<TimeSlot>{
+                new TimeSlot{
+                StartTime = "10:00".ToTimeSpan(),
+                EndTime = "11:00".ToTimeSpan(),
+            },
+                new TimeSlot{
+                StartTime = "11:00".ToTimeSpan(),
+                EndTime = "12:00".ToTimeSpan(),
+            },
+            new TimeSlot{
+                StartTime = "12:00".ToTimeSpan(),
+                EndTime = "13:00".ToTimeSpan(),
+            },
+            new TimeSlot{
+                StartTime = "14:00".ToTimeSpan(),
+                EndTime = "14:30".ToTimeSpan(),
+            },
+        };
+        //Adding into db 
+        await context.TimeSlots.AddRangeAsync(timeslots);
+        await context.SaveChangesAsync();
+        #endregion
         #region Adding Default users
         // Adding default roles 
         var roles = new List<AppRole>{
@@ -106,9 +129,10 @@ public class Seeder
         //var insertDept = await context.Departments.Where(b => b.Name == "Computer Science").SingleOrDefaultAsync();
         var insertBatch = await context.Batches.Where(b => b.Name == "Semester 1").SingleOrDefaultAsync();
         var insertTeacher1 = await userManager.FindByNameAsync("Teacher");
-        var insertTeacher2 = await userManager.FindByNameAsync("Teacher1");
-        var insertTeacher3 = await userManager.FindByNameAsync("Teacher2");
-        var insertTeacher4 = await userManager.FindByNameAsync("Teacher3");
+        var insertTeacher2 = await userManager.FindByNameAsync("Teacher2");
+        var insertTeacher3 = await userManager.FindByNameAsync("Teacher3");
+        var insertTeacher4 = await userManager.FindByNameAsync("Teacher4");
+        var insertTeacher5 = await userManager.FindByNameAsync("Teacher5");
         #endregion
         var teachers = new List<Teacher> {
             new Teacher
@@ -121,8 +145,8 @@ public class Seeder
             },
             new Teacher
             {
-                AppUserId = insertTeacher1.Id,
-                AppUser = insertTeacher1,
+                AppUserId = insertTeacher2.Id,
+                AppUser = insertTeacher2,
                 Department = insertDept,
                 DepartmentId = insertDept.Id,
 
@@ -138,6 +162,13 @@ public class Seeder
             {
                 AppUserId = insertTeacher4.Id,
                 AppUser = insertTeacher4,
+                Department = insertDept,
+                DepartmentId = insertDept.Id,
+            },
+            new Teacher
+            {
+                AppUserId = insertTeacher5.Id,
+                AppUser = insertTeacher5,
                 Department = insertDept,
                 DepartmentId = insertDept.Id,
             },
@@ -188,7 +219,7 @@ public class Seeder
         await context.SaveChangesAsync();
 
         //Adding teacher subject mapping 
-        #region Pulling subjects dat to map
+        #region Pulling subjects data to map
         //Labs 
         var labdss = await context.Subjects.SingleOrDefaultAsync(s => s.Name == "Data Structure Lab");
         var labC = await context.Subjects.SingleOrDefaultAsync(s => s.Name == "Programming in C Lab");
@@ -202,6 +233,8 @@ public class Seeder
         var subTeacher = await context.Teachers.Where(s => s.AppUser.UserName == "Teacher").FirstOrDefaultAsync();
         var subTeacher2 = await context.Teachers.SingleOrDefaultAsync(s => s.AppUser.UserName == "Teacher2");
         var subTeacher3 = await context.Teachers.SingleOrDefaultAsync(s => s.AppUser.UserName == "Teacher3");
+        var subTeacher4 = await context.Teachers.SingleOrDefaultAsync(s => s.AppUser.UserName == "Teacher4");
+        var subTeacher5 = await context.Teachers.SingleOrDefaultAsync(s => s.AppUser.UserName == "Teacher5");
         // Students 
         var mapStudent1 = await userManager.FindByNameAsync("Student1");
         var mapStudent2 = await userManager.FindByNameAsync("Student2");
@@ -237,11 +270,17 @@ public class Seeder
                 Teacher = subTeacher,
                 TeacherID = subTeacher.Id
             },
-
             new TeacherSubjects
             {
                 Subject = math,
                 SubjectID = math.Id,
+                Teacher = subTeacher2,
+                TeacherID = subTeacher2.Id
+            },
+            new TeacherSubjects
+            {
+                Subject = python,
+                SubjectID = python.Id,
                 Teacher = subTeacher2,
                 TeacherID = subTeacher2.Id
             },
@@ -267,6 +306,20 @@ public class Seeder
                 SubjectID = labpython.Id,
                 Teacher = subTeacher3,
                 TeacherID = subTeacher3.Id
+            },
+            new TeacherSubjects
+            {
+                Subject = dataStruct,
+                SubjectID = dataStruct.Id,
+                Teacher = subTeacher4,
+                TeacherID = subTeacher4.Id
+            },
+            new TeacherSubjects
+            {
+                Subject = dataStruct,
+                SubjectID = dataStruct.Id,
+                Teacher = subTeacher5,
+                TeacherID = subTeacher5.Id
             }
 
         };
@@ -400,7 +453,9 @@ public class Seeder
     {
         var user = new AppUser
         {
-            Email = name.ToLower() + "@rms.com",
+            FirstName = name,
+            LastName = name,
+            Email = $"{name.ToLower()}@rms.com",
             UserName = name,
             City = "Kolkata",
             Gender = "Male",
