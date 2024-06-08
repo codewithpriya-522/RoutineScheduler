@@ -5,9 +5,7 @@ import { Route, Routes } from 'react-router-dom'
 import LandingPage from '../../pages/landingPage/LandingPage'
 import Regitration from '../../pages/registration/Regitration'
 import ForgotPassword from '../../pages/forgotPassword/ForgotPassword'
-import BatchComponent from '../../pages/batch/batchComponent'
-import ScheduleComponent from '../../pages/schedule/scheduleComponent'
-import WeeklySchhedule from '../../pages/schedule/scheduleWeeklyComponent'
+import Master from '../../pages/masterPage/master'
 const HomeRouting = () => {
     return (
         <div>
@@ -16,9 +14,7 @@ const HomeRouting = () => {
                 <Route path='/login' element={<Login />} />
                 <Route path='/registration' element={<Regitration />} />
                 <Route path='/forgotPassword' element={<ForgotPassword />} />
-                <Route path='/batch/view' element={<BatchComponent />} />
-                <Route path='/schedule' element={<ScheduleComponent />} />
-                <Route path='/schedule/weekly' element={<WeeklySchhedule />} />
+                <Route path='/dashboard' element={<Master />} />
             </Routes>
         </div>
     )
