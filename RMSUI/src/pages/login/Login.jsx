@@ -20,7 +20,7 @@ const Login = () => {
           console.log('Login successful', response.data);
           AuthService.storeTokens(response); // Store the tokens in local storage
           ToasterService.success('Login successful');
-          navigate('/batch/view');
+          navigate('/dashboard');
         } catch (error) {
           ToasterService.error('Login failed');
           console.error('Login error', error);
