@@ -11,7 +11,7 @@ builder.Services.AddSwagger(builder.Configuration);
 // Add CORS
 builder.Services.AddCors(op => {
     op.AddDefaultPolicy(b=> {
-        b.WithOrigins("http://localhost:5173")
+        b.WithOrigins("http://localhost:4000")
         .AllowAnyHeader()
         .AllowAnyMethod();
     });

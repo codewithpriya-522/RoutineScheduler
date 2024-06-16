@@ -1,15 +1,14 @@
+// eslint-disable-next-line no-unused-vars
 import React from "react";
 import Navbar from "../components/nav";
-import Dashboard from "../dashboard/dashboard";
-import BaseRouting from "../../routing/baseRounting/BaseRounting";
-import { BrowserRouter } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 const Master = () => {
     return (
         <div className="flex flex-row">
             <Navbar />
-            <BrowserRouter>
-                <BaseRouting />
-            </BrowserRouter>
+            <div className="my-8 mx-3">
+            <Outlet />
+            </div>
         </div>
     )
 }
