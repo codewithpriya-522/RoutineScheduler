@@ -9,6 +9,8 @@ import Master from '../../pages/masterPage/master'
 import Dashboard from '../../pages/dashboard/dashboard'
 import GetAll from '../../pages/teachers/getall/GetAll'
 import WeeklySchedule from '../../pages/schedule/WeeklySchedule'
+import GetAllUser from '../../pages/user/getall/GetAllUser'
+import GetAllStudent from '../../pages/student/getall/GetAllStudent'
 const HomeRouting = () => {
     return (
         <div>
@@ -21,6 +23,8 @@ const HomeRouting = () => {
                     <Route index element={<Dashboard />}/>
                     <Route path='/home/schedule' element={<WeeklySchedule/>} />
                     <Route path='/home/teachers' element={<GetAll />} />
+                    <Route path='/home/users' element={<GetAllUser />} />
+                    <Route path='/home/students' element={<GetAllStudent />} />
                 </Route>
             </Routes>
         </div>

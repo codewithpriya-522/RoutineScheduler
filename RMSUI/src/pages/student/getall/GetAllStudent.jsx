@@ -2,12 +2,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BsPencilSquare, BsFillTrashFill } from 'react-icons/bs';
-import { teacherActions } from '../../../redux/slice/TeacherSlice';
-import teacherSelector from '../../../redux/selector/TeacherSelector';
+import studentSelector from '../../../redux/selector/StudentSelector';
+import { studentActions } from '../../../redux/slice/StudentSlice';
 
-const GetAll = () => {
+const GetAllStudent = () => {
   const dispatch = useDispatch();
-  const selector = useSelector(teacherSelector);
+  const selector = useSelector(studentSelector);
   const [dataTable, setDataTable] = useState([]);
 
   useEffect(() => {
@@ -23,14 +23,13 @@ const GetAll = () => {
         lastName: item.lastName,
         depertmentName: item.depertmentName,
         email: item.email,
-        subjects: item.subjects.join(', '),
       }));
       setDataTable(allData);
     }
   }, [selector]);
 
   useEffect(() => {
-    dispatch(teacherActions.getall());
+    dispatch(studentActions.getall());
   }, [dispatch]);
 
 
@@ -135,4 +134,4 @@ const GetAll = () => {
   );
 };
 
-export default GetAll;
+export default GetAllStudent;

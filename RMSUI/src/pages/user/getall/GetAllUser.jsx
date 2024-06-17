@@ -2,12 +2,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BsPencilSquare, BsFillTrashFill } from 'react-icons/bs';
-import { teacherActions } from '../../../redux/slice/TeacherSlice';
-import teacherSelector from '../../../redux/selector/TeacherSelector';
+import userSelector from '../../../redux/selector/UserSelector';
+import { userActions } from '../../../redux/slice/UserSlice';
 
-const GetAll = () => {
+const GetAllUser = () => {
   const dispatch = useDispatch();
-  const selector = useSelector(teacherSelector);
+  const selector = useSelector(userSelector);
   const [dataTable, setDataTable] = useState([]);
 
   useEffect(() => {
@@ -19,18 +19,18 @@ const GetAll = () => {
     ) {
       const allData = selector.data.map((item) => ({
         id: item.id,
-        firstName: item.firstName,
-        lastName: item.lastName,
+        userName: item.userName,
+        dateOfBirth: item.dateOfBirth,
         depertmentName: item.depertmentName,
         email: item.email,
-        subjects: item.subjects.join(', '),
+        photoUrl:item.photoUrl
       }));
       setDataTable(allData);
     }
   }, [selector]);
 
   useEffect(() => {
-    dispatch(teacherActions.getall());
+    dispatch(userActions.getall());
   }, [dispatch]);
 
 
@@ -63,20 +63,28 @@ const GetAll = () => {
         <table className="min-w-full bg-white border border-gray-200 overflow-auto">
           <thead>
             <tr className="bg-gray-100">
-              <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Name</th>
+              <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">userName</th>
               <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Department</th>
               <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Email</th>
-              <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Subjects</th>
+              <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">dateOfBirth</th>
               <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Actions</th>
             </tr>
           </thead>
           <tbody>
             {currentItems.map((item) => (
               <tr key={item.id} className="hover:bg-gray-50">
-                <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200"> {item.firstName} {item.lastName}</td>
+              <td scope="row" className=" px-6 py-4 text-gray-900 whitespace-no-wrap dark:text-white border-b border-gray-200">
+             <div className='flex items-center'>
+                    <img className="w-10 h-10 rounded-full" src={item.photoUrl} alt="image" />
+                    <div className="ps-3">
+                        <div className="text-base font-semibold">{item.userName}</div>
+                        <div className="font-normal text-gray-500">{item.email}</div>
+                        </div>
+                    </div>
+                </td>
                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{item.depertmentName}</td>
                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{item.email}</td>
-                <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{item.subjects}</td>
+                <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{item.dateOfBirth}</td>
                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                   <div className="flex">
                     <BsPencilSquare
@@ -135,4 +143,4 @@ const GetAll = () => {
   );
 };
 
-export default GetAll;
+export default GetAllUser;
