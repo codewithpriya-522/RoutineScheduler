@@ -11,6 +11,14 @@ import GetAll from '../../pages/teachers/getall/GetAll'
 import WeeklySchedule from '../../pages/schedule/WeeklySchedule'
 import GetAllUser from '../../pages/user/getall/GetAllUser'
 import GetAllStudent from '../../pages/student/getall/GetAllStudent'
+import SingleGetStudent from '../../pages/student/singleGet/SingleGetStudent'
+import SingleGetTeacher from '../../pages/teachers/singleGet/SingleGetTeacher'
+import SingleGetUser from '../../pages/user/singleGet/SingleGetUser'
+import GetAllBatch from '../../pages/batch/getall/GetAllBatch'
+import SingleGetBatch from '../../pages/batch/singleGet/SingleGetBatch'
+import GetAllDepartment from '../../pages/department/getall/GetAllDepartment'
+import SingleGetDepartment from '../../pages/department/singlegetdepartment/SingleGetDepartment'
+
 const HomeRouting = () => {
     return (
         <div>
@@ -20,11 +28,18 @@ const HomeRouting = () => {
                 <Route path='/registration' element={<Regitration />} />
                 <Route path='/forgotPassword' element={<ForgotPassword />} />
                 <Route path='/home' element={<Master />} >
-                    <Route index element={<Dashboard />}/>
-                    <Route path='/home/schedule' element={<WeeklySchedule/>} />
+                    <Route index element={<Dashboard />} />
+                    <Route path='/home/schedule' element={<WeeklySchedule />} />
                     <Route path='/home/teachers' element={<GetAll />} />
                     <Route path='/home/users' element={<GetAllUser />} />
                     <Route path='/home/students' element={<GetAllStudent />} />
+                    <Route path='/home/students/details/:id' element={<SingleGetStudent />} />
+                    <Route path='/home/teachers/details/:id' element={<SingleGetTeacher />} />
+                    <Route path='/home/users/details/:id' element={<SingleGetUser />} />
+                    <Route path='/home/department' element={<GetAllDepartment />} />
+                    <Route path='/home/batch/details/:id' element={<SingleGetDepartment />} />
+                    <Route path='/home/batch' element={<GetAllBatch />} />
+                    <Route path='/home/batch/details/:id' element={<SingleGetBatch />} />
                 </Route>
             </Routes>
         </div>

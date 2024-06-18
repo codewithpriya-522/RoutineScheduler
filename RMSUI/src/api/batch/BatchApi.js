@@ -2,12 +2,12 @@ import axiosClient from "../axiosClient";
 import { urls } from "../urls";
 
 
-const teacherApi = {
+const batchApi = {
     getAll (){
-        return axiosClient.get(`${urls.GETALL_TEACHERS}`);
+        return axiosClient.get(`${urls.GETALL_BATCH}`);
     },
     singleGet(params){
-        return axiosClient.get(`${urls.SINGLEGET_TEACHERS}/${params}`)
+        return axiosClient.get(`${urls.SINGLEGET_BATCH}/${params}`)
     },
     // registration(params)
     // {
@@ -15,4 +15,4 @@ const teacherApi = {
     // }
 };
 
-export default teacherApi;
+export default batchApi;

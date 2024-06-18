@@ -1,15 +1,21 @@
-/* eslint-disable no-unused-vars */
+// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BsPencilSquare, BsFillTrashFill } from 'react-icons/bs';
-import { teacherActions } from '../../../redux/slice/TeacherSlice';
-import teacherSelector from '../../../redux/selector/TeacherSelector';
 import { useNavigate } from 'react-router-dom';
+import batchSelector from '../../../redux/selector/BatchSelector';
+import { batchActions } from '../../../redux/slice/BatchSlice';
 
-const GetAll = () => {
+const GetAllBatch = () => {
   const dispatch = useDispatch();
-  const selector = useSelector(teacherSelector);
+  const selector = useSelector(batchSelector);
   const [dataTable, setDataTable] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 4;
+
+  useEffect(() => {
+    dispatch(batchActions.getall());
+  }, [dispatch]);
 
   useEffect(() => {
     if (
@@ -18,26 +24,12 @@ const GetAll = () => {
       Array.isArray(selector.data) &&
       selector.data.length > 0
     ) {
-      const allData = selector.data.map((item) => ({
-        id: item.id,
-        firstName: item.firstName,
-        lastName: item.lastName,
-        depertmentName: item.depertmentName,
-        email: item.email,
-        subjects: item.subjects.join(', '),
-      }));
-      setDataTable(allData);
+      setDataTable(selector.data);
     }
   }, [selector]);
 
-  useEffect(() => {
-    dispatch(teacherActions.getall());
-  }, [dispatch]);
-
-
-  // Pagination state
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 4;
+  // eslint-disable-next-line no-unused-vars
+  const navigate = useNavigate();
 
   // Logic for pagination
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -47,11 +39,10 @@ const GetAll = () => {
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const navigate = useNavigate()
   return (
-    <div className="container mx-auto ">
+    <div className="container mx-auto">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-semibold text-gray-800">All Teachers</h1>
+        <h1 className="text-2xl font-semibold text-gray-800">All Batches</h1>
         <button
           className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
           onClick={() => alert('Create action triggered')}
@@ -65,28 +56,36 @@ const GetAll = () => {
           <thead>
             <tr className="bg-gray-100">
               <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Name</th>
-              <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Department</th>
-              <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Email</th>
+              <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Start Date</th>
+              <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">End Date</th>
               <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Subjects</th>
+              <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Number of Students</th>
               <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Actions</th>
             </tr>
           </thead>
           <tbody>
             {currentItems.map((item) => (
-              <tr key={item.id} className="hover:bg-gray-50" onClick={() => { navigate(`/home/teachers/details/${item.id}`) }}>
-                <td className="px-3 py-2 whitespace-no-wrap border-b border-gray-200">{item.firstName} {item.lastName}</td>
-                <td className="px-3 py-2 whitespace-no-wrap border-b border-gray-200">{item.depertmentName}</td>
-                <td className="px-3 py-2 whitespace-no-wrap border-b border-gray-200">{item.email}</td>
-                <td className="px-3 py-2 whitespace-no-wrap border-b border-gray-200">{item.subjects}</td>
-                <td className="px-3 py-2 whitespace-no-wrap border-b border-gray-200">
+              <tr key={item.id} className="hover:bg-gray-50">
+                <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{item.name}</td>
+                <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{new Date(item.startDate).toLocaleDateString()}</td>
+                <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{new Date(item.endDate).toLocaleDateString()}</td>
+                <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                  <ul className="list-disc">
+                    {item.batchSubjects.map((subject, index) => (
+                      <li key={index}>{subject}</li>
+                    ))}
+                  </ul>
+                </td>
+                <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{item.batchStudents}</td>
+                <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                   <div className="flex">
                     <BsPencilSquare
                       className="text-green-500 cursor-pointer hover:text-green-700"
-                      onClick={() => alert(`Edit entry with ID ${item.id}`)}
+                      onClick={() => alert(`Edit batch with ID ${item.id}`)}
                     />
                     <BsFillTrashFill
                       className="ml-2 text-red-500 cursor-pointer hover:text-red-700"
-                      onClick={() => alert(`Delete entry with ID ${item.id}`)}
+                      onClick={() => alert(`Delete batch with ID ${item.id}`)}
                     />
                   </div>
                 </td>
@@ -136,4 +135,4 @@ const GetAll = () => {
   );
 };
 
-export default GetAll;
+export default GetAllBatch;

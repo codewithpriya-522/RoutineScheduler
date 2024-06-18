@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BsPencilSquare, BsFillTrashFill } from 'react-icons/bs';
 import studentSelector from '../../../redux/selector/StudentSelector';
 import { studentActions } from '../../../redux/slice/StudentSlice';
+import { useNavigate } from 'react-router-dom';
 
 const GetAllStudent = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const GetAllStudent = () => {
         id: item.id,
         firstName: item.firstName,
         lastName: item.lastName,
-        depertmentName: item.depertmentName,
+        gender: item.gender,
         email: item.email,
       }));
       setDataTable(allData);
@@ -44,17 +45,17 @@ const GetAllStudent = () => {
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
+  const navigate = useNavigate()
 
   return (
-    <div className="container mx-auto px-4 sm:px-8">
+    <div className="container mx-auto  ">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-semibold text-gray-800">All Teachers</h1>
+        <h1 className="text-2xl font-semibold text-gray-800">All Students</h1>
         <button
-          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+          className="px-2 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600"
           onClick={() => alert('Create action triggered')}
         >
-          Create
+          add
         </button>
       </div>
 
@@ -71,9 +72,12 @@ const GetAllStudent = () => {
           </thead>
           <tbody>
             {currentItems.map((item) => (
-              <tr key={item.id} className="hover:bg-gray-50">
-                <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200"> {item.firstName} {item.lastName}</td>
-                <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{item.depertmentName}</td>
+              <tr key={item.id} className="hover:bg-gray-50" onClick={() => { navigate(`/home/students/details/${item.id}`) }}>
+                <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200" >  <div className="ps-3">
+                  <div className="text-base font-semibold">{item.firstName} {item.lastName}</div>
+                  <div className="font-normal text-gray-500">{item.email}</div>
+                </div></td>
+                <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{item.gender}</td>
                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{item.email}</td>
                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{item.subjects}</td>
                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
@@ -95,7 +99,7 @@ const GetAllStudent = () => {
       </div>
 
       {/* Pagination controls */}
-      <div className="flex justify-center mt-4">
+      <div className="flex justify-end mt-4">
         <nav>
           <ul className="flex items-center">
             <li>

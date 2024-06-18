@@ -2,12 +2,12 @@ import axiosClient from "../axiosClient";
 import { urls } from "../urls";
 
 
-const teacherApi = {
+const departmentApi = {
     getAll (){
-        return axiosClient.get(`${urls.GETALL_TEACHERS}`);
+        return axiosClient.get(`${urls.GETALL_DEPARTMENT}`);
     },
     singleGet(params){
-        return axiosClient.get(`${urls.SINGLEGET_TEACHERS}/${params}`)
+        return axiosClient.get(`${urls.SINGLEGET_DEPARTMENT}/${params}`)
     },
     // registration(params)
     // {
@@ -15,4 +15,4 @@ const teacherApi = {
     // }
 };
 
-export default teacherApi;
+export default departmentApi;

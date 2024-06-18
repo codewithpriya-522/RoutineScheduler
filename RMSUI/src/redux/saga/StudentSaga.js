@@ -9,7 +9,17 @@ function* getall(action) {
         yield put(studentActions.studentFailed(error.message));
     }
 }
-
+function* singleGet(action){
+    try{
+        const id=action.payload
+        const response  =yield call(studentApi.singleGet,id);
+        yield put(studentActions.studentSuccess(response))
+    }
+    catch(error){
+        yield put(studentActions.studentFailed(error.message))
+    }
+  }
 export default function* studentSaga() {
     yield takeLatest(studentActions.getall.type, getall);
+    yield takeLatest(studentActions.singleGet.type, singleGet);
 }

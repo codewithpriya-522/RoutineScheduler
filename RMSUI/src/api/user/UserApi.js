@@ -5,9 +5,9 @@ const userApi = {
     getAll (){
         return axiosClient.get(`${urls.GETALL_USERS}`);
     },
-    // refreshlogin(params){
-    //     return axiosClient.post(`${urls.REFRESH_LOGIN}`,params)
-    // },
+    singleGet(params){
+        return axiosClient.get(`${urls.GETALL_USERS}/${params}`)
+    },
     // registration(params)
     // {
     //     return axiosClient.post(`${urls.REGISTRATION}`,params)

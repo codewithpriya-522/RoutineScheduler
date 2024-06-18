@@ -6,9 +6,9 @@ const studentApi = {
     getAll (){
         return axiosClient.get(`${urls.GETALL_STUDENTS}`);
     },
-    // refreshlogin(params){
-    //     return axiosClient.post(`${urls.REFRESH_LOGIN}`,params)
-    // },
+    singleGet(params){
+        return axiosClient.get(`${urls.SINGLEGET_STUDENTS}/${params}`)
+    },
     // registration(params)
     // {
     //     return axiosClient.post(`${urls.REGISTRATION}`,params)

@@ -4,8 +4,8 @@ const initialState = {
     },
     isFetching: false
 };
-const studentSlice = createSlice({
-    name: "student",
+const batchSlice = createSlice({
+    name: "batch",
     initialState,
     reducers: {
         getall: (state) => {
@@ -14,12 +14,12 @@ const studentSlice = createSlice({
         singleGet: (state) => {
             state.isFetching = true;
         },
-        studentSuccess(state, action) {
+        batchSuccess(state, action) {
             // console.log(action.payload.data)
             state.data = action.payload.data
             state.isFetching = false
         },
-        studentFailed(state, action) {
+        batchFailed(state, action) {
             state.message = action.payload
             state.isFetching = false
         },
@@ -29,7 +29,7 @@ const studentSlice = createSlice({
     },
 });
 // Actions
-export const studentActions = studentSlice.actions;
+export const batchActions = batchSlice.actions;
 // Reducer
-const studentReducer = studentSlice.reducer;
-export { studentReducer };
+const batchReducer = batchSlice.reducer;
+export { batchReducer };
