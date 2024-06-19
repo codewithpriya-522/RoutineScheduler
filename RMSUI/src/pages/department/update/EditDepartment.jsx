@@ -1,14 +1,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-// EditDepartmentModal.js
-
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { departmentActions } from '../../../redux/slice/DepartmentSlice';
 
-const EditDepartmentModal = ({ department, onClose }) => {
+const EditDepartmentModal = ({ department, onClose, onSuccess }) => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
+    id: department.id,
     name: department.name,
     headOfDepartment: department.headOfDepartment,
     description: department.description,
@@ -26,9 +25,15 @@ const EditDepartmentModal = ({ department, onClose }) => {
   };
 
   const handleSubmit = () => {
-    // Dispatch update action
-    dispatch(departmentActions.update(formData));
-    onClose(); // Close modal after submission
+    dispatch(departmentActions.update(formData))
+      .then(() => {
+        onSuccess(); // Trigger success action in parent component
+        onClose(); // Close modal after successful update
+      })
+      .catch((error) => {
+        console.error('Error updating department:', error);
+        // Handle error if needed
+      });
   };
 
   return (

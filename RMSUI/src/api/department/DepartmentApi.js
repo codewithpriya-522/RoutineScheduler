@@ -11,7 +11,7 @@ const departmentApi = {
     },
     update(params)
     {
-        return axiosClient.put(`${urls.SINGLEGET_DEPARTMENT}/${params}`,)
+        return axiosClient.put(`${urls.SINGLEGET_DEPARTMENT}`,params)
     }
 };
 

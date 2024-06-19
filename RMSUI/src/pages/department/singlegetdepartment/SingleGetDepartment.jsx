@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import departmentSelector from '../../../redux/selector/DepartmentSelector';
 import { departmentActions } from '../../../redux/slice/DepartmentSlice';
-import EditDepartmentModal from '../update/EditDepartment';
+import EditDepartmentModal from '../update/EditDepartment' // Corrected import path
 
 const SingleGetDepartment = () => {
   const dispatch = useDispatch();

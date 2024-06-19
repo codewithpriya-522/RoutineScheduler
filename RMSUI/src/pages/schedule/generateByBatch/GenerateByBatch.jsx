@@ -1,6 +1,4 @@
 /* eslint-disable no-unused-vars */
-// GenerateSchedulebyBatch.js
-
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { scheduleActions } from '../../../redux/slice/ScheduleSlice';
@@ -13,36 +11,24 @@ const GenerateSchedulebyBatch = () => {
   const batch = useSelector(batchSelector);
   const schedules = useSelector(scheduleSelector);
   const [selectedOption, setSelectedOption] = useState('');
-  const [showCard, setShowCard] = useState(false);
-  // eslint-disable-next-line no-unused-vars
-  const [generatedContent, setGeneratedContent] = useState(null);
   const [dataTable, setDataTable] = useState([]);
+  const [showCard, setShowCard] = useState(false); // Initialize showCard state
 
   useEffect(() => {
     dispatch(batchActions.getall());
   }, [dispatch]);
 
   useEffect(() => {
-    if (
-      batch &&
-      batch.data &&
-      Array.isArray(batch.data) &&
-      batch.data.length > 0
-    ) {
+    if (batch && batch.data && Array.isArray(batch.data) && batch.data.length > 0) {
       setDataTable(batch.data);
     }
   }, [batch]);
 
   useEffect(() => {
-    if (
-      schedules &&
-      schedules.data &&
-      Array.isArray(schedules.data) &&
-      schedules.data.length > 0
-    ) {
-      setShowCard(true); // Show card when data is available
+    if (schedules && schedules.data && typeof schedules.data === 'object') {
+      setShowCard(true); // Update showCard state based on conditions
     } else {
-      setShowCard(false); // Hide card if no data or empty array
+      setShowCard(false);
     }
   }, [schedules]);
 
@@ -53,14 +39,16 @@ const GenerateSchedulebyBatch = () => {
   const handleGenerateClick = async () => {
     if (selectedOption) {
       try {
-        await dispatch(scheduleActions.getall(selectedOption));
-        setGeneratedContent(selectedOption);
+        await dispatch(scheduleActions.generate(selectedOption));
       } catch (error) {
         console.error('Error fetching schedule:', error);
         // Handle error state or display error message
       }
     }
   };
+
+  // Extract batchName from schedules.data
+  const batchName = schedules.data?.batchName || '';
 
   return (
     <div className="p-5">
@@ -69,7 +57,7 @@ const GenerateSchedulebyBatch = () => {
           Select a batch
         </label>
       </div>
-      <div className="relative flex  space-x-4">
+      <div className="relative flex space-x-4">
         <select
           id="dropdown"
           value={selectedOption}
@@ -92,18 +80,29 @@ const GenerateSchedulebyBatch = () => {
         </button>
       </div>
       {showCard && (
-        <div className="mt-6 p-4 border rounded-lg shadow-lg bg-white">
-          <h3 className="text-lg font-bold mb-2">Generated Card</h3>
-          {schedules.data.map((schedule) => (
-            <div key={schedule.id} className="mb-3">
-              <p className="text-gray-700 font-medium">Schedule ID: {schedule.id}</p>
-              <p className="text-gray-700">Name: {schedule.name}</p>
-              <p className="text-gray-700">Start Time: {schedule.startTime}</p>
-              <p className="text-gray-700">End Time: {schedule.endTime}</p>
-              <p className="text-gray-700">Location: {schedule.location}</p>
-            </div>
+        <>
+          <h2 className="text-2xl font-bold mt-6">Batch: {batchName}</h2>
+          {Object.keys(schedules.data).map((day) => (
+            day !== 'batchName' && (
+              <div key={day} className="mt-6">
+                <h2 className="text-xl font-bold">{day.charAt(0).toUpperCase() + day.slice(1)}</h2>
+                <div className="grid grid-cols-1 gap-4 mt-3">
+                  {Array.isArray(schedules.data[day]) && schedules.data[day].length > 0 && (
+                    schedules.data[day].map((subject, index) => (
+                      <div key={index} className="p-4 border rounded-lg shadow-lg bg-white">
+                        <p className="text-gray-700 font-medium">Subject Name: {subject.subjectName}</p>
+                        <p className="text-gray-700">Subject Type: {subject.subjectType}</p>
+                        <p className="text-gray-700">Teacher Name: {subject.teacherName}</p>
+                        <p className="text-gray-700">Start Time: {subject.startTime}</p>
+                        <p className="text-gray-700">End Time: {subject.endTime}</p>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+            )
           ))}
-        </div>
+        </>
       )}
     </div>
   );
