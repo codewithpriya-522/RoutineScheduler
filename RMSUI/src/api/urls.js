@@ -10,6 +10,7 @@ export const urls = {
   GETALL_BATCH:'/Batch/getall',
   SINGLEGET_DEPARTMENT:'/Depertment',
   SINGLEGET_BATCH:'/Batch',
-  GETALL_SCHEDULE:'/Schedule/department'
+  GETALL_SCHEDULE:'/Schedule/department',
+  GENERATE_SCHEDULE_BYBATCH:'/Schedule/weekly',
 } 
 

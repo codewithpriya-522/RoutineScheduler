@@ -9,7 +9,17 @@ function* getall(action) {
         yield put(scheduleActions.scheduleFailed(error.message));
     }
 }
+function* generate(action) {
+    try {
+        const id=action.payload
+        const response = yield call(scheduleApi.generate, id);
+        yield put(scheduleActions.scheduleSuccess(response));
+    } catch (error) {
+        yield put(scheduleActions.scheduleFailed(error.message));
+    }
+}
 
 export default function* scheduleSaga() {
     yield takeLatest(scheduleActions.getall.type, getall);
+    yield takeLatest(scheduleActions.generate.type, generate);
 }
