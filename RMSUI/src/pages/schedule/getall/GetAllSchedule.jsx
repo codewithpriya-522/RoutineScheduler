@@ -1,16 +1,20 @@
+/* eslint-disable no-unused-vars */
 // GetAllSchedule.js
 
-// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { departmentActions } from '../../../redux/slice/DepartmentSlice';
+import { scheduleActions } from '../../../redux/slice/ScheduleSlice';
 import departmentSelector from '../../../redux/selector/DepartmentSelector';
+import scheduleSelector from '../../../redux/selector/ScheduleSelector';
 
 const GetAllSchedule = () => {
   const dispatch = useDispatch();
   const departments = useSelector(departmentSelector);
+  const schedules = useSelector(scheduleSelector);
   const [selectedOption, setSelectedOption] = useState('');
   const [showCard, setShowCard] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [generatedContent, setGeneratedContent] = useState(null);
   const [dataTable, setDataTable] = useState([]);
 
@@ -29,14 +33,32 @@ const GetAllSchedule = () => {
     }
   }, [departments]);
 
+  useEffect(() => {
+    if (
+      schedules &&
+      schedules.data &&
+      Array.isArray(schedules.data) &&
+      schedules.data.length > 0
+    ) {
+      setShowCard(true); // Show card when data is available
+    } else {
+      setShowCard(false); // Hide card if no data or empty array
+    }
+  }, [schedules]);
+
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
   };
 
-  const handleGenerateClick = () => {
+  const handleGenerateClick = async () => {
     if (selectedOption) {
-      setGeneratedContent(selectedOption);
-      setShowCard(true);
+      try {
+        await dispatch(scheduleActions.getall(selectedOption));
+        setGeneratedContent(selectedOption);
+      } catch (error) {
+        console.error('Error fetching schedule:', error);
+        // Handle error state or display error message
+      }
     }
   };
 
@@ -72,7 +94,15 @@ const GetAllSchedule = () => {
       {showCard && (
         <div className="mt-6 p-4 border rounded-lg shadow-lg bg-white">
           <h3 className="text-lg font-bold mb-2">Generated Card</h3>
-          <p className="text-gray-700">Selected Department ID: {generatedContent}</p>
+          {schedules.data.map((schedule) => (
+            <div key={schedule.id} className="mb-3">
+              <p className="text-gray-700 font-medium">Schedule ID: {schedule.id}</p>
+              <p className="text-gray-700">Name: {schedule.name}</p>
+              <p className="text-gray-700">Start Time: {schedule.startTime}</p>
+              <p className="text-gray-700">End Time: {schedule.endTime}</p>
+              <p className="text-gray-700">Location: {schedule.location}</p>
+            </div>
+          ))}
         </div>
       )}
     </div>

@@ -5,6 +5,7 @@ import { studentReducer } from "../redux/slice/StudentSlice";
 import { userReducer } from "../redux/slice/UserSlice";
 import { batchReducer } from "../redux/slice/BatchSlice";
 import { departmentReducer } from "../redux/slice/DepartmentSlice";
+import { scheduleReducer } from "../redux/slice/ScheduleSlice";
 
 const rootReducer = combineReducers({
  auth:authReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
  student:studentReducer,
  user:userReducer,
  batch:batchReducer,
- department:departmentReducer
+ department:departmentReducer,
+ schedule:scheduleReducer
 });
 
 export default rootReducer;
