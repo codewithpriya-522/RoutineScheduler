@@ -21,7 +21,7 @@ namespace RMSAPI.Extentions
                 opt.UseSqlite(configuration.GetConnectionString("DBCS"));
             });
             services.AddScoped<ITokenService, TokenService>();
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IDepermentRepository, DepertmentReporitory>();
             services.AddScoped<ITeacherRepository, TeacherRepository>();

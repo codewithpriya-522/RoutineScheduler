@@ -65,7 +65,8 @@ public class DepertmentController : BaseAPIController
     {
         if (dept == null) return BadRequest("Depertment object can't be null or empty");
         if (!await IsExistbyId(dept.Id)) return BadRequest($"Provided id:{dept.Id} is not exist in our record");
-        var deptToUpdate = _mapper.Map<RMSAPI.Data.Entities.Depertment>(dept);
+        var deptToUpdate = await _unit.Deperment.GetById(dept.Id);
+            deptToUpdate = _mapper.Map(dept, deptToUpdate);
         _unit.Deperment.UpdateAsync(deptToUpdate);
         await _unit.Complete();
         return Ok("Successully updated the Depertment");
