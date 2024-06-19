@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { departmentActions } from '../../../redux/slice/DepartmentSlice';
 
-const EditDepartmentModal = ({ department, onClose, onSuccess }) => {
+const EditDepartmentModal = ({ department, onClose }) => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     id: department.id,
@@ -26,14 +26,8 @@ const EditDepartmentModal = ({ department, onClose, onSuccess }) => {
 
   const handleSubmit = () => {
     dispatch(departmentActions.update(formData))
-      .then(() => {
-        onSuccess(); // Trigger success action in parent component
-        onClose(); // Close modal after successful update
-      })
-      .catch((error) => {
-        console.error('Error updating department:', error);
-        // Handle error if needed
-      });
+        onClose();
+     
   };
 
   return (

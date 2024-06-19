@@ -15,11 +15,6 @@ const SingleGetDepartment = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [formData, setFormData] = useState(null);
 
-  useEffect(() => {
-    if (id) {
-      dispatch(departmentActions.singleGet(id));
-    }
-  }, [dispatch, id]);
 
   const handleEditClick = () => {
     // Prepare formData here
@@ -34,12 +29,18 @@ const SingleGetDepartment = () => {
       totalStudents: department.totalStudents,
     });
     setShowEditModal(true);
+    
   };
 
   const handleModalClose = () => {
     setShowEditModal(false);
-    setFormData(null); // Clear formData when modal closes
+    setFormData(null);
   };
+  useEffect(() => {
+    if (id) {
+      dispatch(departmentActions.singleGet(id));
+    }
+  }, [dispatch, id]);
 
   if (loading) {
     return <div className="flex justify-center items-center h-screen">Loading...</div>;
