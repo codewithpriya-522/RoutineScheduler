@@ -120,7 +120,7 @@ public class TeacherController : BaseAPIController
         _unit.Teacher.UpdateAsync(insertedTeacher);
         await _unit.Complete();
 
-        return Ok(insertedTeacher);
+        return Ok(teacher);
     }
 
     /// <summary>
@@ -169,7 +169,7 @@ public class TeacherController : BaseAPIController
         _unit.Teacher.UpdateAsync(teacherToUpdate);
         await _unit.Complete();
 
-        return Ok("Successfully updated the Teacher");
+        return Ok(teacherData);
     }
 
     /// <summary>
