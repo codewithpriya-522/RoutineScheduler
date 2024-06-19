@@ -37,7 +37,7 @@ const HomeRouting = () => {
                     <Route path='/home/teachers/details/:id' element={<SingleGetTeacher />} />
                     <Route path='/home/users/details/:id' element={<SingleGetUser />} />
                     <Route path='/home/department' element={<GetAllDepartment />} />
-                    <Route path='/home/batch/details/:id' element={<SingleGetDepartment />} />
+                    <Route path='/home/department/details/:id' element={<SingleGetDepartment />} />
                     <Route path='/home/batch' element={<GetAllBatch />} />
                     <Route path='/home/batch/details/:id' element={<SingleGetBatch />} />
                 </Route>

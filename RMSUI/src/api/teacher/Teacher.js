@@ -9,10 +9,10 @@ const teacherApi = {
     singleGet(params){
         return axiosClient.get(`${urls.SINGLEGET_TEACHERS}/${params}`)
     },
-    // registration(params)
-    // {
-    //     return axiosClient.post(`${urls.REGISTRATION}`,params)
-    // }
+    update(params)
+    {
+        return axiosClient.put(`${urls.SINGLEGET_TEACHERS}`,params)
+    }
 };
 
 export default teacherApi;

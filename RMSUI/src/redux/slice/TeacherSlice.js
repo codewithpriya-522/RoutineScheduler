@@ -14,6 +14,9 @@ const teacherSlice = createSlice({
         singleGet: (state) => {
             state.isFetching = true;
         },
+        update: (state) => {
+            state.isFetching = true;
+        },
         teacherSuccess(state, action) {
             // console.log(action.payload.data)
             state.data = action.payload.data

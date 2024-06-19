@@ -9,10 +9,10 @@ const departmentApi = {
     singleGet(params){
         return axiosClient.get(`${urls.SINGLEGET_DEPARTMENT}/${params}`)
     },
-    // registration(params)
-    // {
-    //     return axiosClient.post(`${urls.REGISTRATION}`,params)
-    // }
+    update(params)
+    {
+        return axiosClient.put(`${urls.SINGLEGET_DEPARTMENT}`,params)
+    }
 };
 
 export default departmentApi;

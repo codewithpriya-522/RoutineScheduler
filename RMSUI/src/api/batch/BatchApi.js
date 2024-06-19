@@ -9,10 +9,10 @@ const batchApi = {
     singleGet(params){
         return axiosClient.get(`${urls.SINGLEGET_BATCH}/${params}`)
     },
-    // registration(params)
-    // {
-    //     return axiosClient.post(`${urls.REGISTRATION}`,params)
-    // }
+    update(params)
+    {
+        return axiosClient.put(`${urls.SINGLEGET_BATCH}`,params)
+    }
 };
 
 export default batchApi;
