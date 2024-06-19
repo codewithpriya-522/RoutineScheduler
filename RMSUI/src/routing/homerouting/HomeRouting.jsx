@@ -8,7 +8,6 @@ import ForgotPassword from '../../pages/forgotPassword/ForgotPassword'
 import Master from '../../pages/masterPage/master'
 import Dashboard from '../../pages/dashboard/dashboard'
 import GetAll from '../../pages/teachers/getall/GetAll'
-import WeeklySchedule from '../../pages/schedule/WeeklySchedule'
 import GetAllUser from '../../pages/user/getall/GetAllUser'
 import GetAllStudent from '../../pages/student/getall/GetAllStudent'
 import SingleGetStudent from '../../pages/student/singleGet/SingleGetStudent'
@@ -18,6 +17,7 @@ import GetAllBatch from '../../pages/batch/getall/GetAllBatch'
 import SingleGetBatch from '../../pages/batch/singleGet/SingleGetBatch'
 import GetAllDepartment from '../../pages/department/getall/GetAllDepartment'
 import SingleGetDepartment from '../../pages/department/singlegetdepartment/SingleGetDepartment'
+import GetAllSchedule from '../../pages/schedule/getall/GetAllSchedule'
 
 const HomeRouting = () => {
     return (
@@ -29,7 +29,7 @@ const HomeRouting = () => {
                 <Route path='/forgotPassword' element={<ForgotPassword />} />
                 <Route path='/home' element={<Master />} >
                     <Route index element={<Dashboard />} />
-                    <Route path='/home/schedule' element={<WeeklySchedule />} />
+                    <Route path='/home/schedule' element={<GetAllSchedule />} />
                     <Route path='/home/teachers' element={<GetAll />} />
                     <Route path='/home/users' element={<GetAllUser />} />
                     <Route path='/home/students' element={<GetAllStudent />} />
