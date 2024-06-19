@@ -140,7 +140,7 @@ public class StudentController(IUnitOfWork unit, IMapper mapper, UserManager<App
         studentToUpdate.AppUser.Email = student.Email;
         _unit.Student.UpdateAsync(studentToUpdate);
         await _unit.Complete();
-        return Ok("Successully updated the student");
+        return Ok(studentToUpdate);
     }
 
     /// <summary>

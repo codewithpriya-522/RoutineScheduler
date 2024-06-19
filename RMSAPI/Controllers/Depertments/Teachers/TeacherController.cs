@@ -120,7 +120,7 @@ public class TeacherController : BaseAPIController
         _unit.Teacher.UpdateAsync(insertedTeacher);
         await _unit.Complete();
 
-        return Ok("Teacher Added Successfully");
+        return Ok(insertedTeacher);
     }
 
     /// <summary>
