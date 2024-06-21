@@ -1,0 +1,6 @@
+@startuml
+class RefreshTokenDTO {
+    + UserName : string <<get>> <<set>>
+    + RefreshToken : string <<get>> <<set>>
+}
+@enduml

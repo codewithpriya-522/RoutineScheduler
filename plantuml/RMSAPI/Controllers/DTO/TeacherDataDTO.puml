@@ -1,0 +1,13 @@
+@startuml
+class TeacherDataDTO {
+    + Id : int <<get>> <<set>>
+    + FirstName : string <<get>> <<set>>
+    + LastName : string <<get>> <<set>>
+    + DepertmentName : string <<get>> <<set>>
+    + DepertmentID : int <<get>> <<set>>
+    + Email : string <<get>> <<set>>
+}
+class "ICollection`1"<T> {
+}
+TeacherDataDTO --> "Subjects<string>" "ICollection`1"
+@enduml

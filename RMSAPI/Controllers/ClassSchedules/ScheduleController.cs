@@ -61,7 +61,105 @@ public class ScheduleController(IUnitOfWork unit, IMapper mapper) : BaseAPIContr
         var weeklySchedule = await _unit.Schedule.GenerateWeeklyScheduleAsync(batchId);
         return Ok(weeklySchedule);
     }
+    [HttpPost("Save")]
+    public async Task<IActionResult> SaveSchedule(ScheduleDto data)
+    {
+        if (data == null) return BadRequest("Schedule data can't be null");
 
+        //generate a save method in service class
+        var batch = await _unit.Batch.GetById(data.BatchID);
+        foreach (var item in data.Monday)
+        {
+            var schedule = new CreateScheduleDto
+            {
+                BatchId = data.BatchID,
+                Day = DayOfWeek.Monday,
+                StartTime = item.StartTime.ToTimeSpan(),
+                EndTime = item.EndTime.ToTimeSpan(),
+                SubjectId = Convert.ToInt32(item.SubjectId),
+                TeacherId = item.TeacherId,
+            };
+
+            await _unit.Schedule.CreateScheduleAsync(schedule);
+            await _unit.Complete();
+        }
+        foreach (var item in data.Tuesday)
+        {
+            var schedule = new CreateScheduleDto
+            {
+                BatchId = data.BatchID,
+                Day = DayOfWeek.Tuesday,
+                StartTime = item.StartTime.ToTimeSpan(),
+                EndTime = item.EndTime.ToTimeSpan(),
+                SubjectId = Convert.ToInt32(item.SubjectId),
+                TeacherId = item.TeacherId,
+            };
+
+            await _unit.Schedule.CreateScheduleAsync(schedule);
+            await _unit.Complete();
+        }
+        foreach (var item in data.Thursday)
+        {
+            var schedule = new CreateScheduleDto
+            {
+                BatchId = data.BatchID,
+                Day = DayOfWeek.Thursday,
+                StartTime = item.StartTime.ToTimeSpan(),
+                EndTime = item.EndTime.ToTimeSpan(),
+                SubjectId = Convert.ToInt32(item.SubjectId),
+                TeacherId = item.TeacherId,
+            };
+
+            await _unit.Schedule.CreateScheduleAsync(schedule);
+            await _unit.Complete();
+        }
+        foreach (var item in data.Friday)
+        {
+            var schedule = new CreateScheduleDto
+            {
+                BatchId = data.BatchID,
+                Day = DayOfWeek.Friday,
+                StartTime = item.StartTime.ToTimeSpan(),
+                EndTime = item.EndTime.ToTimeSpan(),
+                SubjectId = Convert.ToInt32(item.SubjectId),
+                TeacherId = item.TeacherId,
+            };
+
+            await _unit.Schedule.CreateScheduleAsync(schedule);
+            await _unit.Complete();
+        }
+        foreach (var item in data.Saturday)
+        {
+            var schedule = new CreateScheduleDto
+            {
+                BatchId = data.BatchID,
+                Day = DayOfWeek.Saturday,
+                StartTime = item.StartTime.ToTimeSpan(),
+                EndTime = item.EndTime.ToTimeSpan(),
+                SubjectId = Convert.ToInt32(item.SubjectId),
+                TeacherId = item.TeacherId,
+            };
+
+            await _unit.Schedule.CreateScheduleAsync(schedule);
+            await _unit.Complete();
+        }
+        foreach (var item in data.Sunday)
+        {
+            var schedule = new CreateScheduleDto
+            {
+                BatchId = data.BatchID,
+                Day = DayOfWeek.Sunday,
+                StartTime = item.StartTime.ToTimeSpan(),
+                EndTime = item.EndTime.ToTimeSpan(),
+                SubjectId = Convert.ToInt32(item.SubjectId),
+                TeacherId = item.TeacherId,
+            };
+
+            await _unit.Schedule.CreateScheduleAsync(schedule);
+            await _unit.Complete();
+        }
+        return Ok("Schedule saved successfully");
+    }
     [HttpPost("timeslot")]
     public async Task<IActionResult> CreateTimeSlot([FromBody] TimeSlotDTO slot)
     {

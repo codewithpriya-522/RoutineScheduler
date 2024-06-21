@@ -1,0 +1,17 @@
+@startuml
+class TeacherController {
+    + TeacherController(unit:IUnitOfWork, mapper:IMapper, userManager:UserManager<AppUser>, roleManager:RoleManager<AppRole>)
+    + <<async>> GetById(id:int) : Task<IActionResult>
+    + <<async>> Create(teacher:TeacherDataDTO) : Task<IActionResult>
+    + <<async>> Update(teacherData:TeacherUpdateDataDTO) : Task<IActionResult>
+    + <<async>> Remove(id:int) : Task<IActionResult>
+    + <<async>> GetAll() : Task<IActionResult>
+}
+class "UserManager`1"<T> {
+}
+class "RoleManager`1"<T> {
+}
+BaseAPIController <|-- TeacherController
+TeacherController --> "_userManager<AppUser>" "UserManager`1"
+TeacherController --> "_roleManager<AppRole>" "RoleManager`1"
+@enduml

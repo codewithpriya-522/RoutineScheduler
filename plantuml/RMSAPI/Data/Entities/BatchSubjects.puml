@@ -1,0 +1,9 @@
+@startuml
+class BatchSubjects {
+    + Id : int <<get>> <<set>>
+    + BatchId : int <<get>> <<set>>
+    + SubjectId : int <<get>> <<set>>
+}
+BatchSubjects --> "Batch" Batch
+BatchSubjects --> "Subject" Subject
+@enduml

@@ -1,0 +1,7 @@
+@startuml
+interface IUserRepository {
+}
+class "IGenericRepository`1"<T> {
+}
+"IGenericRepository`1" "<AppUser>" <|-- IUserRepository
+@enduml

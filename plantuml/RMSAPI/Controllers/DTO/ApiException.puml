@@ -1,0 +1,8 @@
+@startuml
+class ApiException {
+    + ApiException(statusCode:int, message:string, details:string)
+    + StatusCode : int <<get>> <<set>>
+    + Message : string <<get>> <<set>>
+    + Details : string <<get>> <<set>>
+}
+@enduml

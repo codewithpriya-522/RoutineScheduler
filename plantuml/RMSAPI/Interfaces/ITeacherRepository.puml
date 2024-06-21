@@ -1,0 +1,7 @@
+@startuml
+interface ITeacherRepository {
+}
+class "IGenericRepository`1"<T> {
+}
+"IGenericRepository`1" "<Teacher>" <|-- ITeacherRepository
+@enduml

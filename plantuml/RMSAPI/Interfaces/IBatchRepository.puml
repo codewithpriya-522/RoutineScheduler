@@ -1,0 +1,7 @@
+@startuml
+interface IBatchRepository {
+}
+class "IGenericRepository`1"<T> {
+}
+"IGenericRepository`1" "<Batch>" <|-- IBatchRepository
+@enduml

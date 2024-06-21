@@ -1,0 +1,10 @@
+@startuml
+class CreateScheduleDto {
+    + BatchId : int <<get>> <<set>>
+    + SubjectId : int <<get>> <<set>>
+    + TeacherId : int <<get>> <<set>>
+}
+CreateScheduleDto --> "Day" DayOfWeek
+CreateScheduleDto --> "StartTime" TimeSpan
+CreateScheduleDto --> "EndTime" TimeSpan
+@enduml

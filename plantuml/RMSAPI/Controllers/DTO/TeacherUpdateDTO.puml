@@ -1,0 +1,9 @@
+@startuml
+class TeacherUpdateDataDTO {
+    + Id : int <<get>> <<set>>
+    + DepertmentID : int <<get>> <<set>>
+}
+class "ICollection`1"<T> {
+}
+TeacherUpdateDataDTO --> "Subjects<string>" "ICollection`1"
+@enduml

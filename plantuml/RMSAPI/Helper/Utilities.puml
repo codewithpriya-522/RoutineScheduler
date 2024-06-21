@@ -1,0 +1,11 @@
+@startuml
+class Utilities <<static>> {
+    + {static} RandomString(length:int) : string
+    + {static} IsNotNull(s:string) : bool
+    + {static} IsEmail(s:string) : bool
+    + {static} ToDateOnly(dateString:string, format:string) : DateOnly
+    + {static} ToString(date:DateOnly, format:string) : string
+    + {static} GenerateUsername(firstName:string, lastName:string) : string
+    + {static} GetFullName(firstname:string, lastname:string) : string
+}
+@enduml

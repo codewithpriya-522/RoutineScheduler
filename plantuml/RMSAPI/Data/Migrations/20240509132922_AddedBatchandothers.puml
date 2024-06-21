@@ -1,0 +1,5 @@
+@startuml
+class AddedBatchandothers <<partial>> {
+}
+Migration <|-- AddedBatchandothers
+@enduml

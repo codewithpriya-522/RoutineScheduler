@@ -1,0 +1,4 @@
+@startuml
+interface "IGenericRepository`1"<T> {
+}
+@enduml

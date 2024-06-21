@@ -1,0 +1,7 @@
+@startuml
+enum SubjectType {
+    Core,
+    Ge,
+    Practical,
+}
+@enduml

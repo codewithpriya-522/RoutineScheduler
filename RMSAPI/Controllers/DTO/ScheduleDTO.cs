@@ -2,6 +2,7 @@
 
 public class ScheduleDto
 {
+    public int BatchID { get; set; }
     public string BatchName { get; set; }
     public List<ScheduleEntryDto> Sunday { get; set; } = [];
     public List<ScheduleEntryDto> Monday { get; set; } = [];

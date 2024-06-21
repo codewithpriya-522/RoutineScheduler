@@ -1,0 +1,7 @@
+@startuml
+enum UserType {
+    Admin,
+    Teacher,
+    Student,
+}
+@enduml

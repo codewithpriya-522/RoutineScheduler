@@ -1,0 +1,13 @@
+@startuml
+class StudentDTO {
+    + Id : int <<get>> <<set>>
+    + BatchId : int <<get>> <<set>>
+    + BatchName : string <<get>> <<set>>
+    + Gender : string <<get>> <<set>>
+    + FirstName : string <<get>> <<set>>
+    + LastName : string <<get>> <<set>>
+    + Email : string <<get>> <<set>>
+    + KnownAs : string <<get>> <<set>>
+}
+StudentDTO --> "LastActive" DateTime
+@enduml

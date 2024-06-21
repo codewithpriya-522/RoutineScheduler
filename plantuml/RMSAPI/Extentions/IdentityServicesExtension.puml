@@ -1,0 +1,5 @@
+@startuml
+class IdentityServicesExtension <<static>> {
+    + {static} AddIdentitySerivces(services:IServiceCollection, config:IConfiguration) : IServiceCollection
+}
+@enduml

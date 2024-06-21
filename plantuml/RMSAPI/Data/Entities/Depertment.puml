@@ -1,0 +1,12 @@
+@startuml
+class Depertment {
+    + Id : int <<get>> <<set>>
+    + Name : string <<get>> <<set>>
+    + HeadOfDepartment : string <<get>> <<set>>
+    + Description : string <<get>> <<set>>
+}
+class "ICollection`1"<T> {
+}
+Depertment --> "Teachers<Teacher>" "ICollection`1"
+Depertment --> "Batches<Batch>" "ICollection`1"
+@enduml

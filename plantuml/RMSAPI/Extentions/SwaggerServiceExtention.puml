@@ -1,0 +1,5 @@
+@startuml
+class SwaggerServiceExtention <<static>> {
+    + {static} AddSwagger(services:IServiceCollection, configuration:IConfiguration) : IServiceCollection
+}
+@enduml

@@ -1,0 +1,24 @@
+@startuml
+class UserDTO {
+    + Id : int <<get>> <<set>>
+    + DateOfBirth : string <<get>> <<set>>
+    + KnownAs : string <<get>> <<set>>
+    + UserName : string <<get>> <<set>>
+    + Email : string <<get>> <<set>>
+    + Gender : string <<get>> <<set>>
+    + FirstName : string <<get>> <<set>>
+    + LastName : string <<get>> <<set>>
+    + IsActive : bool <<get>> <<set>> = true
+    + PhotoUrl : string <<get>> <<set>>
+    + Website : string <<get>> <<set>>
+    + Location : string <<get>> <<set>>
+    + Bio : string <<get>> <<set>>
+    + PreferredLanguage : string <<get>> <<set>>
+    + NotificationsEnabled : bool <<get>> <<set>> = true
+}
+class "List`1"<T> {
+}
+UserDTO o-> "Created" DateTime
+UserDTO o-> "LastActive" DateTime
+UserDTO --> "Roles<string>" "List`1"
+@enduml

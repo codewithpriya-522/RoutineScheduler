@@ -1,0 +1,5 @@
+@startuml
+class SeedDatabase <<static>> {
+    + {static} <<async>> SeedStaticData(app:WebApplication) : Task<WebApplication>
+}
+@enduml

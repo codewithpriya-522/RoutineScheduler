@@ -1,0 +1,9 @@
+@startuml
+class TeacherSubjects {
+    + Id : int <<get>> <<set>>
+    + TeacherID : int <<get>> <<set>>
+    + SubjectID : int <<get>> <<set>>
+}
+TeacherSubjects --> "Teacher" Teacher
+TeacherSubjects --> "Subject" Subject
+@enduml

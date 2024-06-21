@@ -1,0 +1,7 @@
+@startuml
+class TimeSlot {
+    + TimeSlotId : int <<get>> <<set>>
+}
+TimeSlot --> "StartTime" TimeSpan
+TimeSlot --> "EndTime" TimeSpan
+@enduml

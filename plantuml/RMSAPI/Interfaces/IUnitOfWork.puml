@@ -1,0 +1,5 @@
+@startuml
+interface IUnitOfWork {
+}
+IDisposable <|-- IUnitOfWork
+@enduml

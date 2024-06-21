@@ -1,0 +1,18 @@
+@startuml
+class ScheduleService {
+    + <<async>> AddTimeSlot(slot:TimeSlot) : Task
+    + <<async>> CreateScheduleAsync(createScheduleDto:CreateScheduleDto) : Task<bool>
+    + <<async>> DeleteScheduleAsync(scheduleId:int) : Task<bool>
+    + <<async>> GenerateWeeklyScheduleAsync(batchId:int) : Task<ScheduleDto>
+    + <<async>> GetAllTimeSlot() : Task<IEnumerable<TimeSlot>>
+    + <<async>> GetDailyScheduleAsync(batchId:int, day:DayOfWeek) : Task<IEnumerable<ScheduleEntryDto>>
+    + <<async>> GetDepartmentWiseRoutineAsync(departmentId:int) : Task<IEnumerable<ScheduleDto>>
+    + <<async>> GetFreeScheduleForTeacherAsync(teacherId:int, departmentId:int) : Task<IEnumerable<ScheduleEntryDto>>
+    + <<async>> RemoveTimeSlot(Id:int) : Task
+    + <<async>> UpdateScheduleAsync(updateScheduleDto:UpdateScheduleDto) : Task<bool>
+}
+class "GenericRepository`1"<T> {
+}
+"GenericRepository`1" "<Schedule>" <|-- ScheduleService
+IScheduleService <|-- ScheduleService
+@enduml

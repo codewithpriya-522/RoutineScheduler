@@ -1,0 +1,12 @@
+@startuml
+class AppUserDTO {
+    + PhotoUrl : string <<get>> <<set>>
+    + KnownAs : string <<get>> <<set>>
+    + Gender : string <<get>> <<set>>
+    + UserName : string <<get>> <<set>>
+    + JWTToken : string <<get>> <<set>>
+    + RefreshToken : string <<get>> <<set>>
+    + Email : string <<get>> <<set>>
+}
+AppUserDTO --> "RefreshTokenExpires" DateTime
+@enduml

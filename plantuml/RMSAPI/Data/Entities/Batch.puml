@@ -1,0 +1,16 @@
+@startuml
+class Batch {
+    + Id : int <<get>> <<set>>
+    + Name : string <<get>> <<set>>
+    + DepartmentId : int <<get>> <<set>>
+}
+class "ICollection`1"<T> {
+}
+Batch --> "StartDate" DateTime
+Batch --> "EndDate" DateTime
+Batch --> "Department" Depertment
+Batch --> "BatchSubjects<BatchSubjects>" "ICollection`1"
+Batch --> "BatchStudents<Student>" "ICollection`1"
+Batch --> "Schedules<Schedule>" "ICollection`1"
+Batch --> "Routines<Routine>" "ICollection`1"
+@enduml

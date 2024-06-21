@@ -1,0 +1,6 @@
+@startuml
+class TimeSlotExtensions <<static>> {
+    + {static} ToTimeSpan(timeString:string) : TimeSpan
+    + {static} ToTimeString(timeSpan:TimeSpan, use24HourFormat:bool) : string
+}
+@enduml

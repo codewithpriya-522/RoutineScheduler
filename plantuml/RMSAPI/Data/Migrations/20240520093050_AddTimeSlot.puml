@@ -1,0 +1,5 @@
+@startuml
+class AddTimeSlot <<partial>> {
+}
+Migration <|-- AddTimeSlot
+@enduml

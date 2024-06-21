@@ -1,0 +1,11 @@
+@startuml
+class AuthController {
+    + AuthController(userManager:UserManager<AppUser>, tokenService:ITokenService, roleManager:RoleManager<AppRole>, unit:IUnitOfWork, mapper:IMapper)
+    + <<async>> Register(register:RegisterDTO) : Task<ActionResult<AppUserDTO>>
+    + <<async>> Refresh(refresh:RefreshTokenDTO) : Task<ActionResult<AppUserDTO>>
+    + <<async>> Login(login:LoginDTO) : Task<ActionResult<AppUserDTO>>
+    + <<async>> ForgetPassword(model:ForgetPasswordDTO) : Task<ActionResult<UserDTO>>
+    + <<async>> GenerateResetToken(model:ForgetPasswordDTO) : Task<ActionResult<ForgetPasswordDTO>>
+}
+BaseAPIController <|-- AuthController
+@enduml

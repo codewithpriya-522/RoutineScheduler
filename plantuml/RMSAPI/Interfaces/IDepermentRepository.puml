@@ -1,0 +1,7 @@
+@startuml
+interface IDepermentRepository {
+}
+class "IGenericRepository`1"<T> {
+}
+"IGenericRepository`1" "<Depertment>" <|-- IDepermentRepository
+@enduml

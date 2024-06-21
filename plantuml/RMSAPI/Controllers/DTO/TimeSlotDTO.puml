@@ -1,0 +1,7 @@
+@startuml
+class TimeSlotDTO {
+    + TimeSlotId : int <<get>> <<set>>
+    + StartTime : string <<get>> <<set>>
+    + EndTime : string <<get>> <<set>>
+}
+@enduml

@@ -1,0 +1,14 @@
+@startuml
+class UserController {
+    + UserController(unit:IUnitOfWork, mapper:IMapper, userManager:UserManager<AppUser>, roleManager:RoleManager<AppRole>)
+    + <<async>> GetById(id:int) : Task<IActionResult>
+    + <<async>> GetByEmail(email:string) : Task<IActionResult>
+    + <<async>> GetAll() : Task<IActionResult>
+    + <<async>> Create(entity:UserDTO) : Task<IActionResult>
+    + AddRange(entities:IEnumerable<AppUser>) : IActionResult
+    + <<async>> Remove(id:int) : Task<IActionResult>
+    + RemoveRange(entities:IEnumerable<AppUser>) : IActionResult
+    + <<async>> GetUserInRole(roleName:string) : Task<IActionResult>
+}
+BaseAPIController <|-- UserController
+@enduml
