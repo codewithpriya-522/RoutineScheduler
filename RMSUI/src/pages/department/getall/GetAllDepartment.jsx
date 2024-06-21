@@ -12,7 +12,6 @@ const GetAllDepartment = () => {
   const [dataTable, setDataTable] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
-
   useEffect(() => {
     dispatch(departmentActions.getall());
   }, [dispatch]);
@@ -27,7 +26,6 @@ const GetAllDepartment = () => {
       setDataTable(selector.data);
     }
   }, [selector]);
-
   // eslint-disable-next-line no-unused-vars
   const navigate = useNavigate();
 
@@ -63,7 +61,9 @@ const GetAllDepartment = () => {
           </thead>
           <tbody>
             {currentItems.map((item) => (
-              <tr key={item.id} className="hover:bg-gray-50">
+              <tr key={item.id} className="hover:bg-gray-50" onClick={()=>{
+                navigate(`/home/department/details/${item.id}`)
+              }}>
                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{item.name}</td>
                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{item.headOfDepartment}</td>
                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{item.description}</td>

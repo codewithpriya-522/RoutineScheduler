@@ -19,7 +19,17 @@ function* singleGet(action){
         yield put(studentActions.studentFailed(error.message))
     }
   }
+  function* update(action) {
+    try {
+      const response = yield call(studentApi.update, action.payload);
+      yield put(studentActions.studentSuccess(response.data));
+    } catch (error) {
+      yield put(studentActions.studentFailed(error.message));
+    }
+  }
+
 export default function* studentSaga() {
     yield takeLatest(studentActions.getall.type, getall);
     yield takeLatest(studentActions.singleGet.type, singleGet);
+    yield takeLatest(studentActions.update.type, update);
 }

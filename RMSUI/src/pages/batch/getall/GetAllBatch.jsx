@@ -65,7 +65,9 @@ const GetAllBatch = () => {
           </thead>
           <tbody>
             {currentItems.map((item) => (
-              <tr key={item.id} className="hover:bg-gray-50">
+              <tr key={item.id} className="hover:bg-gray-50" onClick={()=>{
+                navigate(`/home/batch/details/${item.id}`)
+              }}>
                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{item.name}</td>
                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{new Date(item.startDate).toLocaleDateString()}</td>
                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{new Date(item.endDate).toLocaleDateString()}</td>

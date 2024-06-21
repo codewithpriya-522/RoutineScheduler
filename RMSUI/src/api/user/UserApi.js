@@ -8,10 +8,10 @@ const userApi = {
     singleGet(params){
         return axiosClient.get(`${urls.GETALL_USERS}/${params}`)
     },
-    // registration(params)
-    // {
-    //     return axiosClient.post(`${urls.REGISTRATION}`,params)
-    // }
+    update(params)
+    {
+        return axiosClient.put(`${urls.SINGLEGET_USERS}`,params)
+    }
 };
 
 export default userApi;

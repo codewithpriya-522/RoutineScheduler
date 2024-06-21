@@ -14,6 +14,9 @@ const departmentSlice = createSlice({
         singleGet: (state) => {
             state.isFetching = true;
         },
+        update: (state) => {
+            state.isFetching = true;
+        },
         departmentSuccess(state, action) {
             // console.log(action.payload.data)
             state.data = action.payload.data

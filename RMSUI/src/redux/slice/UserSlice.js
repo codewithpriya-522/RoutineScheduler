@@ -14,6 +14,9 @@ const userSlice = createSlice({
         singleGet: (state) => {
             state.isFetching = true;
         },
+        update: (state) => {
+            state.isFetching = true;
+        },
         userSuccess(state, action) {
             // console.log(action.payload.data)
             state.data = action.payload.data

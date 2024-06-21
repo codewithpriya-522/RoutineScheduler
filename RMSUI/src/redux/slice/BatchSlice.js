@@ -14,6 +14,9 @@ const batchSlice = createSlice({
         singleGet: (state) => {
             state.isFetching = true;
         },
+        update: (state) => {
+            state.isFetching = true;
+        },
         batchSuccess(state, action) {
             // console.log(action.payload.data)
             state.data = action.payload.data

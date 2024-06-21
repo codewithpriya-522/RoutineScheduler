@@ -124,7 +124,7 @@ public class BatchController : BaseAPIController
         }
         _unit.Batch.UpdateAsync(batchToUpdate);
         await _unit.Complete();
-        return Ok("Successully updated the Batch");
+        return Ok(batch);
     }
 
     /// <summary>
