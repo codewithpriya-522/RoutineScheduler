@@ -12,5 +12,6 @@ export const urls = {
   SINGLEGET_BATCH:'/Batch',
   GETALL_SCHEDULE:'/Schedule/department',
   GENERATE_SCHEDULE_BYBATCH:'/Schedule/weekly',
+  SCHEDULE_SAVE:'/Schedule/Save'
 } 
 

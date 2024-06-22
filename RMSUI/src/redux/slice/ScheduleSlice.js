@@ -20,6 +20,9 @@ const scheduleSlice = createSlice({
         update: (state) => {
             state.isFetching = true;
         },
+        save: (state) => {
+            state.isFetching = true;
+        },
         scheduleSuccess(state, action) {
             // console.log(action.payload.data)
             state.data = action.payload.data

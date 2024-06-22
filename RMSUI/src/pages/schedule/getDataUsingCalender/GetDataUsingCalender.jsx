@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +8,7 @@ import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
 import enUS from 'date-fns/locale/en-US';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import jsPDF from 'jspdf';
 import { batchActions } from '../../../redux/slice/BatchSlice';
 import { scheduleActions } from '../../../redux/slice/ScheduleSlice';
 import batchSelector from '../../../redux/selector/BatchSelector';
@@ -97,6 +97,10 @@ const GetDataUsingCalender = () => {
   const [showCalendar, setShowCalendar] = useState(false); // State to control calendar visibility
   const [events, setEvents] = useState([]); // State to store events for the calendar
   const [selectedEvent, setSelectedEvent] = useState(null); // State to track selected event for modal
+  const [showSaveButton, setShowSaveButton] = useState(false); // State to control save button visibility
+  const [view, setView] = useState('week'); // State to track the current view
+
+  const calendarRef = React.createRef(); // Reference to the calendar component
 
   // Fetch batch data when component mounts
   useEffect(() => {
@@ -118,8 +122,10 @@ const GetDataUsingCalender = () => {
     if (schedules && schedules.data && typeof schedules.data === 'object') {
       setShowCalendar(true);
       setEvents(transformSchedulesToEvents(schedules.data));
+      setShowSaveButton(true); // Show save button when schedules are generated
     } else {
       setShowCalendar(false);
+      setShowSaveButton(false); // Hide save button if no schedules are available
     }
   }, [schedules]);
 
@@ -140,6 +146,19 @@ const GetDataUsingCalender = () => {
     }
   };
 
+  // Handler for saving the generated schedule
+  const handleSaveClick = async () => {
+    if (schedules && schedules.data) {
+      try {
+        console.log("Dispatching scheduleActions.save() with:", schedules.data);
+        await dispatch(scheduleActions.save(schedules.data));
+        alert('Schedule saved successfully');
+      } catch (error) {
+        console.error('Error saving schedule:', error);
+      }
+    }
+  };
+
   // Handler for selecting an event on the calendar
   const handleEventSelect = (event) => {
     setSelectedEvent(event);
@@ -148,6 +167,92 @@ const GetDataUsingCalender = () => {
   // Handler for closing the event details modal
   const handleCloseModal = () => {
     setSelectedEvent(null);
+  };
+
+  // Handler for exporting the schedule as a PDF
+  const handleExportPDF = () => {
+    const pdf = new jsPDF();
+    pdf.setFontSize(16);
+
+    if (view === 'week') {
+      pdf.text('Weekly Schedule', 20, 10);
+      pdf.setFontSize(12);
+
+      const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+      let yPosition = 20;
+
+      daysOfWeek.forEach((day, index) => {
+        // Add day heading
+        pdf.setFontSize(14);
+        pdf.setTextColor(0, 0, 255);
+        pdf.text(day, 20, yPosition);
+        pdf.setFontSize(12);
+        pdf.setTextColor(0);
+        yPosition += 10;
+
+        // Filter events for the current day
+        const dayEvents = events.filter(event => event.start.getDay() === index);
+
+        if (dayEvents.length > 0) {
+          // Add events for the current day
+          dayEvents.forEach(event => {
+            const startDate = event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const endDate = event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const eventData = `Subject: ${event.title}\nType: ${event.subjectType}\nTeacher: ${event.teacherName}\nStart: ${startDate}\nEnd: ${endDate}\n`;
+
+            // Add structured layout for each event
+            pdf.setFillColor(240);
+            pdf.setDrawColor(0);
+            pdf.roundedRect(15, yPosition - 5, 180, 30, 3, 3, 'FD'); // Rounded rectangle for event block
+            pdf.setTextColor(0);
+            pdf.text(eventData, 20, yPosition);
+
+            yPosition += 40;
+
+            // Add a new page if necessary
+            if (yPosition > 280) {
+              pdf.addPage();
+              yPosition = 10;
+            }
+          });
+        } else {
+          // Add "No class available" message if no events for the current day
+          pdf.text("No class available", 20, yPosition);
+          yPosition += 20;
+        }
+        
+        yPosition += 10; // Space between days
+      });
+    } else if (view === 'day') {
+      pdf.text('Daily Schedule', 20, 10);
+      pdf.setFontSize(12);
+
+      let yPosition = 20;
+
+      // Filter events for today
+      const today = new Date().getDay();
+      const todayEvents = events.filter(event => event.start.getDay() === today);
+
+      if (todayEvents.length > 0) {
+        todayEvents.forEach(event => {
+          const startDate = event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          const endDate = event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          const eventData = `Subject: ${event.title}\nType: ${event.subjectType}\nTeacher: ${event.teacherName}\nStart: ${startDate}\nEnd: ${endDate}\n\n`;
+
+          if (yPosition > 280) {
+            pdf.addPage();
+            yPosition = 10;
+          }
+          pdf.text(eventData, 20, yPosition);
+          yPosition += 30;
+        });
+      } else {
+        pdf.text("No class available today", 20, yPosition);
+      }
+    }
+
+    pdf.save(`${view}_schedule.pdf`);
   };
 
   return (
@@ -170,8 +275,26 @@ const GetDataUsingCalender = () => {
         </button>
       </div>
       {/* Render calendar if showCalendar is true */}
+      {showSaveButton && (
+        <div>
+          <button
+            onClick={handleSaveClick}
+            className="mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            type="button"
+          >
+            Save
+          </button>
+          <button
+            onClick={handleExportPDF}
+            className="mt-4 ml-2 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            type="button"
+          >
+            Export as PDF
+          </button>
+        </div>
+      )}
       {showCalendar && (
-        <div className="mt-6">
+        <div ref={calendarRef} className="mt-6">
           {/* Display batch name */}
           <h2 className="text-2xl font-bold">Batch: {schedules.data.batchName}</h2>
           {/* Render calendar component */}
@@ -183,6 +306,7 @@ const GetDataUsingCalender = () => {
             style={{ height: 500 }}
             onSelectEvent={handleEventSelect}
             defaultView='week'
+            onView={(view) => setView(view)} // Update the view state
           />
         </div>
       )}

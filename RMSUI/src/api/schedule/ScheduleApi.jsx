@@ -9,6 +9,9 @@ const scheduleApi = {
     generate (id){
         return axiosClient.get(`${urls.GENERATE_SCHEDULE_BYBATCH}/${id}`);
     },
+    save(params) {
+        return axiosClient.post(`${urls.SCHEDULE_SAVE}`, params);
+    },
 };
 
 export default scheduleApi;

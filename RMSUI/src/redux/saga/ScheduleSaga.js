@@ -18,8 +18,16 @@ function* generate(action) {
         yield put(scheduleActions.scheduleFailed(error.message));
     }
 }
-
+function* save(action) {
+    try {
+        const response = yield call(scheduleApi.save, action.payload);
+        yield put(scheduleActions.scheduleSuccess(response));
+    } catch (error) {
+        yield put(scheduleActions.scheduleFailed(error.message));
+    }
+}
 export default function* scheduleSaga() {
     yield takeLatest(scheduleActions.getall.type, getall);
     yield takeLatest(scheduleActions.generate.type, generate);
+    yield takeLatest(scheduleActions.save.type, save);
 }
