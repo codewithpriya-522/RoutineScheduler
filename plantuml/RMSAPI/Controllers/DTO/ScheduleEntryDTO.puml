@@ -1,0 +1,11 @@
+@startuml
+class ScheduleEntryDto {
+    + SubjectId : string <<get>> <<set>>
+    + SubjectName : string <<get>> <<set>>
+    + SubjectType : string <<get>> <<set>>
+    + TeacherName : string <<get>> <<set>>
+    + TeacherId : int <<get>> <<set>>
+    + StartTime : string <<get>> <<set>>
+    + EndTime : string <<get>> <<set>>
+}
+@enduml

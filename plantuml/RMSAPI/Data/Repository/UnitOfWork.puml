@@ -1,0 +1,15 @@
+@startuml
+class UnitOfWork {
+    + UnitOfWork(context:DataContext, logger:ILogger<UnitOfWork>, mapper:IMapper)
+    + <<async>> Complete() : Task<bool>
+    + HasChanges() : bool
+}
+IUnitOfWork <|-- UnitOfWork
+UnitOfWork --> "User" IUserRepository
+UnitOfWork --> "Deperment" IDepermentRepository
+UnitOfWork --> "Teacher" ITeacherRepository
+UnitOfWork --> "Subjects" ISubjectRepository
+UnitOfWork --> "Batch" IBatchRepository
+UnitOfWork --> "Student" IStudentRepository
+UnitOfWork --> "Schedule" IScheduleService
+@enduml

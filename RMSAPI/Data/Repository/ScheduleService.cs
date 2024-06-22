@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using RMSAPI.Controllers.DTO;
 using RMSAPI.Data.Entities;
 using RMSAPI.Helper;
@@ -39,9 +40,18 @@ public class ScheduleService(DataContext context) : GenericRepository<Schedule>(
             SubjectId = createScheduleDto.SubjectId,
             TeacherId = createScheduleDto.TeacherId
         };
+        // Adding forgain keys
 
+        var batch = await _context.Batches.Include(b=> b.Department).SingleOrDefaultAsync(b => b.Id == createScheduleDto.BatchId);
+        var teacher = await _context.Teachers.SingleOrDefaultAsync(t => t.Id == createScheduleDto.TeacherId);
+        var subject = await _context.Subjects.SingleOrDefaultAsync(s => s.Id == createScheduleDto.SubjectId);
+      
+        newSchedule.Teacher = teacher;
+        newSchedule.Batch = batch;
+        newSchedule.Subject = subject;
+        newSchedule.Depertment = batch.Department;
+        newSchedule.DepertmentID = batch.DepartmentId;
         _context.Schedules.Add(newSchedule);
-        await _context.SaveChangesAsync();
 
         return true;
     }
@@ -149,6 +159,7 @@ public class ScheduleService(DataContext context) : GenericRepository<Schedule>(
 
         var scheduleDto = new ScheduleDto
         {
+            BatchID = batchId,
             BatchName = batch?.Name,
             Sunday = [],
             Monday = [],
@@ -256,6 +267,8 @@ public class ScheduleService(DataContext context) : GenericRepository<Schedule>(
         var schedules = await _context.Schedules
             .Include(s => s.Subject)
             .Include(s => s.Teacher)
+            .Include(s=> s.Teacher)
+            .ThenInclude(s=> s.AppUser)
             .Where(s => s.BatchId == batchId && s.Day == day)
             .ToListAsync();
 
@@ -289,6 +302,7 @@ public class ScheduleService(DataContext context) : GenericRepository<Schedule>(
             var schedules = await _context.Schedules
                 .Include(s => s.Subject)
                 .Include(s => s.Teacher)
+                .ThenInclude(s=> s.AppUser)
                 .Where(s => s.BatchId == batch.Id)
                 .ToListAsync();
 

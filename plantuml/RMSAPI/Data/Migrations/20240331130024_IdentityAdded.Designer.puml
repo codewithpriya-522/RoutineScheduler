@@ -1,0 +1,4 @@
+@startuml
+class IdentityAdded <<partial>> {
+}
+@enduml

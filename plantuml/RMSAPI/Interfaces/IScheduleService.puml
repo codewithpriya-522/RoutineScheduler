@@ -1,0 +1,7 @@
+@startuml
+interface IScheduleService {
+}
+class "IGenericRepository`1"<T> {
+}
+"IGenericRepository`1" "<Schedule>" <|-- IScheduleService
+@enduml

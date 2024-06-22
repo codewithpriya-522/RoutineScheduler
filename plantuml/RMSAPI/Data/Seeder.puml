@@ -1,0 +1,5 @@
+@startuml
+class Seeder {
+    + {static} <<async>> SeedUsers(userManager:UserManager<AppUser>, roleManager:RoleManager<AppRole>, context:DataContext) : Task
+}
+@enduml

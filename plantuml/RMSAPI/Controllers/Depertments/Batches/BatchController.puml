@@ -1,0 +1,11 @@
+@startuml
+class BatchController {
+    + BatchController(unit:IUnitOfWork, mapper:IMapper)
+    + <<async>> GetById(id:int) : Task<IActionResult>
+    + <<async>> Create(dept:BatchDataDTO) : Task<IActionResult>
+    + <<async>> Update(batch:BatchDataDTO) : Task<IActionResult>
+    + <<async>> Remove(id:int) : Task<IActionResult>
+    + <<async>> GetAll() : Task<IActionResult>
+}
+BaseAPIController <|-- BatchController
+@enduml

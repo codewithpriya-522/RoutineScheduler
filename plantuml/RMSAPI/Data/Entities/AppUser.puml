@@ -1,0 +1,39 @@
+@startuml
+class AppUser {
+    + KnownAs : string <<get>> <<set>>
+    + Gender : string <<get>> <<set>>
+    + Introduction : string <<get>> <<set>>
+    + LookingFor : string <<get>> <<set>>
+    + Interests : string <<get>> <<set>>
+    + City : string <<get>> <<set>>
+    + Country : string <<get>> <<set>>
+    + FirstName : string <<get>> <<set>>
+    + LastName : string <<get>> <<set>>
+    + IsDeleted : bool <<get>> <<set>> = false
+    + IsActive : bool <<get>> <<set>> = true
+    + Website : string <<get>> <<set>>
+    + Location : string <<get>> <<set>>
+    + Bio : string <<get>> <<set>>
+    + PreferredLanguage : string <<get>> <<set>>
+    + NotificationsEnabled : bool <<get>> <<set>> = true
+    + ContentPreferences : string <<get>> <<set>>
+    + PasswordResetToken : string <<get>> <<set>>
+    + LastLoginIp : string <<get>> <<set>>
+    + RefreshToken : string <<get>> <<set>>
+}
+class "IdentityUser`1"<T> {
+}
+class "List`1"<T> {
+}
+class "ICollection`1"<T> {
+}
+"IdentityUser`1" "<int>" <|-- AppUser
+AppUser --> "DateOfBirth" DateOnly
+AppUser --> "Created" DateTime
+AppUser o-> "LastActive" DateTime
+AppUser --> "Photos<Photo>" "List`1"
+AppUser --> "UserRoles<AppUserRole>" "ICollection`1"
+AppUser --> "Theme" Theme
+AppUser --> "RefreshTokenExpiryTime" DateTime
+AppUser --> "Type" UserType
+@enduml

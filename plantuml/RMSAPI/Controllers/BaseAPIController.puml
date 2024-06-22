@@ -1,0 +1,6 @@
+@startuml
+class BaseAPIController {
+    + BaseAPIController(unit:IUnitOfWork, mapper:IMapper)
+}
+ControllerBase <|-- BaseAPIController
+@enduml

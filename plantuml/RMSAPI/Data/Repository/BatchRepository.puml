@@ -1,0 +1,11 @@
+@startuml
+class BatchRepository {
+    + <<async>> IsSubjectInBatchExist(name:string, batchId:int) : Task<bool>
+    + <<async>> IsBatchStudent(batchID:int, StudnetID:int) : Task<bool>
+    + <<async>> GetAllAsync() : Task<IEnumerable<Batch>>
+}
+class "GenericRepository`1"<T> {
+}
+"GenericRepository`1" "<Batch>" <|-- BatchRepository
+IBatchRepository <|-- BatchRepository
+@enduml

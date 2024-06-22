@@ -1,0 +1,10 @@
+@startuml
+class Routine {
+    + RoutineId : int <<get>> <<set>>
+    + BatchId : int <<get>> <<set>>
+}
+class "ICollection`1"<T> {
+}
+Routine --> "Schedules<Schedule>" "ICollection`1"
+Routine --> "Batch" Batch
+@enduml

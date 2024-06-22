@@ -1,0 +1,10 @@
+@startuml
+class Photo {
+    + Id : int <<get>> <<set>>
+    + Url : string <<get>> <<set>>
+    + IsMain : bool <<get>> <<set>>
+    + PublicId : string <<get>> <<set>>
+    + AppUserId : int <<get>> <<set>>
+}
+Photo --> "AppUser" AppUser
+@enduml

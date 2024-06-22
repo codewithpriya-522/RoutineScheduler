@@ -1,0 +1,11 @@
+@startuml
+class Subject {
+    + Id : int <<get>> <<set>>
+    + Name : string <<get>> <<set>>
+}
+class "ICollection`1"<T> {
+}
+Subject --> "Type" SubjectType
+Subject --> "BatchSubjects<BatchSubjects>" "ICollection`1"
+Subject --> "SubjectTeachers<TeacherSubjects>" "ICollection`1"
+@enduml

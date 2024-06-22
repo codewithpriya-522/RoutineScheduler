@@ -1,0 +1,12 @@
+@startuml
+class Teacher {
+    + Id : int <<get>> <<set>>
+    + AppUserId : int <<get>> <<set>>
+    + DepartmentId : int <<get>> <<set>>
+}
+class "ICollection`1"<T> {
+}
+Teacher --> "AppUser" AppUser
+Teacher --> "Department" Depertment
+Teacher --> "TeacherSubjects<TeacherSubjects>" "ICollection`1"
+@enduml

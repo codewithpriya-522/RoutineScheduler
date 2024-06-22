@@ -1,0 +1,18 @@
+@startuml
+class StudentDataDTO {
+    + Id : int <<get>> <<set>>
+    + BatchId : int <<get>> <<set>>
+    + BatchName : string <<get>> <<set>>
+    + DateOfBirth : string <<get>> <<set>>
+    + KnownAs : string <<get>> <<set>>
+    + Created : string <<get>> <<set>>
+    + Gender : string <<get>> <<set>>
+    + FirstName : string <<get>> <<set>>
+    + LastName : string <<get>> <<set>>
+    + Email : string <<get>> <<set>>
+}
+class "List`1"<T> {
+}
+StudentDataDTO --> "LastActive" DateTime
+StudentDataDTO --> "StudentSubjects<string>" "List`1"
+@enduml

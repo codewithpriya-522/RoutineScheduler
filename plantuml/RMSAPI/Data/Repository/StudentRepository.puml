@@ -1,0 +1,10 @@
+@startuml
+class StudentRepository {
+    + StudentRepository(context:DataContext, mapper:IMapper)
+    + <<async>> GetAllStudents() : Task<List<StudentDTO>>
+}
+class "GenericRepository`1"<T> {
+}
+"GenericRepository`1" "<Student>" <|-- StudentRepository
+IStudentRepository <|-- StudentRepository
+@enduml

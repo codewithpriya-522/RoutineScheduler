@@ -1,0 +1,16 @@
+@startuml
+class Schedule {
+    + ScheduleId : int <<get>> <<set>>
+    + BatchId : int <<get>> <<set>>
+    + SubjectId : int <<get>> <<set>>
+    + TeacherId : int <<get>> <<set>>
+    + DepertmentID : int <<get>> <<set>>
+}
+Schedule --> "Day" DayOfWeek
+Schedule --> "StartTime" TimeSpan
+Schedule --> "EndTime" TimeSpan
+Schedule --> "Depertment" Depertment
+Schedule --> "Batch" Batch
+Schedule --> "Subject" Subject
+Schedule --> "Teacher" Teacher
+@enduml

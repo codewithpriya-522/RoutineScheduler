@@ -1,0 +1,12 @@
+@startuml
+class StudentController {
+    + <<async>> GetById(id:int) : Task<IActionResult>
+    + <<async>> Create(student:StudentDataDTO) : Task<IActionResult>
+    + <<async>> Update(student:StudentDTO) : Task<IActionResult>
+    + <<async>> Remove(id:int) : Task<IActionResult>
+    + <<async>> GetAll() : Task<IActionResult>
+}
+class "UserManager`1"<T> {
+}
+BaseAPIController <|-- StudentController
+@enduml

@@ -1,0 +1,12 @@
+@startuml
+class DepertmentDataDTO {
+    + Id : int <<get>> <<set>>
+    + Name : string <<get>> <<set>>
+    + HeadOfDepartment : string <<get>> <<set>>
+    + Description : string <<get>> <<set>>
+    + TotalTeachers : int <<get>> <<set>>
+    + TotalBatches : int <<get>> <<set>>
+    + TotalSubjects : int <<get>> <<set>>
+    + TotalStudents : int <<get>> <<set>>
+}
+@enduml

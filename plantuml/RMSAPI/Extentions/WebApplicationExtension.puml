@@ -1,0 +1,5 @@
+@startuml
+class WebApplicationExtension <<static>> {
+    + {static} BuildRMS(app:WebApplication) : WebApplication
+}
+@enduml

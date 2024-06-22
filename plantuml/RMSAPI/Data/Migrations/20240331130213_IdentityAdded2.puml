@@ -1,0 +1,5 @@
+@startuml
+class IdentityAdded2 <<partial>> {
+}
+Migration <|-- IdentityAdded2
+@enduml

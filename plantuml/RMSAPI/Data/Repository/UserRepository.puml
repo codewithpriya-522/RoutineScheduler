@@ -1,0 +1,9 @@
+@startuml
+class UserRepository {
+    + UserRepository(context:DataContext)
+}
+class "GenericRepository`1"<T> {
+}
+"GenericRepository`1" "<AppUser>" <|-- UserRepository
+IUserRepository <|-- UserRepository
+@enduml

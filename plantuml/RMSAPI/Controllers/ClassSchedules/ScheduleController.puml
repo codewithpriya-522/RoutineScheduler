@@ -1,0 +1,14 @@
+@startuml
+class ScheduleController {
+    + <<async>> GetDailySchedule(batchId:int, day:DayOfWeek) : Task<IActionResult>
+    + <<async>> GetDepartmentWiseRoutine(departmentId:int) : Task<IActionResult>
+    + <<async>> UpdateSchedule(updateScheduleDto:UpdateScheduleDto) : Task<IActionResult>
+    + <<async>> GetFreeScheduleForTeacher(teacherId:int, departmentId:int) : Task<IActionResult>
+    + <<async>> DeleteSchedule(scheduleId:int) : Task<IActionResult>
+    + <<async>> GenerateWeeklySchedule(batchId:int) : Task<IActionResult>
+    + <<async>> CreateTimeSlot(slot:TimeSlotDTO) : Task<IActionResult>
+    + <<async>> GetallTimeSlot() : Task<IActionResult>
+    + <<async>> RemoveTimeSlot(id:int) : Task<IActionResult>
+}
+BaseAPIController <|-- ScheduleController
+@enduml

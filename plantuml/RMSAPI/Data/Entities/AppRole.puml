@@ -1,0 +1,10 @@
+@startuml
+class AppRole {
+}
+class "IdentityRole`1"<T> {
+}
+class "ICollection`1"<T> {
+}
+"IdentityRole`1" "<int>" <|-- AppRole
+AppRole --> "UserRoles<AppUserRole>" "ICollection`1"
+@enduml

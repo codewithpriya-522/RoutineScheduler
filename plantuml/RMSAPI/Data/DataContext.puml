@@ -1,0 +1,18 @@
+@startuml
+class DataContext {
+}
+class "IdentityDbContext`8"<T1,T2,T3,T4,T5,T6,T7,T8> {
+}
+class "DbSet`1"<T> {
+}
+"IdentityDbContext`8" "<AppUser,AppRole,int,IdentityUserClaim<int>,AppUserRole,IdentityUserLogin<int>,IdentityRoleClaim<int>,IdentityUserToken<int>>" <|-- DataContext
+DataContext --> "Departments<Depertment>" "DbSet`1"
+DataContext --> "Batches<Batch>" "DbSet`1"
+DataContext --> "Teachers<Teacher>" "DbSet`1"
+DataContext --> "Students<Student>" "DbSet`1"
+DataContext --> "Subjects<Subject>" "DbSet`1"
+DataContext --> "BatchSubjects<BatchSubjects>" "DbSet`1"
+DataContext --> "TeacherSubjects<TeacherSubjects>" "DbSet`1"
+DataContext --> "Schedules<Schedule>" "DbSet`1"
+DataContext --> "TimeSlots<TimeSlot>" "DbSet`1"
+@enduml

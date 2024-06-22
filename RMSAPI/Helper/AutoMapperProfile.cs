@@ -64,5 +64,10 @@ public class AutoMapperProfile : Profile
             .ForMember(d => d.StartTime, o => o.MapFrom(s => s.StartTime.ToTimeString(true)))
             .ForMember(d => d.EndTime, o => o.MapFrom(s => s.EndTime.ToTimeString(true)))
             .ReverseMap();
+
+        CreateMap<BatchDataDTO, Batch>()
+            .ForMember(d => d.StartDate, o => o.MapFrom(s => s.StartDate))
+            .ForMember(d => d.EndDate, o => o.MapFrom(s => s.EndDate))
+            .ForMember(d => d.Name, o => o.MapFrom(s => s.Name));
     }
 }

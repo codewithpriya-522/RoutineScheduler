@@ -1,0 +1,5 @@
+@startuml
+class ApplicationServiceExtention <<static>> {
+    + {static} ApplicationServices(services:IServiceCollection, configuration:IConfiguration) : IServiceCollection
+}
+@enduml

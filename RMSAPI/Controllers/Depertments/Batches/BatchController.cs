@@ -80,11 +80,12 @@ public class BatchController : BaseAPIController
         var batchData = await _unit.Batch.Query(b=> 
         b.Include(bs=> bs.BatchStudents)
         .ThenInclude(bs=> bs.AppUser)
-        .Include(bs => bs.BatchStudents)
-        .ThenInclude(bs => bs.Batch)
         .Include(ps=> ps.BatchSubjects)
         .Where(o=> o.Id == batch.Id));
-        var batchToUpdate = _mapper.Map(batch, batchData.FirstOrDefault());
+        var batchToUpdate = batchData.FirstOrDefault(); 
+        batchToUpdate.Name = batch.Name;
+        batchToUpdate.StartDate = batch.StartDate;
+        batchToUpdate.EndDate = batch.EndDate;
         //Pulling Deperment Data
         var dept = await _unit.Deperment.GetById(batch.DepartmentId);
         if (dept == null) return BadRequest($"No Depertment found in this id {batch.DepartmentId}");

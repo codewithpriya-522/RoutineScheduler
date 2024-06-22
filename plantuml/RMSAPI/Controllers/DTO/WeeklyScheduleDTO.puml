@@ -1,0 +1,12 @@
+@startuml
+class WeeklyScheduleDto {
+    + BatchName : string <<get>> <<set>>
+}
+class DayScheduleDto {
+}
+class "List`1"<T> {
+}
+WeeklyScheduleDto o-> "Days<DayScheduleDto>" "List`1"
+DayScheduleDto --> "Day" DayOfWeek
+DayScheduleDto o-> "Slots<ScheduleEntryDto>" "List`1"
+@enduml

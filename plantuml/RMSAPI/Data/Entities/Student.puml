@@ -1,0 +1,9 @@
+@startuml
+class Student {
+    + Id : int <<get>> <<set>>
+    + AppUserId : int <<get>> <<set>>
+    + BatchId : int <<get>> <<set>>
+}
+Student --> "AppUser" AppUser
+Student --> "Batch" Batch
+@enduml

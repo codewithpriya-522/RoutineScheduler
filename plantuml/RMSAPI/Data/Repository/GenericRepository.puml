@@ -1,0 +1,19 @@
+@startuml
+class "GenericRepository`1"<T> {
+    + <<async>> AddAsync(entity:T) : Task
+    + <<async>> AddRangeAsync(entities:IEnumerable<T>) : Task
+    + <<async>> DeleteByID(id:int) : Task
+    + <<async>> Find(expression:Expression<Func<T, bool>>) : Task<IEnumerable<T>>
+    + <<async>> Query(queryBuilder:Func<IQueryable<T>, IQueryable<T>>) : Task<IEnumerable<T>>
+    + <<async>> GetAll() : Task<IEnumerable<T>>
+    + <<async>> GetById(id:int) : Task<T>
+    + Remove(entity:T) : void
+    + RemoveRange(entities:IEnumerable<T>) : void
+    + UpdateAsync(entity:T) : void
+    + <<async>> IsExist(id:int) : Task<bool>
+}
+class "IGenericRepository`1"<T> {
+}
+"IGenericRepository`1" "<T>" <|-- "GenericRepository`1"
+"GenericRepository`1" o-> "_context" DataContext
+@enduml

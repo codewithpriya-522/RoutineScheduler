@@ -1,0 +1,12 @@
+@startuml
+class RegisterDTO {
+    + Username : string <<get>> <<set>>
+    + Email : string <<get>> <<set>>
+    + KnownAs : string <<get>> <<set>>
+    + Gender : string <<get>> <<set>>
+    + DateOfBirth : string <<get>> <<set>>
+    + City : string <<get>> <<set>>
+    + Country : string <<get>> <<set>>
+    + Password : string <<get>> <<set>>
+}
+@enduml

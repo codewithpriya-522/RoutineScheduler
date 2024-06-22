@@ -1,0 +1,11 @@
+@startuml
+class DepertmentController {
+    + DepertmentController(unit:IUnitOfWork, mapper:IMapper)
+    + <<async>> GetById(id:int) : Task<IActionResult>
+    + <<async>> Create(dept:DepertmentDTO) : Task<IActionResult>
+    + <<async>> Update(dept:DepertmentDTO) : Task<IActionResult>
+    + <<async>> Remove(id:int) : Task<IActionResult>
+    + <<async>> GetAll() : Task<IActionResult>
+}
+BaseAPIController <|-- DepertmentController
+@enduml

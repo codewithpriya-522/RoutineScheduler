@@ -1,0 +1,16 @@
+@startuml
+class BatchDataDTO {
+    + Id : int <<get>> <<set>>
+    + Name : string <<get>> <<set>>
+    + DepartmentId : int <<get>> <<set>>
+    + BatchStudents : int <<get>> <<set>>
+}
+class "ICollection`1"<T> {
+}
+class "List`1"<T> {
+}
+BatchDataDTO --> "StartDate" DateTime
+BatchDataDTO --> "EndDate" DateTime
+BatchDataDTO --> "BatchSubjects<string>" "ICollection`1"
+BatchDataDTO --> "BatchStudentIds<int>" "List`1"
+@enduml

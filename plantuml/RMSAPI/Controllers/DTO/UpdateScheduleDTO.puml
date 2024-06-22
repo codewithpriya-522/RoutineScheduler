@@ -1,0 +1,11 @@
+@startuml
+class UpdateScheduleDto {
+    + ScheduleId : int <<get>> <<set>>
+    + BatchId : int <<get>> <<set>>
+    + SubjectId : int <<get>> <<set>>
+    + TeacherId : int <<get>> <<set>>
+}
+UpdateScheduleDto --> "Day" DayOfWeek
+UpdateScheduleDto --> "StartTime" TimeSpan
+UpdateScheduleDto --> "EndTime" TimeSpan
+@enduml
