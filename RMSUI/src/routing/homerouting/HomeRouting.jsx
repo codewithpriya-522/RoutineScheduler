@@ -17,7 +17,8 @@ import GetAllBatch from '../../pages/batch/getall/GetAllBatch'
 import SingleGetBatch from '../../pages/batch/singleGet/SingleGetBatch'
 import GetAllDepartment from '../../pages/department/getall/GetAllDepartment'
 import SingleGetDepartment from '../../pages/department/singlegetdepartment/SingleGetDepartment'
-import GenerateSchedulebyBatch from '../../pages/schedule/generateByBatch/GenerateByBatch'
+import GetDataUsingCalender from '../../pages/schedule/getDataUsingCalender/GetDataUsingCalender'
+//import GenerateSchedulebyBatch from '../../pages/schedule/generateByBatch/GenerateByBatch'
 //import GetAllSchedule from '../../pages/schedule/getall/GetAllSchedule'
 
 const HomeRouting = () => {
@@ -31,7 +32,8 @@ const HomeRouting = () => {
                 <Route path='/home' element={<Master />} >
                     <Route index element={<Dashboard />} />
                     {/* <Route path='/home/schedule' element={<GetAllSchedule />} /> */}
-                     <Route path='/home/schedule' element={<GenerateSchedulebyBatch />} />
+                    {/* <Route path='/home/schedule' element={<GenerateSchedulebyBatch />} /> */}
+                    <Route path='/home/schedule' element={<GetDataUsingCalender />} />
                     <Route path='/home/teachers' element={<GetAll />} />
                     <Route path='/home/users' element={<GetAllUser />} />
                     <Route path='/home/students' element={<GetAllStudent />} />

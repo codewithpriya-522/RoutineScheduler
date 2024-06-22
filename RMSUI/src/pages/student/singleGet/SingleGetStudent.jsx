@@ -4,63 +4,54 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { studentActions } from '../../../redux/slice/StudentSlice';
 import studentSelector from '../../../redux/selector/StudentSelector';
+import EditStudentModal from '../update/EditStudentModal';
 
 const SingleGetStudent = () => {
   const dispatch = useDispatch();
-  const { data: user, loading } = useSelector(studentSelector);
+  const { data: student, loading, error } = useSelector(studentSelector);
   const { id } = useParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editableData, setEditableData] = useState({});
+  const [formData, setFormData] = useState({});
 
   useEffect(() => {
     if (id) {
       dispatch(studentActions.singleGet(id));
     }
   }, [dispatch, id]);
-
-  useEffect(() => {
-    if (user) {
-      setEditableData({
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        depertmentName: user.depertmentName,
-        depertmentID: user.depertmentID,
-        batchName: user.batchName,
-        gender: user.gender,
-        dateOfBirth: user.dateOfBirth,
-        knownAs: user.knownAs,
-        studentSubjects: user.studentSubjects ? [...user.studentSubjects] : [],
-      });
-    }
-  }, [user]);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setEditableData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
   const handleEditClick = () => {
+    // Prepare formData here
+    setFormData(
+      {
+        id: student.id,
+        firstName: student.firstName,
+        lastName: student.lastName,
+        email: student.email,
+        departmentName: student.departmentName,
+        departmentID: student.departmentID,
+        batchName: student.batchName,
+        gender: student.gender,
+        dateOfBirth: student.dateOfBirth,
+        knownAs: student.knownAs,
+        studentSubjects: student.studentSubjects ? [...student.studentSubjects] : [],
+      }
+    );
     setIsModalOpen(true);
-  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Implement your update logic here
-    console.log("Editable Data:", editableData);
+  };
+  const handleModalClose = () => {
     setIsModalOpen(false);
-    // Dispatch an action to update the student data
-     dispatch(studentActions.update({ id, ...editableData }));
+    setFormData(null);
   };
 
   if (loading) {
     return <div className="flex justify-center items-center h-screen">Loading...</div>;
   }
 
-  if (!user) {
+  if (error) {
+    return <div className="flex justify-center items-center h-screen">Error: {error.message}</div>;
+  }
+
+  if (!student) {
     return <div className="flex justify-center items-center h-screen">No data available</div>;
   }
 
@@ -70,7 +61,7 @@ const SingleGetStudent = () => {
         <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
           <li className="inline-flex items-center">
             <Link
-              to="/"
+              to="/home"
               className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white"
             >
               <svg
@@ -130,45 +121,45 @@ const SingleGetStudent = () => {
         </button>
         <div className="flex items-center gap-4">
           <img
-            alt={`${user.firstName} ${user.lastName}`}
+            alt={`${student.firstName} ${student.lastName}`}
             src="https://images.unsplash.com/photo-1614644147724-2d4785d69962?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80"
             className="size-16 rounded-full object-cover"
           />
           <div>
-            <h3 className="text-lg font-medium text-gray-800">{`${user.firstName} ${user.lastName}`}</h3>
+            <h3 className="text-lg font-medium text-gray-800">{`${student.firstName} ${student.lastName}`}</h3>
             <div className="flow-root">
               <ul className="-m-1 flex flex-wrap">
-                {user.email && (
+                {student.email && (
                   <li className="p-1 leading-none">
-                    <span className="text-xs font-medium text-gray-700">Email: {user.email}</span>
+                    <span className="text-xs font-medium text-gray-700">Email: {student.email}</span>
                   </li>
                 )}
-                {user.gender && (
+                {student.gender && (
                   <li className="p-1 leading-none">
-                    <span className="text-xs font-medium text-gray-700">Gender: {user.gender}</span>
+                    <span className="text-xs font-medium text-gray-700">Gender: {student.gender}</span>
                   </li>
                 )}
-                {user.dateOfBirth && (
+                {student.dateOfBirth && (
                   <li className="p-1 leading-none">
-                    <span className="text-xs font-medium text-gray-700">Date of Birth: {user.dateOfBirth}</span>
+                    <span className="text-xs font-medium text-gray-700">Date of Birth: {student.dateOfBirth}</span>
                   </li>
                 )}
-                {user.batchName && (
+                {student.batchName && (
                   <li className="p-1 leading-none">
-                    <span className="text-xs font-medium text-gray-700">Batch: {user.batchName}</span>
+                    <span className="text-xs font-medium text-gray-700">Batch: {student.batchName}</span>
                   </li>
                 )}
-                {user.knownAs && (
+                {student.knownAs && (
                   <li className="p-1 leading-none">
-                    <span className="text-xs font-medium text-gray-700">Known As: {user.knownAs}</span>
+                    <span className="text-xs font-medium text-gray-700">Known As: {student.knownAs}</span>
                   </li>
                 )}
               </ul>
               <ul className="-m-1 flex flex-wrap">
-                {user.depertmentName && (
+                {student.departmentName && (
                   <li className="p-1 leading-none">
                     <span className="text-xs font-medium text-gray-700">
-                      Depertment Name: {user.depertmentName} (ID: {user.depertmentID})
+                      Department Name: {student.departmentName} (ID: {student.departmentID})
                     </span>
                   </li>
                 )}
@@ -179,7 +170,7 @@ const SingleGetStudent = () => {
         <div className="mt-4">
           <h4 className="font-medium text-gray-700">Subjects:</h4>
           <ul className="mt-2 space-y-2">
-            {user.studentSubjects && user.studentSubjects.map((subject, index) => (
+            {student.studentSubjects && student.studentSubjects.map((subject, index) => (
               <li key={index} className="block h-full rounded-lg border border-gray-700 p-4 hover:border-pink-600">
                 <strong className="font-medium text-gray-700">{subject}</strong>
               </li>
@@ -188,59 +179,13 @@ const SingleGetStudent = () => {
         </div>
       </article>
 
-      {/* Modal for editing */}
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
-          <div className="bg-white w-full max-w-lg p-4 rounded-lg">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">Edit Student Information</h2>
-            <form onSubmit={handleSubmit}>
-              {/* Input fields for editing */}
-              <div className="mb-4">
-                <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
-                  First Name
-                </label>
-                <input
-                  type="text"
-                  id="firstName"
-                  name="firstName"
-                  value={editableData.firstName || ''}
-                  onChange={handleInputChange}
-                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                />
-              </div>
-              <div className="mb-4">
-                <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
-                  Last Name
-                </label>
-                <input
-                  type="text"
-                  id="lastName"
-                  name="lastName"
-                  value={editableData.lastName || ''}
-                  onChange={handleInputChange}
-                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                />
-              </div>
-              {/* Add more fields as needed */}
 
-              <div className="flex justify-end">
-                <button
-                  type="button"
-                  onClick={() => setIsModalOpen(false)}
-                  className="mr-4 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-4 py-2 text-sm font-medium text-white bg-blue-500 border border-transparent rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                >
-                  Save Changes
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
+
+      {isModalOpen && (
+        <EditStudentModal
+          student={formData}
+          onClose={handleModalClose}
+        />
       )}
     </div>
   );
