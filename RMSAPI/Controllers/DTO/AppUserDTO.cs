@@ -46,4 +46,8 @@ public class AppUserDTO
     /// </summary>
     /// <value>SampleEmail</value>
     public string Email { get; set; }
+    /// <summary>
+    /// Role of the user
+    /// </summary>
+    public string Role { get; set; }
 }

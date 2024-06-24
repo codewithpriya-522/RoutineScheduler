@@ -60,10 +60,11 @@ public class AuthController : BaseAPIController
             UserName = user.UserName,
             JWTToken = await _tokenService.CreateToken(user),
             RefreshToken = await _tokenService.CreateRefreshToken(user),
-            RefreshTokenExpires = DateTime.Now.AddDays(7)
+            RefreshTokenExpires = DateTime.Now.AddDays(7),
+            Role = "Member",
         };
 
-        //Saving refresg token 
+        //Saving refresh token 
         await SaveRefreshToken(_userManager, userDTO.RefreshToken, userDTO.UserName, userDTO.RefreshTokenExpires);
         return userDTO;
     }
@@ -80,13 +81,15 @@ public class AuthController : BaseAPIController
         var result = await ValidateRefreshToken(refresh.RefreshToken, refresh.UserName);
         if (!result) return BadRequest("Invalid Refresh Token");
         var user = await _userManager.FindByNameAsync(refresh.UserName);
+        var role = await _userManager.GetRolesAsync(user);
         var userDTO = new AppUserDTO
         {
             Email = user.Email,
             UserName = user.UserName,
             JWTToken = await _tokenService.CreateToken(user),
             RefreshToken = await _tokenService.CreateRefreshToken(user),
-            RefreshTokenExpires = DateTime.Now.AddDays(7)
+            RefreshTokenExpires = DateTime.Now.AddDays(7),
+            Role = role.First().ToString(),
         };
 
         await SaveRefreshToken(_userManager, userDTO.RefreshToken, refresh.UserName, userDTO.RefreshTokenExpires);
@@ -109,14 +112,15 @@ public class AuthController : BaseAPIController
         var result = await _userManager.CheckPasswordAsync(user, login.Password);
 
         if (!result) return Unauthorized("Invalid Password");
-
+        var role = await _userManager.GetRolesAsync(user);
         var userDTO = new AppUserDTO
         {
             UserName = user.UserName,
             Email = user.Email,
             JWTToken = await _tokenService.CreateToken(user),
             RefreshToken = await _tokenService.CreateRefreshToken(user),
-            RefreshTokenExpires = DateTime.Now.AddDays(7)
+            RefreshTokenExpires = DateTime.Now.AddDays(7),
+            Role = role.First().ToString(),
         };
 
         await SaveRefreshToken(_userManager, userDTO.RefreshToken, user.UserName, userDTO.RefreshTokenExpires);
