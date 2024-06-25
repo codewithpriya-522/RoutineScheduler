@@ -2,6 +2,7 @@
 
 public class AppUserDTO
 {
+    public int Id { get; set; }
     /// <summary>
     /// PhotoUrl of the user 
     /// </summary>

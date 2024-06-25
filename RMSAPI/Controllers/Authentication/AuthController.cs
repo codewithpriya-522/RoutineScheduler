@@ -56,6 +56,7 @@ public class AuthController : BaseAPIController
 
         var userDTO = new AppUserDTO
         {
+            Id = user.Id,
             Email = user.Email,
             UserName = user.UserName,
             JWTToken = await _tokenService.CreateToken(user),
@@ -84,6 +85,7 @@ public class AuthController : BaseAPIController
         var role = await _userManager.GetRolesAsync(user);
         var userDTO = new AppUserDTO
         {
+            Id = user.Id,
             Email = user.Email,
             UserName = user.UserName,
             JWTToken = await _tokenService.CreateToken(user),
@@ -115,6 +117,7 @@ public class AuthController : BaseAPIController
         var role = await _userManager.GetRolesAsync(user);
         var userDTO = new AppUserDTO
         {
+            Id = user.Id,
             UserName = user.UserName,
             Email = user.Email,
             JWTToken = await _tokenService.CreateToken(user),
