@@ -74,7 +74,7 @@ const GetAll = () => {
           <tbody>
             {currentItems.map((item) => (
               <tr key={item.id} className="hover:bg-gray-50" onClick={() => { navigate(`/home/teachers/details/${item.id}`) }}>
-                <td className="px-3 py-2 whitespace-no-wrap border-b border-gray-200">{item.firstName} {item.lastName}</td>
+                <td className="px-3 py-2 whitespace-no-wrap border-b border-gray-200 font-semibold">{item.firstName} {item.lastName}</td>
                 <td className="px-3 py-2 whitespace-no-wrap border-b border-gray-200">{item.depertmentName}</td>
                 <td className="px-3 py-2 whitespace-no-wrap border-b border-gray-200">{item.email}</td>
                 <td className="px-3 py-2 whitespace-no-wrap border-b border-gray-200">{item.subjects}</td>

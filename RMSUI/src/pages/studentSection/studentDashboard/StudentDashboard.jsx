@@ -83,8 +83,8 @@ const StudentDashboard = () => {
         <Grid item xs={12} md={6} lg={3}>
           <Paper className="p-4 flex flex-col h-36 justify-center items-center shadow-lg bg-blue-100">
             <People className="text-blue-500" style={{ fontSize: 30 }} />
-            <Typography variant="subtitle2" className="text-gray-700 mt-2">Total Students</Typography>
-            <Typography variant="h6" className="text-indigo-600">1200</Typography>
+            <Typography variant="subtitle2" className="text-gray-700 mt-2">Covered Syllabus</Typography>
+            <Typography variant="h6" className="text-indigo-600">50%</Typography>
           </Paper>
         </Grid>
         {/* Total Courses Card */}
@@ -92,7 +92,7 @@ const StudentDashboard = () => {
           <Paper className="p-4 flex flex-col h-36 justify-center items-center shadow-lg bg-green-100">
             <School className="text-green-500" style={{ fontSize: 30 }} />
             <Typography variant="subtitle2" className="text-gray-700 mt-2">Total Courses</Typography>
-            <Typography variant="h6" className="text-green-600">75</Typography>
+            <Typography variant="h6" className="text-green-600">20</Typography>
           </Paper>
         </Grid>
         {/* Total Attendance Card */}
@@ -115,22 +115,22 @@ const StudentDashboard = () => {
         <Grid item xs={12} md={12} lg={6}>
           <Paper className="p-4 pb-5 flex flex-col h-72 justify-center shadow-lg">
             <div className="flex items-center justify-between">
-              <Typography variant="subtitle1" className="text-gray-700">Line Chart</Typography>
+              <Typography variant="subtitle1" className="text-gray-700">Performace</Typography>
               <BarChart className="text-gray-500" style={{ fontSize: 30 }} />
             </div>
             <Line data={lineData} options={{ responsive: true, maintainAspectRatio: false }} />
           </Paper>
         </Grid>
         {/* Bar Chart */}
-        <Grid item xs={12} md={6} lg={6}>
+        {/* <Grid item xs={12} md={6} lg={6}>
           <Paper className="p-4 pb-5 flex flex-col h-72 justify-center shadow-lg">
             <div className="flex items-center justify-between">
-              <Typography variant="subtitle1" className="text-gray-700">Bar Chart</Typography>
+              <Typography variant="subtitle1" className="text-gray-700">Performace</Typography>
               <BarChart className="text-gray-500" style={{ fontSize: 30 }} />
             </div>
             <Bar data={barData} options={{ responsive: true, maintainAspectRatio: false }} />
           </Paper>
-        </Grid>
+        </Grid> */}
         {/* Attendance Chart */}
         <Grid item xs={12} md={6} lg={6}>
           <Paper className="p-4 pb-5 flex flex-col h-72 justify-center shadow-lg">

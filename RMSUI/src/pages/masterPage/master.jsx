@@ -14,7 +14,7 @@ const Master = () => {
     return (
         <div className="flex h-screen overflow-hidden">
             {/* Sidebar for larger screens */}
-            <div className="hidden md:flex md:w-64 lg:w-80">
+            <div className="hidden md:flex md:w-64 ">
                 <Navbar />
             </div>
             {/* Main content */}
@@ -25,7 +25,7 @@ const Master = () => {
                     </button>
                     <h1 className="text-xl font-bold">RMS</h1>
                 </div>
-                <div className="flex-1 overflow-y-auto p-4">
+                <div className="flex-1 overflow-y-auto p-10">
                     <Outlet />
                 </div>
             </div>

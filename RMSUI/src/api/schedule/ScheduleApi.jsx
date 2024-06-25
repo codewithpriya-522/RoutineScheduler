@@ -7,7 +7,7 @@ const scheduleApi = {
         return axiosClient.get(`${urls.GETALL_SCHEDULE}/${id}`);
     },
     getDaily (batchId,day){
-        return axiosClient.get(`${urls.GETALL_SCHEDULE}/${batchId}/${day}`);
+        return axiosClient.get(`${urls.GET_SCHEDULE_DAILY}/${batchId}/${day}`);
     },
     generate (id){
         return axiosClient.get(`${urls.GENERATE_SCHEDULE_BYBATCH}/${id}`);

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,24 +14,26 @@ const StudentDailySchedule = () => {
     const [dataTable, setDataTable] = useState([]);
 
     useEffect(() => {
-        const studentId = localStorage.getItem('studentId');
-        console.log('studentId',studentId) // Get student ID from localStorage
-        if (studentId) {
-            dispatch(studentActions.singleGet(studentId)); // Fetch student data using studentId
+        const id = localStorage.getItem('id');
+        console.log('id',id) // Get student ID from localStorage
+        if (id) {
+            dispatch(studentActions.singleGet(id)); // Fetch student data using studentId
         }
     }, [dispatch]);
 
     useEffect(() => {
-        if (student && student.batchId) {
+        console.log('first',student)
+        if (student && student.data && student.data.batchId ) {
             const today = new Date(); // get today's date
-            const formattedDate = today.getDate().toString().padStart(2, '0'); // get day and pad with leading zero if necessary
-            dispatch(scheduleActions.getDaily({ batchId: student.batchId, day: formattedDate }));
+            const formattedDate = today.getDay()-1;
+             dispatch(scheduleActions.getDaily({ batchId: student.data.batchId, day: formattedDate }));
         }
     }, [dispatch, student]);
 
     useEffect(() => {
         if (schedule && schedule.data && Array.isArray(schedule.data) && schedule.data.length > 0) {
             setDataTable(schedule.data);
+            console.log('first',dataTable)
         }
     }, [schedule]);
 
@@ -53,40 +56,43 @@ const StudentDailySchedule = () => {
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" className="px-6 py-3">
-                                Name
+                            subject Name
                             </th>
                             <th scope="col" className="px-6 py-3">
-                                Position
+                            teacher Name
                             </th>
                             <th scope="col" className="px-6 py-3">
-                                Status
+                            start Time
                             </th>
                             <th scope="col" className="px-6 py-3">
+                            end Time
+                            </th>
+                            {/* <th scope="col" className="px-6 py-3">
                                 Action
-                            </th>
+                            </th> */}
                         </tr>
                     </thead>
                     <tbody>
                         {dataTable.map((item, index) => (
                             <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                                    <img className="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-1.jpg" alt="Profile" />
                                     <div className="ps-3">
-                                        <div className="text-base font-semibold">{item.name}</div>
-                                        <div className="font-normal text-gray-500">{item.email}</div>
+                                        <div className="text-base font-semibold">{item.subjectName}</div>
+                                        <div className="font-normal text-gray-500">{item.subjectType}</div>
                                     </div>
                                 </th>
                                 <td className="px-6 py-4">
-                                    {item.position}
+                                    {item.teacherName}
                                 </td>
                                 <td className="px-6 py-4">
-                                    <div className="flex items-center">
-                                        <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2" /> Online
-                                    </div>
+                                    {item.startTime}
                                 </td>
                                 <td className="px-6 py-4">
+                                    {item.endTime}
+                                </td>
+                                {/* <td className="px-6 py-4">
                                     <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user</a>
-                                </td>
+                                </td> */}
                             </tr>
                         ))}
                     </tbody>

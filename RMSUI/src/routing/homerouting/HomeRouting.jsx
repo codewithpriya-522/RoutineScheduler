@@ -2,7 +2,6 @@
 import React from 'react'
 import Login from '../../pages/login/Login'
 import { Route, Routes } from 'react-router-dom'
-import LandingPage from '../../pages/landingPage/LandingPage'
 import Regitration from '../../pages/registration/Regitration'
 import ForgotPassword from '../../pages/forgotPassword/ForgotPassword'
 import Master from '../../pages/masterPage/master'
@@ -26,6 +25,7 @@ import StudentSyllabus from '../../pages/studentSection/studentSyllabus/StudentS
 import StudentProfile from '../../pages/studentSection/studentProfile/StudentProfile'
 import StudentAttendance from '../../pages/studentSection/studentAttendance/StudentAttendance'
 import StudentCourse from '../../pages/studentSection/studentCourse/StudentCourse'
+import LandingPage from '../../pages/landingPage/LandingPage'
 //import GenerateSchedulebyBatch from '../../pages/schedule/generateByBatch/GenerateByBatch'
 //import GetAllSchedule from '../../pages/schedule/getall/GetAllSchedule'
 
@@ -33,7 +33,7 @@ const HomeRouting = () => {
     return (
         <div>
             <Routes>
-                <Route path='/' element={<LandingPage />} />
+                <Route index path='/' element={<LandingPage />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/registration' element={<Regitration />} />
                 <Route path='/forgotPassword' element={<ForgotPassword />} />
