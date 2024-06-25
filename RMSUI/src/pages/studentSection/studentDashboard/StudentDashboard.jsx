@@ -14,7 +14,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { People, School } from '@mui/icons-material';
+import { People, School, EventNote, BarChart, DonutLarge } from '@mui/icons-material';
 
 // Register Chart.js components
 ChartJS.register(
@@ -77,65 +77,67 @@ const attendanceData = {
 
 const StudentDashboard = () => {
   return (
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+    <Container maxWidth="lg" className="mt-4 mb-4">
       <Grid container spacing={3}>
-
         {/* Total Students Card */}
         <Grid item xs={12} md={6} lg={3}>
           <Paper className="p-4 flex flex-col h-36 justify-center items-center shadow-lg bg-blue-100">
-            <People className="text-blue-500" style={{ fontSize: 40 }} />
-            <Typography variant="h6" className="text-gray-700 mt-2">Total Students</Typography>
-            <Typography variant="h4" className="text-indigo-600">1200</Typography>
+            <People className="text-blue-500" style={{ fontSize: 30 }} />
+            <Typography variant="subtitle2" className="text-gray-700 mt-2">Total Students</Typography>
+            <Typography variant="h6" className="text-indigo-600">1200</Typography>
           </Paper>
         </Grid>
         {/* Total Courses Card */}
         <Grid item xs={12} md={6} lg={3}>
           <Paper className="p-4 flex flex-col h-36 justify-center items-center shadow-lg bg-green-100">
-            <School className="text-green-500" style={{ fontSize: 40 }} />
-            <Typography variant="h6" className="text-gray-700 mt-2">Total Courses</Typography>
-            <Typography variant="h4" className="text-green-600">75</Typography>
+            <School className="text-green-500" style={{ fontSize: 30 }} />
+            <Typography variant="subtitle2" className="text-gray-700 mt-2">Total Courses</Typography>
+            <Typography variant="h6" className="text-green-600">75</Typography>
           </Paper>
         </Grid>
-         {/* Total Students Card */}
-         <Grid item xs={12} md={6} lg={3}>
-          <Paper className="p-4 flex flex-col h-36 justify-center items-center shadow-lg bg-blue-100">
-            <People className="text-blue-500" style={{ fontSize: 40 }} />
-            <Typography variant="h6" className="text-gray-700 mt-2">Total Students</Typography>
-            <Typography variant="h4" className="text-indigo-600">1200</Typography>
-          </Paper>
-        </Grid>
-        {/* Total Courses Card */}
+        {/* Total Attendance Card */}
         <Grid item xs={12} md={6} lg={3}>
-          <Paper className="p-4 flex flex-col h-36 justify-center items-center shadow-lg bg-green-100">
-            <School className="text-green-500" style={{ fontSize: 40 }} />
-            <Typography variant="h6" className="text-gray-700 mt-2">Total Courses</Typography>
-            <Typography variant="h4" className="text-green-600">75</Typography>
+          <Paper className="p-4 flex flex-col h-36 justify-center items-center shadow-lg bg-yellow-100">
+            <EventNote className="text-yellow-500" style={{ fontSize: 30 }} />
+            <Typography variant="subtitle2" className="text-gray-700 mt-2">Total Attendance</Typography>
+            <Typography variant="h6" className="text-yellow-600">200</Typography>
+          </Paper>
+        </Grid>
+        {/* Upcoming Schedules Card */}
+        <Grid item xs={12} md={6} lg={3}>
+          <Paper className="p-4 flex flex-col h-36 justify-center items-center shadow-lg bg-red-100">
+            <EventNote className="text-red-500" style={{ fontSize: 30 }} />
+            <Typography variant="subtitle2" className="text-gray-700 mt-2">Upcoming Schedules</Typography>
+            <Typography variant="h6" className="text-red-600">20</Typography>
           </Paper>
         </Grid>
         {/* Line Chart */}
         <Grid item xs={12} md={12} lg={6}>
-          <Paper sx={{ p: 2,pb:5, display: 'flex', flexDirection: 'column', height: 280 }}>
-            <Typography variant="h6" gutterBottom>
-              Line Chart
-            </Typography>
+          <Paper className="p-4 pb-5 flex flex-col h-72 justify-center shadow-lg">
+            <div className="flex items-center justify-between">
+              <Typography variant="subtitle1" className="text-gray-700">Line Chart</Typography>
+              <BarChart className="text-gray-500" style={{ fontSize: 30 }} />
+            </div>
             <Line data={lineData} options={{ responsive: true, maintainAspectRatio: false }} />
           </Paper>
         </Grid>
         {/* Bar Chart */}
         <Grid item xs={12} md={6} lg={6}>
-          <Paper sx={{ p: 2,pb:5, display: 'flex', flexDirection: 'column', height: 280 }}>
-            <Typography variant="h6" gutterBottom>
-              Bar Chart
-            </Typography>
+          <Paper className="p-4 pb-5 flex flex-col h-72 justify-center shadow-lg">
+            <div className="flex items-center justify-between">
+              <Typography variant="subtitle1" className="text-gray-700">Bar Chart</Typography>
+              <BarChart className="text-gray-500" style={{ fontSize: 30 }} />
+            </div>
             <Bar data={barData} options={{ responsive: true, maintainAspectRatio: false }} />
           </Paper>
         </Grid>
         {/* Attendance Chart */}
         <Grid item xs={12} md={6} lg={6}>
-          <Paper sx={{ p: 2,pb:5 ,display: 'flex', flexDirection: 'column', height: 280 }}>
-            <Typography variant="h6" gutterBottom>
-              Attendance
-            </Typography>
+          <Paper className="p-4 pb-5 flex flex-col h-72 justify-center shadow-lg">
+            <div className="flex items-center justify-between">
+              <Typography variant="subtitle1" className="text-gray-700">Attendance</Typography>
+              <DonutLarge className="text-gray-500" style={{ fontSize: 30 }} />
+            </div>
             <Doughnut data={attendanceData} options={{ responsive: true, maintainAspectRatio: false }} />
           </Paper>
         </Grid>

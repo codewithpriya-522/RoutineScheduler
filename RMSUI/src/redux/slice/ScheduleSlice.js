@@ -11,6 +11,9 @@ const scheduleSlice = createSlice({
         getall: (state) => {
             state.isFetching = true;
         },
+        getDaily: (state) => {
+            state.isFetching = true;
+        },
         generate: (state) => {
             state.isFetching = true;
         },

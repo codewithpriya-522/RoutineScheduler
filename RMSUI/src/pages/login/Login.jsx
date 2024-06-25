@@ -26,7 +26,9 @@ const Login = () => {
     if (auth.data && auth.data.jwtToken && auth.data.role) {
       const jwtToken = auth.data.jwtToken;
       const userRole = auth.data.role;
+      const userName = auth.data.userName;
       localStorage.setItem('jwtToken', jwtToken);
+      localStorage.setItem('jwtToken', userName);
       console.log('User Role:', userRole, 'JWT Token:', jwtToken);
 
       // Redirect based on user role
