@@ -11,9 +11,9 @@ const authSlice = createSlice({
         login: (state) => {
             state.isFetching = true;
         },
-        // refreshLogin: (state) => {
-        //     state.isFetching = true
-        // },
+        refreshLogin: (state) => {
+            state.isFetching = true
+        },
         // registration: (state) => {
         //     state.isFetching = true;
         // },
