@@ -1,5 +1,6 @@
 export const urls = {
   LOGIN:'/Auth/login',
+  REFRESH:'/Auth/refresh',
   GETALL_TEACHERS:'/Teacher/getall',
   GETALL_USERS:'/User',
   GETALL_STUDENTS:'/Student/getall',

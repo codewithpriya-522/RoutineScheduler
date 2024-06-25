@@ -18,6 +18,8 @@ import SingleGetBatch from '../../pages/batch/singleGet/SingleGetBatch'
 import GetAllDepartment from '../../pages/department/getall/GetAllDepartment'
 import SingleGetDepartment from '../../pages/department/singlegetdepartment/SingleGetDepartment'
 import GetDataUsingCalender from '../../pages/schedule/getDataUsingCalender/GetDataUsingCalender'
+import StudentHome from '../../pages/studentSection/studentHome/StudentHome'
+import TeacherHome from '../../pages/teacherSection/teacherHome/TeacherHome'
 //import GenerateSchedulebyBatch from '../../pages/schedule/generateByBatch/GenerateByBatch'
 //import GetAllSchedule from '../../pages/schedule/getall/GetAllSchedule'
 
@@ -29,6 +31,10 @@ const HomeRouting = () => {
                 <Route path='/login' element={<Login />} />
                 <Route path='/registration' element={<Regitration />} />
                 <Route path='/forgotPassword' element={<ForgotPassword />} />
+                
+                <Route path='/studentHome' element={<StudentHome />} />
+                <Route path='/teacherHome' element={<TeacherHome />} />
+
                 <Route path='/home' element={<Master />} >
                     <Route index element={<Dashboard />} />
                     {/* <Route path='/home/schedule' element={<GetAllSchedule />} /> */}
