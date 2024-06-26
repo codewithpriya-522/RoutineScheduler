@@ -2,7 +2,6 @@
 import React from 'react'
 import Login from '../../pages/login/Login'
 import { Route, Routes } from 'react-router-dom'
-import LandingPage from '../../pages/landingPage/LandingPage'
 import Regitration from '../../pages/registration/Regitration'
 import ForgotPassword from '../../pages/forgotPassword/ForgotPassword'
 import Master from '../../pages/masterPage/master'
@@ -20,6 +19,16 @@ import SingleGetDepartment from '../../pages/department/singlegetdepartment/Sing
 import GetDataUsingCalender from '../../pages/schedule/getDataUsingCalender/GetDataUsingCalender'
 import StudentHome from '../../pages/studentSection/studentHome/StudentHome'
 import TeacherHome from '../../pages/teacherSection/teacherHome/TeacherHome'
+import StudentDashboard from '../../pages/studentSection/studentDashboard/StudentDashboard'
+import StudentDailySchedule from '../../pages/studentSection/studentSchedule/StudentDailySchedule'
+import StudentSyllabus from '../../pages/studentSection/studentSyllabus/StudentSyllabus'
+import StudentProfile from '../../pages/studentSection/studentProfile/StudentProfile'
+import StudentAttendance from '../../pages/studentSection/studentAttendance/StudentAttendance'
+import StudentCourse from '../../pages/studentSection/studentCourse/StudentCourse'
+import LandingPage from '../../pages/landingPage/LandingPage'
+import TeacherDashboard from '../../pages/teacherSection/teacherDashboard/TeacherDashboard'
+import TeacherSchedule from '../../pages/teacherSection/teacherSchedule/TeacherSchedule'
+import TeacherAttendence from '../../pages/teacherSection/teacherAttendence/TeacherAttendence'
 //import GenerateSchedulebyBatch from '../../pages/schedule/generateByBatch/GenerateByBatch'
 //import GetAllSchedule from '../../pages/schedule/getall/GetAllSchedule'
 
@@ -27,14 +36,27 @@ const HomeRouting = () => {
     return (
         <div>
             <Routes>
-                <Route path='/' element={<LandingPage />} />
+                <Route index path='/' element={<LandingPage />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/registration' element={<Regitration />} />
                 <Route path='/forgotPassword' element={<ForgotPassword />} />
-                
-                <Route path='/studentHome' element={<StudentHome />} />
-                <Route path='/teacherHome' element={<TeacherHome />} />
-
+                <Route index element={<Dashboard />} />
+                <Route path='/studentHome' element={<StudentHome />} >
+                    <Route index element={<StudentDashboard />} />
+                    <Route path='/studentHome/schedule' element={<StudentDailySchedule />} />
+                    <Route path='/studentHome/syllabus' element={<StudentSyllabus />} />
+                    <Route path='/studentHome/courses' element={<StudentCourse />} />
+                    <Route path='/studentHome/profile' element={<StudentProfile />} />
+                    <Route path='/studentHome/attendance' element={<StudentAttendance />} />
+                </Route>
+                <Route path='/teacherHome' element={<TeacherHome />}>
+                    <Route index element={<TeacherDashboard />} />
+                     <Route path='/teacherHome/schedule' element={<TeacherSchedule />} />
+                    <Route path='/teacherHome/syllabus' element={<StudentSyllabus />} />
+                    <Route path='/teacherHome/courses' element={<StudentCourse />} />
+                    <Route path='/teacherHome/profile' element={<StudentProfile />} />
+                    <Route path='/teacherHome/attendance' element={<TeacherAttendence />} />
+                </Route>
                 <Route path='/home' element={<Master />} >
                     <Route index element={<Dashboard />} />
                     {/* <Route path='/home/schedule' element={<GetAllSchedule />} /> */}

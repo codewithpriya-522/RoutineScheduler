@@ -5,6 +5,8 @@
     "@hookform/resolvers": "^3.6.0",
     "@mui/icons-material": "^5.15.20",
     "@mui/material": "^5.15.20",
+    "chart.js": "^4.4.3",
+    "react-chartjs-2": "^5.2.0",
     "react-hook-form": "^7.52.0",
     "yup": "^1.4.0"
   }

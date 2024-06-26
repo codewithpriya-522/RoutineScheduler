@@ -1,14 +1,9 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MdOutlineDashboard, MdOutlineSchedule, MdOutlinePublishedWithChanges, MdOutlineScheduleSend } from "react-icons/md";
-import { LiaChalkboardTeacherSolid } from "react-icons/lia";
-import { FaRegUser } from "react-icons/fa";
-import { PiStudentBold } from "react-icons/pi";
-import { CiBookmark } from "react-icons/ci";
-import { FaSchool } from "react-icons/fa";
-import { SiGoogleclassroom } from "react-icons/si";
-const Navbar = () => {
+import { MdOutlineDashboard, MdOutlineSchedule, MdOutlineCheckCircle, MdOutlineBook, MdOutlineAccountCircle, MdOutlineSchool } from "react-icons/md";
+
+const StudentNav = () => {
     const [activeItem, setActiveItem] = useState(null);
     const navigate = useNavigate();
 
@@ -18,16 +13,12 @@ const Navbar = () => {
     };
 
     const navItems = [
-        { name: 'Dashboard', icon: <MdOutlineDashboard />, path: '/home' },
-        { name: 'Schedules', icon: <MdOutlineSchedule />, path: '/home/schedule' },
-        { name: 'Teachers', icon: <LiaChalkboardTeacherSolid />, path: '/home/teachers' },
-        { name: 'Users', icon: <FaRegUser />, path: '/home/users' },
-        { name: 'Students', icon: <PiStudentBold />, path: '/home/students' },
-        { name: 'Department', icon: <FaSchool />, path: '/home/department' },
-        { name: 'Batch', icon: <SiGoogleclassroom />, path: '/home/batch' },
-        { name: 'Published', icon: <MdOutlinePublishedWithChanges />, path: '/home/published' },
-        { name: 'Today\'s Scheduled', icon: <MdOutlineScheduleSend />, path: '/home/scheduled', extra: '+2' },
-        { name: 'Bookmarks', icon: <CiBookmark />, path: '/home/bookmarks' }
+        { name: 'Dashboard', icon: <MdOutlineDashboard />, path: '/studentHome' },
+        { name: 'Schedules', icon: <MdOutlineSchedule />, path: '/studentHome/schedule' },
+        { name: 'Attendance', icon: <MdOutlineCheckCircle />, path: '/studentHome/attendance' },
+        { name: 'Courses', icon: <MdOutlineBook />, path: '/studentHome/courses' },
+        { name: 'Syllabus', icon: <MdOutlineSchool />, path: '/studentHome/syllabus' },
+        { name: 'Profile', icon: <MdOutlineAccountCircle />, path: '/studentHome/profile' },
     ];
 
     return (
@@ -80,7 +71,6 @@ const Navbar = () => {
                             <span className="text-normal font-semibold ml-3 hover:text-white">
                                 {item.name}
                             </span>
-                            {item.extra && <button className="border-1 text-gray-400 rounded-full border-2 px-2 ml-3">{item.extra}</button>}
                         </a>
                     </li>
                 ))}
@@ -89,5 +79,4 @@ const Navbar = () => {
     );
 };
 
-export default Navbar;
-
+export default StudentNav;

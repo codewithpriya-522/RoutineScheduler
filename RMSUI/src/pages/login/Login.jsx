@@ -1,4 +1,4 @@
-// eslint-disable-next-line no-unused-vars
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { AiOutlineSchedule } from "react-icons/ai";
 import { useNavigate } from 'react-router-dom';
@@ -13,28 +13,37 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
-  // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState(false);
-
-  
-  useEffect(() => {
-    if (auth && auth.data && auth.data.status === false && auth.data.message && auth.data.message === "Invalid user") {
-      setMessage(true);
-    } else {
-      setMessage(false);
-    }
-
-    if (auth && auth.data && auth.data.status === true) {
-      toast.success('Login successful');
-      navigate('/home');
-    }
-  }, [auth, navigate]);
 
   const handleLogin = () => {
     const loginDTO = { username, password };
     dispatch(authActions.login(loginDTO));
-    navigate('/home')
   };
+
+  useEffect(() => {
+    console.log('auth data:', auth.data);
+    // Check if auth.data contains jwtToken and role
+    if (auth.data && auth.data.jwtToken && auth.data.role) {
+      const jwtToken = auth.data.jwtToken;
+      const userRole = auth.data.role;
+      const id = auth.data.id;
+      console.log(auth.data);
+      console.log(id)
+      localStorage.setItem('jwtToken', jwtToken);
+      localStorage.setItem('id', id);
+      console.log('User Role:', userRole, 'JWT Token:', jwtToken);
+
+      // Redirect based on user role
+      if (userRole === 'Teacher') {
+        navigate('/TeacherHome');
+      } else if (userRole === 'Student') {
+        navigate('/StudentHome');
+      } else if (userRole === 'Admin') {
+        navigate('/home');
+      }
+    }
+  }, [auth, navigate]);
+
 
   return (
     <div className="flex bg-gray-50 flex-col justify-center px-6 py-12 lg:px-8">
@@ -106,6 +115,11 @@ const Login = () => {
             </button>
           </div>
         </div>
+        {message && (
+          <p className="mt-2 text-center text-sm text-red-600">
+            Invalid user
+          </p>
+        )}
         <p className="mt-10 text-center text-sm text-gray-500">
           Not an admin?
           <button

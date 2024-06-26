@@ -18,6 +18,15 @@ function* generate(action) {
         yield put(scheduleActions.scheduleFailed(error.message));
     }
 }
+function* getDaily(action) {
+    try {
+        const {batchId,day}=action.payload
+        const response = yield call(scheduleApi.getDaily, batchId,day);
+        yield put(scheduleActions.scheduleSuccess(response));
+    } catch (error) {
+        yield put(scheduleActions.scheduleFailed(error.message));
+    }
+}
 function* save(action) {
     try {
         const response = yield call(scheduleApi.save, action.payload);
@@ -30,4 +39,5 @@ export default function* scheduleSaga() {
     yield takeLatest(scheduleActions.getall.type, getall);
     yield takeLatest(scheduleActions.generate.type, generate);
     yield takeLatest(scheduleActions.save.type, save);
+    yield takeLatest(scheduleActions.getDaily.type, getDaily);
 }
