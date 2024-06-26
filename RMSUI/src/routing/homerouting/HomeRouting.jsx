@@ -26,6 +26,9 @@ import StudentProfile from '../../pages/studentSection/studentProfile/StudentPro
 import StudentAttendance from '../../pages/studentSection/studentAttendance/StudentAttendance'
 import StudentCourse from '../../pages/studentSection/studentCourse/StudentCourse'
 import LandingPage from '../../pages/landingPage/LandingPage'
+import TeacherDashboard from '../../pages/teacherSection/teacherDashboard/TeacherDashboard'
+import TeacherSchedule from '../../pages/teacherSection/teacherSchedule/TeacherSchedule'
+import TeacherAttendence from '../../pages/teacherSection/teacherAttendence/TeacherAttendence'
 //import GenerateSchedulebyBatch from '../../pages/schedule/generateByBatch/GenerateByBatch'
 //import GetAllSchedule from '../../pages/schedule/getall/GetAllSchedule'
 
@@ -46,7 +49,14 @@ const HomeRouting = () => {
                     <Route path='/studentHome/profile' element={<StudentProfile />} />
                     <Route path='/studentHome/attendance' element={<StudentAttendance />} />
                 </Route>
-                <Route path='/teacherHome' element={<TeacherHome />} />
+                <Route path='/teacherHome' element={<TeacherHome />}>
+                    <Route index element={<TeacherDashboard />} />
+                     <Route path='/teacherHome/schedule' element={<TeacherSchedule />} />
+                    <Route path='/teacherHome/syllabus' element={<StudentSyllabus />} />
+                    <Route path='/teacherHome/courses' element={<StudentCourse />} />
+                    <Route path='/teacherHome/profile' element={<StudentProfile />} />
+                    <Route path='/teacherHome/attendance' element={<TeacherAttendence />} />
+                </Route>
                 <Route path='/home' element={<Master />} >
                     <Route index element={<Dashboard />} />
                     {/* <Route path='/home/schedule' element={<GetAllSchedule />} /> */}

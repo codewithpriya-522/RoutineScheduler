@@ -49,13 +49,13 @@ const StudentProfile = () => {
             </Typography>
             <List>
               <ListItem disablePadding>
-                <ListItemText primary="Mathematics" secondary="Professor Smith" />
+                <ListItemText primary="python" secondary="Professor Smith" />
               </ListItem>
               <ListItem disablePadding>
-                <ListItemText primary="Science" secondary="Professor Johnson" />
+                <ListItemText primary="React" secondary="Professor Johnson" />
               </ListItem>
               <ListItem disablePadding>
-                <ListItemText primary="History" secondary="Professor Davis" />
+                <ListItemText primary="java" secondary="Professor Davis" />
               </ListItem>
             </List>
           </div>
